@@ -10,7 +10,51 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 -------
 # Gettings Started
 
+## Setup
 
+### Install
+
+- You can download [lastest release]() or build with following guide.
+
+### Build [or]
+
+- Require: 
+	- Windows 7 or later.
+	- Micorsoft Vusual Studio 2010 or later.
+	
+- Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
+
+- Download **Cef Binaries Distribution** and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
+	- Use [**CMAKE**](https://cmake.org/download/) to make solution for **Visual Studio**.
+	- Build **libcef_dll_wrapper** project (set to **release** mode).
+	- Put **libcef_dll_wrapper.lib** into **Cefau3** project folder and **`link`** it.
+	
+## Configuration
+
+### AutoIt program:
+- Set a project following
+```j
+program/
+	|---app/...
+	|	|---css/...		# style
+	|	|---js/...		# javascript
+	|	|---app.js		# app
+	|	|---index.html		# index
+	|
+	|---cef/...			# resources
+	|	|---locales/...
+	|	|---libcef.dll		# libcef
+	|	|---cefau3.dll		# cefau3
+	|
+	|---include/...			# autoit header
+	|---main.au3			# main script
+```
+- **Resources** where? copy all file from **Cef Binaries** (two folders **Release** and **Resources**).
+
+### How it work?
+- Use **`SetCurrentDirectory`**, set dir to **cef** and set to script dir after done.
+
+### updating...
 
 
 # Documents
@@ -18,6 +62,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 ## AutoIt
 
+### updating...
 
 ## JavaScript
 
