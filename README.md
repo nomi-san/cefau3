@@ -14,7 +14,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 ### Install
 
-- You can download [lastest release]() or build with following guide.
+- You can download [lastest releases](https://github.com/wy3/cefau3/releases) or build with following guide.
 
 ### Build [or]
 
