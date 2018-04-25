@@ -49,7 +49,7 @@ program/
 	|---include/...			# autoit header
 	|---main.au3			# main script
 ```
-- **Resources** where? copy all file from **Cef Binaries** (two folders **Release** and **Resources**).
+- **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
 
 ### How it work?
 - Use **`SetCurrentDirectory`**, set dir to **cef** and set to script dir after done.
