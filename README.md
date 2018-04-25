@@ -283,7 +283,8 @@ ProcessClose(<string> processname) => <int>
 ProcessExists(<string> processname) => <int> process_id
 ```
 ```js
-ProcessSetPriority(<string> processname, <int> priority) => <int> ```
+ProcessSetPriority(<string> processname, <int> priority) => <int> 
+```
 ```js
 ProcessWait(<string> processname, [<int> timeout]) => <int>
 ```
