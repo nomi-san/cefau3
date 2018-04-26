@@ -446,3 +446,5 @@ WinWaitClose(<string | handle> window, <string> win_text = "", [<int> timeout = 
 ```js
 WinWaitNotActive(<string | handle> window, <string> win_text = "", [<int> timeout = 0]) => <int>
 ```
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CZ5C58TN4LY4L)
