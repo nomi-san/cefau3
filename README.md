@@ -25,10 +25,10 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 	
 - Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
 
-- Download **Cef Binaries Distribution** and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
+- Download **Cef Binaries Distribution** for Win32 (x86) and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
 	- Use [**CMAKE**](https://cmake.org/download/) to make solution for **Visual Studio**.
 	- Build **libcef_dll_wrapper** project (set to **release** mode).
-	- Put **libcef_dll_wrapper.lib** into **Cefau3** project folder and **`link`** it.
+	- Copy **libcef_dll_wrapper.lib** to **Cefau3/lib/**  and **build solution** (Release x86 mode).
 	
 ## Configuration
 
