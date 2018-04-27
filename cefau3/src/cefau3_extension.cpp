@@ -7,7 +7,6 @@
 #define Case(x)         else if(x == _switch)
 #define EndSwitch       }
 
-
 HWND WINAPI AU3_WinGetHandle_(const CefV8ValueList &arg);
 HWND WINAPI AU3_ControlGetHandle_(const CefV8ValueList &arg);
 
@@ -16,7 +15,6 @@ bool Cefau3_Extension::Execute(const CefString &name, CefRefPtr<CefV8Value> obje
 {
 	Switch(string, name) 
 	{
-
 #pragma region main
 		// Minimize()
 		CaseOne("Minimize") {
@@ -99,6 +97,11 @@ bool Cefau3_Extension::Execute(const CefString &name, CefRefPtr<CefV8Value> obje
 				else if (arguments[1]->IsDouble()) {
 					typedef void(__stdcall * FUNC)(double);
 					((FUNC)arguments[0]->GetUIntValue())(arguments[1]->GetDoubleValue());
+					return true;
+				}
+				else {
+					typedef void(__stdcall * FUNC)(void*);
+					((FUNC)arguments[0]->GetUIntValue())((void*)arguments[1]->GetUIntValue());
 					return true;
 				}
 			return true;

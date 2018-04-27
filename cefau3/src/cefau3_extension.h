@@ -18,4 +18,3 @@ private:
 	Cefau3_App* app;
 	IMPLEMENT_REFCOUNTING(Cefau3_Extension);
 };
-
