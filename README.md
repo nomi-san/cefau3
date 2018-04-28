@@ -14,7 +14,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 ### Install
 
-- You can download [lastest releases](https://github.com/wy3/cefau3/releases) or build with following guide.
+- **You can download [lastest releases](https://github.com/wy3/cefau3/releases)** or **build** with following guide.
 
 ### Build [or]
 
@@ -27,8 +27,9 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 - Download **Cef Binaries Distribution** for Win32 (x86) and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
 	- Use [**CMAKE**](https://cmake.org/download/) to make solution for **Visual Studio**.
-	- Build **libcef_dll_wrapper** project (set to **release** mode).
-	- Copy **libcef_dll_wrapper.lib** to **Cefau3/lib/**  and **build solution** (Release x86 mode).
+	- Build **libcef_dll_wrapper** project (set to **Release x86** mode).
+	- Copy **libcef.lib** and **libcef_dll_wrapper.lib** to **Cefau3/lib/**.
+	- Build **Cefau3** solution (with default config).
 	
 ## Configuration
 
@@ -56,13 +57,11 @@ program/
 	|---main.au3			# main script
 ```
 - **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
-
-### How it work?
-- Use **`SetCurrentDirectory`**, set dir to **cef** and set to script dir after done.
-
+- Copy **AutoItX3.dll** from **.AutoIt3/AutoItX/** directory.
 
 ### updating...
 
-
 # Documents
 - **Visit [Wiki](https://github.com/wy3/cefau3/wiki)**
+
+![](https://github.com/wy3/data/raw/master/cefau3-test.png)
