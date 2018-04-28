@@ -37,17 +37,22 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 ```j
 program/
 	|---app/...
-	|	|---css/...		# style
-	|	|---js/...		# javascript
-	|	|---app.js		# app
+	|	|---css/...			# style
+	|	|---js/...			# javascript
+	|	|---app.js			# app
 	|	|---index.html		# index
 	|
-	|---cef/...			# resources
+	|---cef/...				# resources
 	|	|---locales/...
+	|	|---autoitx3.dll	# autoitx3
 	|	|---libcef.dll		# libcef
 	|	|---cefau3.dll		# cefau3
 	|
-	|---include/...			# autoit header
+	|---include/...			# your autoit header
+	|---cefau3/...			# cefau3 udf
+	|	|---base/...
+	|	|---cefau3.au3
+	|
 	|---main.au3			# main script
 ```
 - **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
