@@ -63,16 +63,17 @@ bool Cefau3_Extension::Execute(const CefString &name, CefRefPtr<CefV8Value> obje
 		// MsgBox(<string> title, <string> text, [<uint> flag = 0], [<handle> parent = 0]) => <int>
 		Case("MsgBox") {
 			if (!(arguments.size() == 4)) return false;
-			LPCWSTR title = arguments[0]->GetStringValue().ToWString().c_str();
-			LPCWSTR text = arguments[1]->GetStringValue().ToWString().c_str();
-			int flag = arguments[2]->IsUndefined() ? 0 : arguments[2]->GetUIntValue();
-			HWND window = (HWND)(arguments[3]->IsUndefined() ? 0 : arguments[3]->GetUIntValue());
-			retval = object->CreateInt(MessageBoxW(window, text, title, flag));
+			retval = object->CreateInt(MessageBox(
+				(HWND)(arguments[3]->IsUndefined() ? 0 : arguments[3]->GetUIntValue()),
+				arguments[1]->GetStringValue().ToWString().c_str(),
+				arguments[0]->GetStringValue().ToWString().c_str(),
+				arguments[2]->IsUndefined() ? 0 : arguments[2]->GetUIntValue()));
 			return true;
 		}
 		// Call(<uint> pointer, [<any> param])
 		Case("Call") {
 			CEF_REQUIRE_UI_THREAD();
+			CEF_REQUIRE_IO_THREAD();
 			if (!(arguments.size() == 2)) return false;
 				if (arguments[1]->IsUndefined()) {
 					typedef void (__stdcall * FUNC)();
@@ -907,9 +908,9 @@ bool Cefau3_Extension::Execute(const CefString &name, CefRefPtr<CefV8Value> obje
 #pragma endregion
 	}	
 	EndSwitch
+
 	return false;
 }
-
 
 // <string | handle>, <string>
 HWND WINAPI AU3_WinGetHandle_(const CefV8ValueList &arg)

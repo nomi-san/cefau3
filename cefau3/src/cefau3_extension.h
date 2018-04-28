@@ -18,3 +18,5 @@ private:
 	Cefau3_App* app;
 	IMPLEMENT_REFCOUNTING(Cefau3_Extension);
 };
+
+typedef bool(_stdcall * _Extension_)(LPCSTR, CefV8Value*, const CefV8ValueList&, CefV8Value*, LPCSTR);

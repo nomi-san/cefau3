@@ -1,9 +1,14 @@
 e:\vsproject\cefau3\release\cefau3.lib
 e:\vsproject\cefau3\release\cefau3.exp
-e:\vsproject\cefau3\cefau3\release\cefau3.obj
-e:\vsproject\cefau3\cefau3\release\cefau3_extension.obj
 e:\vsproject\cefau3\cefau3\release\cefau3_app.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_browser.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_dragdata.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_references.obj
 e:\vsproject\cefau3\cefau3\release\cefau3_handler.obj
+e:\vsproject\cefau3\cefau3\release\cefau3.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_contextmenu.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_frame.obj
+e:\vsproject\cefau3\cefau3\release\cefau3_extension.obj
 e:\vsproject\cefau3\cefau3\release\main.obj
 e:\vsproject\cefau3\cefau3\release\vc140.pdb
 e:\vsproject\cefau3\release\cefau3.dll
@@ -11,7 +16,7 @@ e:\vsproject\cefau3\release\cefau3.ipdb
 e:\vsproject\cefau3\release\cefau3.iobj
 e:\vsproject\cefau3\release\cefau3.pdb
 e:\vsproject\cefau3\cefau3\release\cefau3.tlog\cefau3.write.1u.tlog
-e:\vsproject\cefau3\cefau3\release\cefau3.tlog\cl.3040.write.1.tlog
+e:\vsproject\cefau3\cefau3\release\cefau3.tlog\cl.4172.write.1.tlog
 e:\vsproject\cefau3\cefau3\release\cefau3.tlog\cl.command.1.tlog
 e:\vsproject\cefau3\cefau3\release\cefau3.tlog\cl.read.1.tlog
 e:\vsproject\cefau3\cefau3\release\cefau3.tlog\link.command.1.tlog

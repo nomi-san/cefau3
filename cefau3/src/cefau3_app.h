@@ -1,7 +1,5 @@
 #pragma once
 #include "cefau3_handler.h"
-extern LPCWSTR lpExtensionFromFile;
-extern HWND __mainHandleMessageWindow;
 
 class Cefau3_App :	public CefApp,
 					public CefRenderProcessHandler,

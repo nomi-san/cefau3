@@ -114,14 +114,14 @@ void WINAPI Cef_OnPreKeyEvent(Cefau3_Handler* handler, void* value)
 {
 	handler->_OnPreKeyEvent = value;
 }
-typedef bool(__stdcall * _OnPreKeyEvent_)(Cefau3_Handler*, CefBrowser*, const CefKeyEvent& event, CefEventHandle, bool*);
+typedef bool(__stdcall * _OnPreKeyEvent_)(Cefau3_Handler*, CefBrowser*, char, int, int, int, CefEventHandle, bool);
 bool Cefau3_Handler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 	const CefKeyEvent& event,
 	CefEventHandle os_event,
 	bool* is_keyboard_shortcut)
 {
 	if (this->_OnPreKeyEvent)
-		return ((_OnPreKeyEvent_)this->_OnPreKeyEvent)(this, browser, event, os_event, is_keyboard_shortcut);
+		return ((_OnPreKeyEvent_)this->_OnPreKeyEvent)(this, browser, event.character, event.is_system_key, event.native_key_code, event.windows_key_code, os_event, *is_keyboard_shortcut);
 	return false;
 }
 
@@ -130,13 +130,19 @@ void WINAPI Cef_OnKeyEvent(Cefau3_Handler* handler, void* value)
 {
 	handler->_OnKeyEvent = value;
 }
-typedef void(__stdcall * _OnKeyEvent_)(Cefau3_Handler*, CefBrowser*, const CefKeyEvent&, CefEventHandle);
+typedef bool(__stdcall * _OnKeyEvent_)(Cefau3_Handler*, CefBrowser*, char, int, int, int, CefEventHandle);
+
 bool Cefau3_Handler::OnKeyEvent(CefRefPtr<CefBrowser> browser,
 	const CefKeyEvent& event,
 	CefEventHandle os_event) 
 {
+	//event.character; // => char16 
+	//event.is_system_key; // => int
+	//event.native_key_code; // int
+	//event.windows_key_code; // int
+
 	if (this->_OnKeyEvent)
-		((_OnKeyEvent_)this->_OnKeyEvent)(this, browser, event, os_event);
+		return ((_OnKeyEvent_)this->_OnKeyEvent)(this, browser, event.character, event.is_system_key, event.native_key_code, event.windows_key_code, os_event);
 	return false;
 }
 
@@ -310,7 +316,7 @@ bool Cefau3_Handler::OnDragEnter(CefRefPtr<CefBrowser> browser,
 	CefRefPtr<CefDragData> dragData,
 	DragOperationsMask mask)
 {
-	if (this->_OnDragEnter);
+	if (this->_OnDragEnter)
 		return ((_OnDragEnter_)this->_OnDragEnter)(this, browser, dragData, mask);
 	return false;
 }

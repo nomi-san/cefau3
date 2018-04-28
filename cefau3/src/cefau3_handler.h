@@ -146,7 +146,7 @@ protected:
 	IMPLEMENT_LOCKING(Cefau3_Handler);
 };
 
-///////////////////////////////////////////////////////////////
+/*//////////////////////////////////////////////////////////////
 void WINAPI Cef_OnAfterCreated(Cefau3_Handler* handler, void* value);
 typedef void(__stdcall * _OnAfterCreated_)(Cefau3_Handler*, CefBrowser*);
 ///////////////////////////////////////////////////////////////
@@ -200,3 +200,4 @@ typedef bool(__stdcall * _OnDragEnter_)(Cefau3_Handler*, CefBrowser*, CefDragDat
 //////////////////////////////////////////////////////////////
 void WINAPI Cef_OnDraggableRegionsChanged(Cefau3_Handler* handler, void* value);
 typedef void(__stdcall * _OnDraggableRegionsChanged_)(Cefau3_Handler*, CefBrowser*);
+*/

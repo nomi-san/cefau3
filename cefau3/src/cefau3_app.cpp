@@ -1,4 +1,5 @@
 #include "inc.h"
+extern LPCSTR lpExtensionFromFile;
 
 class JsExtension
 {
@@ -219,7 +220,7 @@ void Cefau3_App::OnWebKitInitialized() {
 	// MsgBeep([<uint> rate])
 	code += main.AddFunction("MsgBeep", "rate");
 	// MsgBox(<string> title, <string> text, [<uint> flag = 0], [<handle> parent = 0]) => <int>
-	code += main.AddFunction("MsgBox", "rate");
+	code += main.AddFunction("MsgBox", "title, text_, flag, window");
 	// Call(<uint> pointer, [<any> param])
 	code += main.AddFunction("Call", "pointer, params");
 	// SendMessage(<handle> window, <uint> message, <string | number> w_param, <string| number> l_param) => <int>
@@ -245,11 +246,6 @@ void Cefau3_App::OnWebKitInitialized() {
 	// ChangeTitle(<string> title)
 	code += main.AddFunction("ChangeTitle", "title");
 ///////////////////////////////////////////////////////////////////////////////////////
-
-	if (lpExtensionFromFile) {
-		code += "\n";
-		code += CefString(lpExtensionFromFile);
-	}
 
 	CefRegisterExtension("v8/app", code, new Cefau3_Extension(this));
 }

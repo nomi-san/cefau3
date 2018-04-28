@@ -70,7 +70,7 @@ Cefau3_Handler* WINAPI Cef_Create(Cefau3_Handler* handler, HWND hParent, LPCWSTR
 	return handler;
 }
 
-Cefau3_Handler* WINAPI Cef_CreatePopup(Cefau3_Handler* handler, HWND hParent, LPCWSTR lpURL, LPCWSTR lpName)
+Cefau3_Handler* WINAPI Cef_CreatePopup(Cefau3_Handler* handler, HWND hParent, LPCWSTR lpURL, LPCWSTR lpName, int Left, int Top, int Width, int Height)
 {
 	CefBrowserSettings browserSettings;
 	browserSettings.size = sizeof(CefBrowserSettings);
@@ -78,7 +78,11 @@ Cefau3_Handler* WINAPI Cef_CreatePopup(Cefau3_Handler* handler, HWND hParent, LP
 	handler->Parent(hParent);
 
 	CefWindowInfo windowInfo;
-	RECT rc; GetClientRect(hParent, &rc);
+	windowInfo.x = Left;
+	windowInfo.y = Top;
+	windowInfo.width = Width;
+	windowInfo.height = Height;
+
 	windowInfo.SetAsPopup(hParent, lpName);
 
 	CefBrowserHost::CreateBrowser(windowInfo, handler, CefString(lpURL), browserSettings, NULL);

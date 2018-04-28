@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\references">
+      <UniqueIdentifier>{feff5d91-6397-442f-90a7-3d39d837ac0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AutoItX3_DLL.h">
@@ -33,6 +36,9 @@
     <ClInclude Include="src\cefau3_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\cefau3_references.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cefau3.cpp">
@@ -49,6 +55,21 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cefau3_references.cpp">
+      <Filter>Source Files\references</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cefau3_browser.cpp">
+      <Filter>Source Files\references</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cefau3_frame.cpp">
+      <Filter>Source Files\references</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cefau3_contextmenu.cpp">
+      <Filter>Source Files\references</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cefau3_dragdata.cpp">
+      <Filter>Source Files\references</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

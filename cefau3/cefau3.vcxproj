@@ -23,12 +23,18 @@
     <ClInclude Include="src\cefau3_app.h" />
     <ClInclude Include="src\cefau3_extension.h" />
     <ClInclude Include="src\cefau3_handler.h" />
+    <ClInclude Include="src\cefau3_references.h" />
     <ClInclude Include="src\inc.h" />
     <ClInclude Include="src\util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cefau3.cpp" />
     <ClCompile Include="src\cefau3_app.cpp" />
+    <ClCompile Include="src\cefau3_browser.cpp" />
+    <ClCompile Include="src\cefau3_contextmenu.cpp" />
+    <ClCompile Include="src\cefau3_dragdata.cpp" />
+    <ClCompile Include="src\cefau3_frame.cpp" />
+    <ClCompile Include="src\cefau3_references.cpp" />
     <ClCompile Include="src\cefau3_extension.cpp" />
     <ClCompile Include="src\cefau3_handler.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -47,7 +53,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -141,10 +147,14 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DiagnosticsFormat />
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
