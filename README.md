@@ -20,7 +20,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 - Require: 
 	- Windows 7 or later.
-	- Micorsoft [Visual Studio 2015](https://www.visualstudio.com) or later.
+	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
 	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
 	
 - Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
