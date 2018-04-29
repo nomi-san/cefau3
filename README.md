@@ -34,6 +34,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 ## Configuration
 
 ### AutoIt program:
+
 - Set a project following
 ```j
 program/
@@ -56,6 +57,7 @@ program/
 	|
 	|---main.au3			# main script
 ```
+
 - **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
 - Copy **AutoItX3.dll** from **.AutoIt3/AutoItX/** directory.
 
