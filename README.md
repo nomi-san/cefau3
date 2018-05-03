@@ -18,7 +18,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 
 ### Build [or]
 
-- Require: 
+- Prerequisites: 
 	- Windows 7 or later.
 	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
 	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
