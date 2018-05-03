@@ -39,12 +39,12 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 ```j
 program/
 	|---app/...
-	|	|---css/...			# style
-	|	|---js/...			# javascript
-	|	|---app.js			# app
+	|	|---css/...		# style
+	|	|---js/...		# javascript
+	|	|---app.js		# app
 	|	|---index.html		# index
 	|
-	|---cef/...				# resources
+	|---cef/...			# resources
 	|	|---locales/...
 	|	|---autoitx3.dll	# autoitx3
 	|	|---libcef.dll		# libcef
