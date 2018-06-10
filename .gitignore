@@ -291,3 +291,17 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# C++ source code
+.cc
+.cpp
+.cxx
+
+# C++ header
+.h
+.hpp
+
+# C source code
+.c
+
+
