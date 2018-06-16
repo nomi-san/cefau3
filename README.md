@@ -23,9 +23,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
 	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
 	
-- Clone this repository `$ git cl
-
-one https://github.com/wy3/cefau3.git`
+- Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
 
 - Download **Cef Binaries Distribution** for Win32 (x86) and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
 	- Use [**CMAKE**](https://cmake.org/download/) to make solution for **Visual Studio**.
