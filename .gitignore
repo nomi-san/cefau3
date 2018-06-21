@@ -296,6 +296,7 @@ __pycache__/
 .cc
 .cpp
 .cxx
+.c++
 
 # C++ header
 .h
