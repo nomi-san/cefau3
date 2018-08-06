@@ -164,8 +164,8 @@ Func Cef_LoadURL($Cef, $sURL)
 EndFunc
 
 ; Get current URL.
-Func Cef_GetURL($Cef, $sURL)
-	Local $aRet = DllCall($__handle__Cefau3, 'wstr', 'Cef_LoadURL', 'ptr', $Cef)
+Func Cef_GetURL($Cef)
+	Local $aRet = DllCall($__handle__Cefau3, 'wstr', 'Cef_GetURL', 'ptr', $Cef)
 	Return @error ? '' : $aRet[0]
 EndFunc
 
