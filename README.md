@@ -29,6 +29,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 	- Copy __include__ and __libcef_dll__ folders to __cefau3/cef/__
 	- Copy __libcef.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
 	- Copy __AutoItX3_DLL.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
+	- Replace all src files in **libcefd_dll_wrapper** with __cefau3/cef/libcef_dll__
 - Start build solution, after done, copy all files in __release__ and __resources__ folders (exclude __* .lib__) to __autoit3\cef\__
 
 ## Configuration
