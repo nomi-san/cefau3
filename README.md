@@ -1,8 +1,7 @@
 <p>
 	<h1 align="center">
-		<img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Chromium_Material_Icon-256x256.png" width=100>
-		&
-		<img src="https://seeklogo.com/images/A/autoit-logo-CC4B097310-seeklogo.com.png" width=100>
+		<img src="https://raw.githubusercontent.com/wy3/cefau3/master/cefau3.png" width=180>
+		<br>
 		<br>
 		Cefau3
 	</h1>
