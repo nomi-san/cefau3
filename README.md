@@ -23,7 +23,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
 	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
 	
-- Download [CEF binary distribution](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) (x86, this's current ver in project) or onthers [at here](http://opensource.spotify.com/cefbuilds/index.html)
+- Download [CEF binary distribution](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) (x86, this's current ver in project) or [others at here](http://opensource.spotify.com/cefbuilds/index.html)
 - Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
 - Run solution, wait for loaded
 	- Copy __include__ and __libcef_dll__ folders to __cefau3/cef/__
