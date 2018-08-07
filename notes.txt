@@ -1,0 +1,17 @@
+2018.08.07
+# news
+- update to Chromium v61.0.3, increate ~12% speed
+- can save cache, cookie to path
+- added build for x64/ARM
+- added Cef_Shutdown() for shutdown CEF & all browser window/child
+- added Cef_Close() for close main browser in handler
+
+# changes
+- Cef_Init(), second arg is path to store cache (default is .\cache)
+	          can delete it when browser closed
+- exit quickly
+
+# fixes
+- Youtube rendering error
+- crash when exit (may crash on x64)
+- event callback
