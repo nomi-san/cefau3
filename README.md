@@ -2,7 +2,7 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 ===
 [![platform](https://img.shields.io/badge/platform-win32-lightgrey.svg?longCache=true&style=flat-square)]()
 [![cefversion](https://img.shields.io/badge/cef-3.3112-blue.svg?longCache=true&style=flat-square)](http://opensource.spotify.com/cefbuilds/index.html)
-[![chromium](https://img.shields.io/badge/chromium-60-red.svg?longCache=true&style=flat-square)]()
+[![chromium](https://img.shields.io/badge/chromium-61.0.3-red.svg?longCache=true&style=flat-square)]()
 
 [![author](https://img.shields.io/badge/author-wuuyi123-orange.svg?longCache=true&style=flat-square)](https://github.com/wy3)
 [![license](https://img.shields.io/badge/license-MIT-green.svg?longCache=true&style=flat-square)](https://github.com/wy3/cefau3/blob/master/LICENSE)
