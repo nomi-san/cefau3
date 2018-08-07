@@ -23,19 +23,20 @@ Cefau3 - Chromium Embedded Framework for AutoIt3
 	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
 	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
 	
+- Download [CEF binary distribution](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) (x86, this's current ver in project)
 - Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
+- Run solution, wait for loaded
+	- Copy __include__ and __libcef_dll__ folders to __cefau3/cef/__
+	- Copy __libcef.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
+	- Copy __AutoItX3_DLL.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
+- Start build solution, after done, copy all files in __relese__ and __resources__ folders (declude **.lib) to __autoit3\cef\__
 
-- Download **Cef Binaries Distribution** for Win32 (x86) and build it, [download here](http://opensource.spotify.com/cefbuilds/cef_binary_3.3112.1659.gfef43e0_windows32.tar.bz2).
-	- Use [**CMAKE**](https://cmake.org/download/) to make solution for **Visual Studio**.
-	- Build **libcef_dll_wrapper** project (set to **Release x86** mode).
-	- Copy **libcef.lib** and **libcef_dll_wrapper.lib** to **Cefau3/lib/**.
-	- Build **Cefau3** solution (with default config).
-	
 ## Configuration
 
 ### AutoIt program:
 
-- Set a project following
+- Set a project directory following
+
 ```j
 program/
 	|---app/...
