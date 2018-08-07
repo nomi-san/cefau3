@@ -1,6 +1,6 @@
 Cefau3 - Chromium Embedded Framework for AutoIt3
 ===
-[![platform](https://img.shields.io/badge/platform-win32-lightgrey.svg?longCache=true&style=flat-square)]()
+[![platform](https://img.shields.io/badge/platform-win32/64/arm-lightgrey.svg?longCache=true&style=flat-square)]()
 [![cefversion](https://img.shields.io/badge/cef-3.3112-blue.svg?longCache=true&style=flat-square)](http://opensource.spotify.com/cefbuilds/index.html)
 [![chromium](https://img.shields.io/badge/chromium-61.0.3-red.svg?longCache=true&style=flat-square)]()
 
