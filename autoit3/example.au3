@@ -45,10 +45,7 @@ While 1
 
 	Switch GUIGetMsg()
 		Case $GUI_EVENT_CLOSE
-			;Cef_Close($Cef_MainFrame)
-			;Cef_Close($Cef_Toolbar)
 			;Cef_ExitMessageLoop(); Optional.
-			;Cef_Shutdown()
 			Exit
 
 	EndSwitch
