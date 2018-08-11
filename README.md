@@ -6,6 +6,7 @@
 		Cefau3
 	</h1>
 	<h3 align="center">Chromium Embedded Framework for AutoIt 3</h3>
+	<h4 align="center">- Bring Chromium to anyone -</h4>
 	<p align="center">
 		<a href="#">
 			<img src="https://img.shields.io/badge/platform-win32/64/arm-lightgrey.svg?longCache=true&style=flat-square">
@@ -86,5 +87,7 @@ program/
 
 # Documents
 - **Visit [Wiki](https://github.com/wy3/cefau3/wiki)**
-
-![](https://github.com/wy3/data/raw/master/cefau3-test.png)
+<br>
+<p align="center">
+	<img src="https://github.com/wy3/data/raw/master/cefau3-test.png" width=800>
+</p>
