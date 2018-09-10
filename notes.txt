@@ -9,7 +9,6 @@
 # changes
 - Cef_Init(), second arg is path to store cache (default is .\cache)
 	          can delete it when browser closed
-- exit quickly
 
 # fixes
 - Youtube rendering error
