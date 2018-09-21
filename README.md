@@ -28,35 +28,32 @@
 </p>
 
 -------
-# Gettings Started
-
-## Setup
-
 ### Install
 
 - **You can download [lastest releases](https://github.com/wy3/cefau3/releases)** or **build** with following guide.
 
-### Build [or]
+### Build
 
-- Prerequisites: 
-	- Windows 7 or later.
-	- Micorsoft [Visual Studio 2010](https://www.visualstudio.com) or later.
-	- Microsoft [Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) (optional).
-	
-- Download [CEF binary distribution](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) (x86, this's current ver in project) or [others at here](http://opensource.spotify.com/cefbuilds/index.html)
-- Clone this repository `$ git clone https://github.com/wy3/cefau3.git`
-- Run solution, wait for loaded
-	- Copy __include__ and __libcef_dll__ folders to __cefau3/cef/__
-	- Copy __libcef.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
-	- Copy __AutoItX3_DLL.lib__ to __cefau3/cef/__ (__cefau3/cef/x64__ for x64)
-	- Replace all src files in **libcefd_dll_wrapper** with __cefau3/cef/libcef_dll__
-- Start build solution, after done, copy all files in __release__ and __resources__ folders (exclude __* .lib__) to __autoit3\cef\__
+#### Visual Studio method:
+- Open **cefau3.sln** with Microsoft Visual Studio (default is VS2015)
+- Set to **Release** mode and **Build**
 
-## Configuration
+#### Commandline method:
 
-### AutoIt program:
+- Run `$ build.bat` for build, or you can open **cefau3.sln**
+- Pass one of list args below for custom compiler:
+	- **msvc**: Microsoft Visual C Ccompiler (with VS Commandline Tools)
+	- **gcc**: GNU C compiler
+	- **tcc**: Tiny C compiler
+	- **clang**: LLVM compiler
+- E.g: `build gcc`
 
-- Set a project directory following
+#### Confiure
+
+- After built, it need CEF resources for work correctly, download CEF binary distribution (for current version) : [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x86_x64](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
+- Extract CEF binary distribution package, and copy all files in **release** and **esources** folders (exclude **.lib**) to **autoit3\cef\**
+
+#### Cefau3 example project
 
 ```j
 program/
@@ -68,7 +65,6 @@ program/
 	|
 	|---cef/...			# resources
 	|	|---locales/...
-	|	|---autoitx3.dll	# autoitx3
 	|	|---libcef.dll		# libcef
 	|	|---cefau3.dll		# cefau3
 	|
