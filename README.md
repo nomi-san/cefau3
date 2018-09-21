@@ -28,32 +28,34 @@
 </p>
 
 -------
-### Install
+## Install
 
 - **You can download [lastest releases](https://github.com/wy3/cefau3/releases)** or **build** with following guide.
 
-### Build
+## Build
 
-#### Visual Studio method:
-- Open **cefau3.sln** with Microsoft Visual Studio (default is VS2015)
-- Set to **Release** mode and **Build**
+### Visual Studio method:
+Open **cefau3.sln** with Microsoft Visual Studio (default is VS2015)
+Set to **Release** mode and **Build**
 
-#### Commandline method:
+### Commandline method:
 
-- Run `$ build.bat` for build, or you can open **cefau3.sln**
-- Pass one of list args below for custom compiler:
-	- **msvc**: Microsoft Visual C Ccompiler (with VS Commandline Tools)
-	- **gcc**: GNU C compiler
-	- **tcc**: Tiny C compiler
-	- **clang**: LLVM compiler
-- E.g: `build gcc`
+Run **build.bat** for auto build, it auto detect C compiler
 
-#### Confiure
+You can use one of args below for custom compiler:
+- **msvc**: Microsoft Visual C Ccompiler (with VS Commandline Tools)
+- **gcc**: GNU C compiler
+- **tcc**: Tiny C compiler
+- **clang**: LLVM compiler
+	
+E.g: `$ build gcc`
+
+### Configure
 
 - After built, it need CEF resources for work correctly, download CEF binary distribution (for current version) : [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x86_x64](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
 - Extract CEF binary distribution package, and copy all files in **release** and **esources** folders (exclude **.lib**) to **autoit3\cef\**
 
-#### Cefau3 example project
+### Cefau3 example project
 
 ```j
 program/
@@ -77,13 +79,12 @@ program/
 ```
 
 - **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
-- Copy **AutoItX3.dll** from **.AutoIt3/AutoItX/** directory.
 
 ### updating...
 
-# Documents
-- **Visit [Wiki](https://github.com/wy3/cefau3/wiki)**
-<br>
+# ~~Documents~~
+- ~~**Visit [Wiki](https://github.com/wy3/cefau3/wiki)**
+<br>~~
 
 ## Simple Example
 
@@ -164,13 +165,9 @@ func __onBeforeClose($life_span, $browser)
 endfunc
 ```
 
-<br>
-
 <p align="center">
 	<img src="https://i.imgur.com/TOY8syh.png" width=800>
 </p>
-
-<br>
 
 ```batch
 CEF: 3.3163.1671.g700dc25
