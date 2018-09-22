@@ -1,5 +1,5 @@
 gcc -shared -D_MSC_VER -I./cef  ^
--o cefau3.dll ^
+-o release/cefau3.dll ^
 src/cefau3.c ^
 src/api/accessibility_handler.c ^
 src/api/browser.c ^
