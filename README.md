@@ -66,7 +66,7 @@
 ## Build
 
 ### Visual Studio method:
-Open **cefau3.sln** with Microsoft Visual Studio (default is VS2015)
+Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
 Set to **Release** mode and **Build**
 
 ### Commandline method:
@@ -208,7 +208,7 @@ Chromium: 61.0.3163
 
 ## License: [MIT](https://github.com/wy3/cefau3/blob/master/LICENSE)
 
-Copyright (c) 2018 wy3
+Copyright © 2018 by [me](https://github.com/wy3)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
