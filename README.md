@@ -70,15 +70,11 @@ Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
 Set to **Release** mode and **Build**
 
 ### Commandline method:
-
-Run **build.bat** for auto build, it auto detect C compiler
-
-You can use one of args below for custom compiler:
+Run **build.bat** with arguments below for option compiler:
 - **msvc**: Microsoft Visual C Ccompiler (with VS Commandline Tools)
-- **gcc**: GNU C compiler
-- **tcc**: Tiny C compiler
-- **clang**: LLVM compiler
-	
+- [**gcc**](http://www.mingw.org/): GNU C compiler
+- [**tcc**](https://bellard.org/tcc/): Tiny C compiler
+
 E.g: `$ build gcc`
 
 ### Configure
