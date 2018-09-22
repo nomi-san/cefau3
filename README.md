@@ -33,7 +33,7 @@
 
 #### 2018.09.20 [82%]
 - use AutoItObject for save code
-- creating documents
+- only create C struct in AutoIt
 
 #### 2018.09.05 [58%]
 - fixed string pointer, null pointer exception when using string function
