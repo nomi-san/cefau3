@@ -28,6 +28,39 @@
 </p>
 
 -------
+## Changelog
+
+
+#### 2018.09.20 [82%]
+- use AutoItObject for save code
+- creating documents
+
+#### 2018.09.05 [58%]
+- fixed string pointer, null pointer exception when using string function
+- add build with commandline method for C compiler
+
+#### 2018.08.27 [40%]
+- add more type, callback & event handler
+- fixed some bugs
+
+#### 2018.08.11 [15%]
+- Cefau3 was rewritten in C99, use native-code-like (syntax, struct, type, method, prop... like C++ & base on C)
+- use only functionally for code
+- add more callback & event handler
+
+#### 2018.08.07 [20%]
+- update to Chromium v61.0.3, increate more performance
+- added build for __x64/ARM__
+- added __Cef_Shutdown()__ for shutdown CEF & all browser window/child
+- added __Cef_Close()__ for close main browser in handler
+- can save cache & cookie to path; __Cef_Init()__, second arg is path to store cache (default is .\cache) can delete it when browser closed
+- fixed Youtube rendering error
+- fixed crash when exit (may crash on x64)
+- add more callback & event handler
+
+#### 2018.04.26 [16%]
+- first release of Cefau3, written in C++
+
 ## Install
 
 - **You can download [lastest releases](https://github.com/wy3/cefau3/releases)** or **build** with following guide.
