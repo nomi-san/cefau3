@@ -66,7 +66,7 @@
 ## Build
 
 ### Visual Studio method:
-Open **cefau3.sln** with Microsoft Visual Studio (default is VS2015)
+Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
 Set to **Release** mode and **Build**
 
 ### Commandline method:
