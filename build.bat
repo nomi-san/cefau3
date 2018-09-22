@@ -54,7 +54,7 @@ goto :eof
 )
 
 :msvc (
-	set cc=clang
+	set cc=cl
 	call :make_dir
 
 	cd release\object
@@ -65,12 +65,16 @@ goto :eof
 )
 
 :clean (
-	if exist release\object\*.o del release\object\*.o
-	if exist release\object\*.obj del release\object\*.obj
+	if exist release\object\*.* del release\object\*.*
 	if exist release\*.def del release\*.def
 	if exist release\*.dll del release\*.dll
-	if exist release\*.exp del release\*.exp
 	if exist release\*.lib del release\*.lib
+
+	if exist release\*.exp del release\*.exp
+	if exist release\*.pdb del release\*.pdb
+	if exist release\*.iobj del release\*.iobj
+	if exist release\*.ipdb del release\*.ipdb
+
 	goto :eof
 )
 
