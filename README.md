@@ -41,7 +41,7 @@
 - add more type, callback & event handler
 - fixed some bugs
 
-#### 2018.08.11 [15%]
+#### 2018.08.11 [15% * in new project]
 - Cefau3 was rewritten in C99, use native-code-like (syntax, struct, type, method, prop... like C++ & base on C)
 - use only functionally for code
 - add more callback & event handler
