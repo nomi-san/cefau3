@@ -28,6 +28,8 @@ if "%1"=="tcc" (
 	call :tcc_gcc gcc
 ) else if "%1"=="msvc" (
 	call :msvc
+) else if "%1"=="clean" (
+	call :clean
 ) else if "%1"=="" (
 	echo     please insert argument!
 	call :usage
@@ -65,7 +67,7 @@ goto :eof
 )
 
 :clean (
-	if exist release\object\*.* del release\object\*.*
+	if exist release\object\*.* del /Q /F release\object\*.*
 	if exist release\*.def del release\*.def
 	if exist release\*.dll del release\*.dll
 	if exist release\*.lib del release\*.lib
@@ -74,6 +76,9 @@ goto :eof
 	if exist release\*.pdb del release\*.pdb
 	if exist release\*.iobj del release\*.iobj
 	if exist release\*.ipdb del release\*.ipdb
+
+	rmdir /s /q release\object
+	rmdir /s /q release
 
 	goto :eof
 )
