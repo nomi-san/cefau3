@@ -42,7 +42,10 @@ goto :eof
 
 :tcc_gcc (
 	set cc=%1
-	call :make_dir
+	call :clean
+
+	if not exist release mkdir release
+	if not exist release\object mkdir release\object
 	
 	call :clean
 	for %%i in (%files%) do (
@@ -57,7 +60,10 @@ goto :eof
 
 :msvc (
 	set cc=cl
-	call :make_dir
+	call :clean
+
+	if not exist release mkdir release
+	if not exist release\object mkdir release\object
 
 	cd release\object
 	%cc% /I../../cef /MT /O2 /c ../../src/*.c ../../src/api/*.c ../../src/base/*.c ../../src/custom/*.c
@@ -77,16 +83,6 @@ goto :eof
 	if exist release\*.iobj del release\*.iobj
 	if exist release\*.ipdb del release\*.ipdb
 
-	rmdir /s /q release\object
-	rmdir /s /q release
-
-	goto :eof
-)
-
-:make_dir (
-	call :clean
-	if not exist release mkdir release
-	if not exist release\object mkdir release\object
 	goto :eof
 )
 
