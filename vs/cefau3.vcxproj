@@ -131,13 +131,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>release\</OutDir>
+    <OutDir>..\release\</OutDir>
     <TargetName>cefau3</TargetName>
     <IntDir>build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>release\x64\</OutDir>
+    <OutDir>..\release\x64\</OutDir>
     <TargetName>cefau3</TargetName>
     <IntDir>build\x64\</IntDir>
   </PropertyGroup>
