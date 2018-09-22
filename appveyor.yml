@@ -1,0 +1,4 @@
+version: 2018.09.20.{build}
+
+build:
+  project: vs/cefau3.vcxproj
