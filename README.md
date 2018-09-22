@@ -2,11 +2,9 @@
 	<h1 align="center">
 		<img src="https://raw.githubusercontent.com/wy3/cefau3/master/cefau3.png" width=180>
 		<br>
-		<br>
 		Cefau3
 	</h1>
 	<h3 align="center">Chromium Embedded Framework for AutoIt 3</h3>
-	<h4 align="center">- Bring Chromium to anyone -</h4>
 	<p align="center">
 		<a href="#">
 			<img src="https://img.shields.io/badge/platform-win32/64/arm-lightgrey.svg?longCache=true&style=flat-square">
