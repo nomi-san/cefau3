@@ -37,7 +37,7 @@ global $__CefObject__ = null;
 #include <WinAPISysWin.au3>
 #include <WinAPIMisc.au3>
 
-#include './autoitobject.au3'
+#include './AutoItObject.au3'
 
 #include './base/base.au3'
 #include './base/app.au3'
