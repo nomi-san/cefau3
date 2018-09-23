@@ -1799,7 +1799,7 @@ CEFAU3API int CefCompositionUnderline_Get_thick(cef_composition_underline_t *sel
 --------------------------------------------------*/
 
 // for performance, 'sizeof' be size number by compiler;
-CEFAU3API size_t Cef_StructSize(size_t idx)
+CEFAU3API size_t Cef_GetStructSize(size_t idx)
 {
 	switch (idx) {
 		case 0: return sizeof(cef_base_ref_counted_t);
@@ -1858,7 +1858,11 @@ CEFAU3API size_t Cef_StructSize(size_t idx)
 		case 49: return sizeof(cef_composition_underline_t);
 		case 50: return sizeof(cef_window_info_t);
 		case 51: return sizeof(cef_main_args_t);
-	}
 
+
+		case 80: return sizeof(cef_browser_t);
+		case 81: return sizeof(cef_browser_host_t);
+	}
+	sizeof(cef_pdf_print_margin_type_t);
 	return 0;
 }
