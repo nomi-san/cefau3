@@ -112,7 +112,7 @@ program/
 ## Simple Example
 
 ```au3
-#include './cefau3/cefau3.au3'
+#include 'cefau3/cefau3.au3'
 
 ; start Cefau3
 global $cef = CefStart(default)
