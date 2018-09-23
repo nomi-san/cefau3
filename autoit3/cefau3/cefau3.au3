@@ -37,26 +37,29 @@ global $__CefObject__ = null;
 #include <WinAPISysWin.au3>
 #include <WinAPIMisc.au3>
 
-#include './AutoItObject.au3'
+#include 'AutoItObject.au3'
 
-#include './base/base.au3'
-#include './base/app.au3'
-#include './base/client.au3'
+#include 'base/base.au3'
+#include 'base/app.au3'
+#include 'base/client.au3'
 
-#include './types/windows.au3'
-#include './types/string.au3'
-#include './types/ptr.au3'
+#include 'types/windows.au3'
+#include 'types/string.au3'
+#include 'types/ptr.au3'
 
-#include './api/life_span_handler.au3'
-#include './api/display_handler.au3'
-#include './api/keyboard_handler.au3'
-#include './api/render_process_handler.au3'
-#include './api/browser.au3'
-#include './api/frame.au3'
-#include './api/types.au3'
-#include './api/types_win.au3'
-#include './api/v8.au3'
-#include './api/load_handler.au3'
+#include 'api/accessibility_handler.au3'
+#include 'api/browser_process_handler.au3'
+
+#include 'api/life_span_handler.au3'
+#include 'api/display_handler.au3'
+#include 'api/keyboard_handler.au3'
+#include 'api/render_process_handler.au3'
+#include 'api/browser.au3'
+#include 'api/frame.au3'
+#include 'api/types.au3'
+#include 'api/types_win.au3'
+#include 'api/v8.au3'
+#include 'api/load_handler.au3'
 
 opt('MustDeclareVars', 1)
 
@@ -93,10 +96,8 @@ func __Cef_Init()
 
 	_AutoItObject_AddMethod($obj, 'new', '__Cef_New')
 
-
 	_AutoItObject_AddMethod($obj, 'Version', '__Cef_GetVersion')
 	_AutoItObject_AddMethod($obj, 'ChromiumVersion', '__Cef_GetChromiumVersion')
-
 
 	_AutoItObject_AddMethod($obj, 'ExecuteProcess', '__Cef_ExecuteProcess')
 	_AutoItObject_AddMethod($obj, 'Initialize', '__Cef_Initialize')
@@ -112,8 +113,8 @@ func __Cef_Init()
 	$__CefObject__ = $obj;
 endfunc
 
-; $Cef.new(<string> $name[, <struct|pointer> $param])
-func __Cef_New($self, $name)
+; $Cef.new(<string> $name[, <pointer> $param])
+func __Cef_New($self, $name = null, $ptr = null)
 	if @numparams == 1 then return null
 
 	if not IsString($name) then return null
@@ -122,26 +123,28 @@ func __Cef_New($self, $name)
 		case 'base';
 
 		case 'app';
-			return CefApp_Create()
+			return CefApp_Create($ptr)
 
 		case 'client';
-			return CefClient_Create()
+			return CefClient_Create($ptr)
 
 		case 'mainargs'
-			return CefMainArgs_Create()
+			return CefMainArgs_Create($ptr)
 
 		case 'windowinfo'
-			return CefWindowInfo_Create()
+			return CefWindowInfo_Create($ptr)
 
 		case 'settings'
-			return CefSettings_Create()
+			return CefSettings_Create($ptr)
 
 		case 'browsersettings'
-			return CefBrowserSettings_Create()
+			return CefBrowserSettings_Create($ptr)
 
 		case 'accessibilityhandler'
+			return CefAccessibilityHandler_Create($ptr)
 
 		case 'browserprocesshandler'
+			return CefBrowserProcessHandler_Create($ptr)
 
 		case 'contextmenuhandler'
 
@@ -162,11 +165,13 @@ func __Cef_New($self, $name)
 		case 'jsdialoghandler'
 
 		case 'keyboardhandler'
+			return CefKeyboardHandler_Create($ptr)
 
 		case 'lifespanhandler'
-			return CefLifeSpanHandler_Create()
+			return CefLifeSpanHandler_Create($ptr)
 
 		case 'loadhandler'
+			return CefLoadHandler_Create($ptr)
 
 		case 'printhandler'
 
@@ -225,12 +230,27 @@ func Cef_PostQuitMessage($code = 0)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_PostQuitMessage', 'int', $code)
 endfunc
 
-func Cef_StructSize($index)
-	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'Cef_StructSize', 'int', $index)
+func Cef_GetStructSize($index)
+	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'Cef_GetStructSize', 'int', $index)
 	return @error ? 0 : $ret[0]
 endfunc
 
 func Cef_Print($str)
-	consolewrite($str & @crlf)
+	consolewrite(stringformat($str))
 	;dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_Print', 'str', $str)
+endfunc
+
+func Cef_CallbackRegister($func, $return_type, $params_type)
+	local $cb_idx = dllcallbackregister($func, $return_type, $params_type)
+	return @error ? null : dllcallbackgetptr($cb_idx)
+endfunc
+
+func Cef_ReduceMemory($pid)
+	local $handle = dllcall('kernel32.dll', 'handle', 'OpenProcess', 'dword', 0x1f0fff, 'bool', 0, 'dword', $pid)
+	if not @error then
+		$handle = $handle[0]
+		dllcall('kernel32.dll', 'bool', 'SetProcessWorkingSetSizeEx', 'handle', $handle, 'int', -1, 'int', -1, 'dword', 0x1)
+		dllcall('psapi.dll', 'bool', 'EmptyWorkingSet', 'handle', $handle)
+		dllcall('kernel32.dll', 'bool', 'CloseHandle', 'handle', $handle)
+	endif
 endfunc

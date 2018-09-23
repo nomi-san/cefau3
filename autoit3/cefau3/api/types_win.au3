@@ -3,6 +3,9 @@
 	author: wuuyi123
 #ce
 
+; CefWindowInfo
+; ==================================================
+
 global $tag_CefWindowInfo = ( _
 	'dword ex_style;' & _
 	$tag_CefString & _
@@ -17,38 +20,39 @@ global $tag_CefWindowInfo = ( _
 	'hwnd window;' _
 )
 
-func CefWindowInfo_Create()
-	local $struct = _AutoItObject_DllStructCreate($tag_CefWindowInfo);, $ret)
+func CefWindowInfo_Create($ptr = null)
+	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefWindowInfo, $ptr) _
+		: _AutoItObject_DllStructCreate($tag_CefWindowInfo)
 
-	_AutoItObject_AddProperty($struct, 'ptr', $ELSCOPE_READONLY, $struct())
+	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
+	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefWindowInfo')
+
 	_AutoItObject_AddMethod($struct, 'window_name', '__CefWindowInfo_wn')
 
 	return $struct
 endfunc
 
 func __CefWindowInfo_wn($self, $value = null)
-	if @numparams == 1 then return __CefWindowInfo_Get_wn($self.ptr)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWindowInfo_Set_window_name', 'ptr', $self.ptr, 'wstr', $value)
+	if @numparams == 1 then _
+		return __CefTypes_GetString($self.__pointer__, 'CefWindowInfo', 'window_name')
+    __CefTypes_SetString($self.__pointer__, 'CefWindowInfo', 'window_name', $value)
 endfunc
 
-func __CefWindowInfo_Get_wn($self)
-	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefWindowInfo_Get_window_name', 'ptr', $self)
-	return @error ? null : $ret[0]
-endfunc
+; CefMainArgs
+; ==================================================
 
 global $tag_CefMainArgs = ( _
 	'ptr instance;' _
 )
 
-func CefMainArgs_Create()
-	local $struct = _AutoItObject_DllStructCreate($tag_CefMainArgs)
+func CefMainArgs_Create($ptr = null)
+	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefMainArgs, $ptr) _
+		: _AutoItObject_DllStructCreate($tag_CefMainArgs)
 	local $mod = DllCall('user32.dll', 'ptr', 'GetModuleHandleA', 'ptr', 0)
 	$struct.instance =  @error ? null : $mod[0]
 
-	_AutoItObject_AddProperty($struct, 'ptr', $ELSCOPE_READONLY, $struct())
-	_AutoItObject_AddProperty($struct, 'ptr', $ELSCOPE_READONLY, $struct())
+	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
+	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefMainArgs')
 
 	return $struct
 endfunc
-
-; //////////////////////
