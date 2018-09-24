@@ -162,9 +162,9 @@ global $cef_client = $cef.new('Client'), _
 	$cef_lifespan = $cef.new('LifeSpanHandler')
 
 ; implement callback functions
-$cef_client.GetLifeSpanHandler = '__getLifeSpanHandler'
-$cef_lifespan.OnAfterCreated = '__onAfterCreated'
-$cef_lifespan.OnBeforeClose = '__onBeforeClose'
+$cef_client.GetLifeSpanHandler = __getLifeSpanHandler
+$cef_lifespan.OnAfterCreated = __onAfterCreated
+$cef_lifespan.OnBeforeClose = __onBeforeClose
 
 global $url = 'https://google.com'
 $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
