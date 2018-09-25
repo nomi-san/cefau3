@@ -112,6 +112,10 @@ program/
 ## Simple Example
 
 ```au3
+;~ // file: example_1.au3
+;~ // content: Cefau3 example
+;~ // author: wuuyi123
+
 #include 'cefau3/cefau3.au3'
 
 ; start Cefau3
@@ -162,9 +166,9 @@ global $cef_client = $cef.new('Client'), _
 	$cef_lifespan = $cef.new('LifeSpanHandler')
 
 ; implement callback functions
-$cef_client.GetLifeSpanHandler = __getLifeSpanHandler
-$cef_lifespan.OnAfterCreated = __onAfterCreated
-$cef_lifespan.OnBeforeClose = __onBeforeClose
+$cef_client.GetLifeSpanHandler 	= __getLifeSpanHandler
+$cef_lifespan.OnAfterCreated 	= __onAfterCreated
+$cef_lifespan.OnBeforeClose 	= __onBeforeClose
 
 global $url = 'https://google.com'
 $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
@@ -184,7 +188,8 @@ endfunc
 ; same
 func __onAfterCreated($self, $browser)
 	Cef_Print('-- on after created --\n')
-	Cef_Print('Check $self is $cef_lifespan: ' & ($self.__ptr == $cef_lifespan.__ptr) & '\n') ; -> true
+	Cef_Print('type of $self: ' & $self.__type & '\n')
+	Cef_Print('$self is $cef_lifespan: ' & ($self.__ptr == $cef_lifespan.__ptr) & '\n') ; -> true
 endfunc
 
 func __onBeforeClose($life_span, $browser)
@@ -201,7 +206,8 @@ endfunc
 CEF: 3.3163.1671.g700dc25
 Chromium: 61.0.3163
 -- on after created --
-Check $self is $cef_lifespan: True
+type of $self: CefLifeSpanHandler
+$self is $cef_lifespan: True
 -- on before close --
 ```
 
