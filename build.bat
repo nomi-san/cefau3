@@ -15,7 +15,8 @@ api/print_handler.c api/render_handler.c api/render_process_handler.c ^
 api/request.c api/request_context_handler.c api/request_handler.c ^
 api/resource_bundle_handler.c api/task.c api/types.c ^
 api/types_win.c api/v8.c api/values.c base/app.c ^
-base/base.c base/client.c custom/ptr.c custom/string.c
+base/base.c base/client.c custom/ptr.c custom/string.c ^
+au3obj_wrap.c
 
 set cef_dir=./cef
 set release_dir=./release
