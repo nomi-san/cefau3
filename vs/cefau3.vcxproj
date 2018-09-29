@@ -57,6 +57,14 @@
     <ClCompile Include="..\src\api\types_win.c" />
     <ClCompile Include="..\src\api\v8.c" />
     <ClCompile Include="..\src\api\values.c" />
+    <ClCompile Include="..\src\au3obj\AutoItElement.cpp" />
+    <ClCompile Include="..\src\au3obj\AutoItEnumObject.cpp" />
+    <ClCompile Include="..\src\au3obj\AutoItObject.cpp" />
+    <ClCompile Include="..\src\au3obj\AutoItObjectClass.cpp" />
+    <ClCompile Include="..\src\au3obj\AutoItWrapElement.cpp" />
+    <ClCompile Include="..\src\au3obj\AutoItWrapObject.cpp" />
+    <ClCompile Include="..\src\au3obj\main.cpp" />
+    <ClCompile Include="..\src\au3obj_wrap.c" />
     <ClCompile Include="..\src\base\app.c" />
     <ClCompile Include="..\src\base\base.c" />
     <ClCompile Include="..\src\base\client.c" />
@@ -65,9 +73,20 @@
     <ClCompile Include="..\src\custom\string.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\au3obj\Exports.def" />
     <None Include="..\src\cefau3.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\au3obj\AutoItCallbacks.h" />
+    <ClInclude Include="..\src\au3obj\AutoItElement.h" />
+    <ClInclude Include="..\src\au3obj\AutoItEnumObject.h" />
+    <ClInclude Include="..\src\au3obj\AutoItObject.h" />
+    <ClInclude Include="..\src\au3obj\AutoItObjectClass.h" />
+    <ClInclude Include="..\src\au3obj\AutoItWrapElement.h" />
+    <ClInclude Include="..\src\au3obj\AutoItWrapObject.h" />
+    <ClInclude Include="..\src\au3obj\dll.h" />
+    <ClInclude Include="..\src\au3obj\vector.h" />
+    <ClInclude Include="..\src\au3obj_wrap.h" />
     <ClInclude Include="..\src\cefau3.h" />
     <ClInclude Include="..\src\custom\types.h" />
   </ItemGroup>
@@ -181,7 +200,11 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>../cef;../src;</AdditionalIncludeDirectories>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -189,8 +212,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>../cef/libcef.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>
-      </ModuleDefinitionFile>
+      <ModuleDefinitionFile>../src/au3obj/exports.def</ModuleDefinitionFile>
       <TreatLinkerWarningAsErrors>
       </TreatLinkerWarningAsErrors>
     </Link>

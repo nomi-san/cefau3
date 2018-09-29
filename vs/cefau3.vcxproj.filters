@@ -5,14 +5,17 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="api">
+    <Filter Include="src\api">
       <UniqueIdentifier>{e25e4eee-03b2-43ca-81ea-0346e43f95ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="base">
+    <Filter Include="src\base">
       <UniqueIdentifier>{d7243ce2-29bb-44f9-aba5-8ac51fcc388f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="custom">
+    <Filter Include="src\custom">
       <UniqueIdentifier>{b129a744-671d-45c7-9e30-2008989fbceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\au3obj">
+      <UniqueIdentifier>{3edda8fe-7af7-4d7b-aece-64007ef14b1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,138 +23,165 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\custom\ptr.c">
-      <Filter>custom</Filter>
+      <Filter>src\custom</Filter>
     </ClCompile>
     <ClCompile Include="..\src\custom\string.c">
-      <Filter>custom</Filter>
+      <Filter>src\custom</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\accessibility_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\browser.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\browser_process_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\callback.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\command_line.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\context_menu_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\cookie.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\dialog_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\display_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\dom.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\download_hadler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\download_item.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\drag_data.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\drag_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\find_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\focus_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\frame.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\geolocation.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\geolocation_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\jsdialog_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\keyboard_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\life_span_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\load_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\menu_model.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\menu_model_delegate.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\parser.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\print_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\render_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\render_process_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\request.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\request_context_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\request_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\resource_bundle_handler.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\task.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\types.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\types_win.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\v8.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\values.c">
-      <Filter>api</Filter>
+      <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\base\app.c">
-      <Filter>base</Filter>
+      <Filter>src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\src\base\base.c">
-      <Filter>base</Filter>
+      <Filter>src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\src\base\client.c">
-      <Filter>base</Filter>
+      <Filter>src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj_wrap.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItElement.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItEnumObject.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItObject.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItObjectClass.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItWrapElement.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\AutoItWrapObject.cpp">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\main.cpp">
+      <Filter>src\au3obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\cefau3.def">
       <Filter>src</Filter>
+    </None>
+    <None Include="..\src\au3obj\Exports.def">
+      <Filter>src\au3obj</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +189,37 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\custom\types.h">
-      <Filter>custom</Filter>
+      <Filter>src\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj_wrap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItCallbacks.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItElement.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItEnumObject.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItObject.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItObjectClass.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItWrapElement.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\AutoItWrapObject.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\dll.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\vector.h">
+      <Filter>src\au3obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
