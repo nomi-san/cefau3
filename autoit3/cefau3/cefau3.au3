@@ -3,7 +3,7 @@
 Name:.............: Cefau3 - Chromium Embedded Framework for AutoIt3
 AutoIt version:...: v3.3.14.5
 Author:...........: wuuyi123
-Page:.............: https://github.com/MyChromium/cefau3-native
+Page:.............: https://github.com/wy3/cefau3
 
 program/
 	|---app/...
@@ -28,9 +28,9 @@ program/
 
 #ce
 
-global $__Cefau3Dll__ = null;
-global $__Cefau3DllName__ = 'cefau3.dll';
-global $__CefObject__ = null;
+global $__Cefau3Dll__ 		= null;
+global $__Cefau3DllName__ 	= 'cefau3.dll';
+global $__CefObject__ 		= null;
 
 #include-once
 
@@ -45,26 +45,35 @@ global $__CefObject__ = null;
 
 #include 'types/windows.au3'
 #include 'types/string.au3'
+#include 'types/string_list.au3'
 #include 'types/ptr.au3'
 
 #include 'api/accessibility_handler.au3'
 #include 'api/browser_process_handler.au3'
-
-#include 'api/life_span_handler.au3'
 #include 'api/display_handler.au3'
 #include 'api/keyboard_handler.au3'
+#include 'api/life_span_handler.au3'
+#include 'api/load_handler.au3'
+#include 'api/print_handler.au3'
+#include 'api/render_handler.au3'
 #include 'api/render_process_handler.au3'
+
+#include "api/geolocation.au3"
+#include "api/geolocation_handler.au3"
+
 #include 'api/browser.au3'
 #include 'api/frame.au3'
 #include 'api/types.au3'
 #include 'api/types_win.au3'
+#include 'api/task.au3'
+#include 'api/task.au3'
 #include 'api/v8.au3'
-#include 'api/load_handler.au3'
 
-opt('MustDeclareVars', 1)
+;opt('MustDeclareVars', 0)
 
 ; startup & create CEF object
 func CefStart($CefPath = default)
+	if (($__Cefau3Dll__) and ($__CefObject__)) then return $__CefObject__
 	if (($CefPath = default) or (not $CefPath)) then _ ; ./cef (x86) & ./cef_x64 (x64) for default path
 		$CefPath = @ScriptDir & (@AutoItX64 ? '\cef_x64' : '\cef')
 
@@ -94,30 +103,31 @@ endfunc
 func __Cef_Init()
 	local $obj = _AutoItObject_Create()
 
-	_AutoItObject_AddMethod($obj, 'new', '__Cef_New')
+	CefObject_AddMethod($obj, 'new', '__Cef_New')
 
-	_AutoItObject_AddMethod($obj, 'Version', '__Cef_GetVersion')
-	_AutoItObject_AddMethod($obj, 'ChromiumVersion', '__Cef_GetChromiumVersion')
+	CefObject_AddMethod($obj, 'Version', 			'__Cef_GetVersion')
+	CefObject_AddMethod($obj, 'ChromiumVersion', 	'__Cef_GetChromiumVersion')
 
-	_AutoItObject_AddMethod($obj, 'ExecuteProcess', '__Cef_ExecuteProcess')
-	_AutoItObject_AddMethod($obj, 'Initialize', '__Cef_Initialize')
-	_AutoItObject_AddMethod($obj, 'Shutdown', '__Cef_Shutdown')
-	_AutoItObject_AddMethod($obj, 'DoMessageLoopWork', '__Cef_DoMessageLoopWork')
-	_AutoItObject_AddMethod($obj, 'RunMessageLoop', '__Cef_RunMessageLoop')
-	_AutoItObject_AddMethod($obj, 'QuitMessageLoop', '__Cef_QuitMessageLoop')
-	_AutoItObject_AddMethod($obj, 'EnableHighDPISupport', '__Cef_EnableHighDPISupport')
+	CefObject_AddMethod($obj, 'ExecuteProcess', 	'__Cef_ExecuteProcess')
+	CefObject_AddMethod($obj, 'Initialize', 		'__Cef_Initialize')
+	CefObject_AddMethod($obj, 'Shutdown', 			'__Cef_Shutdown')
+	CefObject_AddMethod($obj, 'DoMessageLoopWork', 	'__Cef_DoMessageLoopWork')
+	CefObject_AddMethod($obj, 'RunMessageLoop', 	'__Cef_RunMessageLoop')
+	CefObject_AddMethod($obj, 'QuitMessageLoop', 	'__Cef_QuitMessageLoop')
+	CefObject_AddMethod($obj, 'EnableHighDPISupport', '__Cef_EnableHighDPISupport')
 
-	_AutoItObject_AddMethod($obj, 'CreateBrowser', '__CefBrowserHost_CreateBrowser')
-	_AutoItObject_AddMethod($obj, 'CreateBrowserSync', '__CefBrowserHost_CreateBrowserSync')
+	CefObject_AddMethod($obj, 'CreateBrowser', 		'__CefBrowserHost_CreateBrowser')
+	CefObject_AddMethod($obj, 'CreateBrowserSync', 	'__CefBrowserHost_CreateBrowserSync')
+
+	CefObject_AddMethod($obj, 'RegisterExtension', 	'__Cef_RegisterExtension')
+
 
 	$__CefObject__ = $obj;
 endfunc
 
 ; $Cef.new(<string> $name[, <pointer> $param])
 func __Cef_New($self, $name = null, $ptr = null)
-	if @numparams == 1 then return null
-
-	if not IsString($name) then return null
+	if @numparams == 1 then return
 
 	switch stringlower($name)
 		case 'base';
@@ -151,6 +161,7 @@ func __Cef_New($self, $name = null, $ptr = null)
 		case 'dialoghandler'
 
 		case 'displayhandler'
+			return CefDisplayHandler_Create($ptr)
 
 		case 'downloadhandler'
 
@@ -161,6 +172,7 @@ func __Cef_New($self, $name = null, $ptr = null)
 		case 'focushandler'
 
 		case 'geolocationhandler'
+			return CefGeolocationHandler_Create($ptr)
 
 		case 'jsdialoghandler'
 
@@ -174,16 +186,22 @@ func __Cef_New($self, $name = null, $ptr = null)
 			return CefLoadHandler_Create($ptr)
 
 		case 'printhandler'
+			return CefPrintHandler_Create($ptr)
 
 		case 'renderhandler'
+			return CefRenderHandler_Create($ptr)
 
 		case 'renderprocesshandler'
+			return CefRenderProcessHandler_Create($ptr)
 
 		case 'requestcontexthandler'
 
 		case 'requesthandler'
 
 		case 'resourcebundlehandler'
+
+		case 'v8handler'
+			return CefV8Handler_Create($ptr)
 
 	endswitch
 
@@ -230,11 +248,6 @@ func Cef_PostQuitMessage($code = 0)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_PostQuitMessage', 'int', $code)
 endfunc
 
-func Cef_GetStructSize($index)
-	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'Cef_GetStructSize', 'int', $index)
-	return @error ? 0 : $ret[0]
-endfunc
-
 func Cef_Print($str)
 	consolewrite(stringformat($str))
 	;dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_Print', 'str', $str)
@@ -253,4 +266,81 @@ func Cef_ReduceMemory($pid)
 		dllcall('psapi.dll', 'bool', 'EmptyWorkingSet', 'handle', $handle)
 		dllcall('kernel32.dll', 'bool', 'CloseHandle', 'handle', $handle)
 	endif
+endfunc
+
+; CefStruct
+; ==================================================
+
+func CefStruct_Create($tag, $type_name = null, $ptr = null)
+	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag, $ptr) _
+		: _AutoItObject_DllStructCreate($tag)
+	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
+	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, $type_name)
+
+	return $struct
+endfunc
+
+func CefStruct_AddMethod($struct, $medthod_name, $func)
+	_AutoItObject_AddMethod($struct, $medthod_name, $func)
+endfunc
+
+func CefStruct_AddProperty($struct, $prop_name, $attrib = 0, $value = 0)
+	_AutoItObject_AddProperty($struct, $prop_name, $attrib, $value)
+endfunc
+
+func CefStruct_GetSize($index)
+	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'Cef_GetStructSize', 'int', $index)
+	return @error ? 0 : $ret[0]
+endfunc
+
+; CefObject
+; ==================================================
+
+func CefObject_Create($parent = null)
+	local $object = $parent ? _AutoItObject_Create($parent) _
+		: _AutoItObject_Create()
+
+	return $object
+endfunc
+
+func CefObject_AddMethod($object, $medthod_name, $func)
+	_AutoItObject_AddMethod($object, $medthod_name, $func)
+endfunc
+
+func CefObject_AddProperty($object, $prop_name, $attrib = 0, $value = 0)
+	_AutoItObject_AddProperty($object, $prop_name, $attrib, $value)
+endfunc
+
+
+
+
+
+; CefMem
+; ==================================================
+
+func CefMem_Alloc($size)
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefMem_Alloc', 'uint', $size)
+	return @error ? 0 : $ret[0]
+endfunc
+
+func CefMem_Free($ptr)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefMem_Free', 'ptr', $ptr)
+endfunc
+
+func CefMem_ReAlloc($ptr, $size)
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefMem_ReAlloc', 'ptr', $ptr, 'uint', $size)
+	return @error ? 0 : $ret[0]
+endfunc
+
+
+
+
+
+; CefAu3Obj
+; ==================================================
+
+global const $__CefAu3Obj_Set = Cef_CallbackRegister(__CefAu3Obj_SetPtr, 'none', 'idispatch;ptr')
+
+func __CefAu3Obj_SetPtr($obj, $ptr)
+	$obj.__ptr = ptr($ptr);
 endfunc

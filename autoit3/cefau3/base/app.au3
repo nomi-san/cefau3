@@ -3,11 +3,14 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefApp
 ; ==================================================
 
 global $tag_CefApp = ( _
-	$tag_CefBase & 'ptr;ptr;ptr;ptr;ptr;' & _
+	$tag_CefBase 			& _
+	'ptr[5];' 				& _
 	'char __OBCLP[100];' 	& _
 	'char __ORCS[100];' 	& _
 	'char __GRBH[100];' 	& _
@@ -15,27 +18,23 @@ global $tag_CefApp = ( _
 	'char __GRPH[100];' 	_
 )
 
-global $__Cef__OnBeforeCommandLineProcessing	= Cef_CallbackRegister(__Cef__OnBeforeCommandLineProcessing, 'none', 'ptr;ptr;ptr')
-global $__Cef__OnRegisterCustomSchemes			= Cef_CallbackRegister(__Cef__OnRegisterCustomSchemes, 'none', 'ptr;ptr')
-global $__Cef__GetResourceBundleHandler			= Cef_CallbackRegister(__Cef__GetResourceBundleHandler, 'ptr', 'ptr')
-global $__Cef__GetBrowserProcessHandler			= Cef_CallbackRegister(__Cef__GetBrowserProcessHandler, 'ptr', 'ptr')
-global $__Cef__GetRenderProcessHandler			= Cef_CallbackRegister(__Cef__GetRenderProcessHandler, 'ptr', 'ptr')
+global $__CefApp__OBCLP	= Cef_CallbackRegister(__CefApp__OBCLP, 'none', 'ptr;ptr;ptr')
+global $__CefApp__ORCS	= Cef_CallbackRegister(__CefApp__ORCS, 	'none', 'ptr;ptr')
+global $__CefApp__GRBH	= Cef_CallbackRegister(__CefApp__GRBH, 	'ptr', 	'ptr')
+global $__CefApp__GBPH	= Cef_CallbackRegister(__CefApp__GBPH, 	'ptr', 	'ptr')
+global $__CefApp__GRPH	= Cef_CallbackRegister(__CefApp__GRPH, 	'ptr', 	'ptr')
 
 ; ==================================================
 
 func CefApp_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefApp, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefApp)
+	local $struct = CefStruct_Create($tag_CefApp, 'CefApp', $ptr)
 	$struct.size = $struct.__size__
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefApp')
-
-	_AutoItObject_AddMethod($struct, 'OnBeforeCommandLineProcessing', '__CefApp_OBCLP')
-	_AutoItObject_AddMethod($struct, 'OnRegisterCustomSchemes', '__CefApp_ORCS')
-	_AutoItObject_AddMethod($struct, 'GetResourceBundleHandler', '__CefApp_GRBH')
-	_AutoItObject_AddMethod($struct, 'GetBrowserProcessHandler', '__CefApp_GBPH')
-	_AutoItObject_AddMethod($struct, 'GetRenderProcessHandler', '__CefApp_GRPH')
+	CefStruct_AddMethod($struct, 'OnBeforeCommandLineProcessing', 	'__CefApp_OBCLP')
+	CefStruct_AddMethod($struct, 'OnRegisterCustomSchemes', 		'__CefApp_ORCS')
+	CefStruct_AddMethod($struct, 'GetResourceBundleHandler', 		'__CefApp_GRBH')
+	CefStruct_AddMethod($struct, 'GetBrowserProcessHandler', 		'__CefApp_GBPH')
+	CefStruct_AddMethod($struct, 'GetRenderProcessHandler', 		'__CefApp_GRPH')
 
 	return $struct
 endfunc
@@ -43,66 +42,69 @@ endfunc
 func __CefApp_OBCLP($self, $func = null)
 	if @numparams == 1 then return $self.__OBCLP
 
-	$self.__OBCLP = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnBeforeCommandLineProcessing', 'ptr', $self.__pointer__, 'ptr', $__Cef__OnBeforeCommandLineProcessing)
+	$self.__OBCLP = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnBeforeCommandLineProcessing', 'ptr', $self.__pointer__, 'ptr', $__CefApp__OBCLP)
 endfunc
 
 func __CefApp_ORCS($self, $func = null)
 	if @numparams == 1 then return $self.__ORCS
 
-	$self.__ORCS = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnRegisterCustomSchemes', 'ptr', $self.__pointer__, 'ptr', $__Cef__OnRegisterCustomSchemes)
+	$self.__ORCS = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnRegisterCustomSchemes', 'ptr', $self.__pointer__, 'ptr', $__CefApp__ORCS)
 endfunc
 
 func __CefApp_GRBH($self, $func = null)
 	if @numparams == 1 then return $self.__GRBH
 
-	$self.__GRBH = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetResourceBundleHandler', 'ptr', $self.__pointer__, 'ptr', $__Cef__GetResourceBundleHandler)
+	$self.__GRBH = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetResourceBundleHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GRBH)
 endfunc
 
 func __CefApp_GBPH($self, $func = null)
 	if @numparams == 1 then return $self.__GBPH
 
-	$self.__GBPH = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetBrowserProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__Cef__GetBrowserProcessHandler)
+	$self.__GBPH = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetBrowserProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GBPH)
 endfunc
 
 func __CefApp_GRPH($self, $func = null)
 	if @numparams == 1 then return $self.__GRPH
 
-	$self.__GRPH = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetRenderProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__Cef__GetRenderProcessHandler)
+	$self.__GRPH = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetRenderProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GRPH)
 endfunc
 
 ; ==================================================
 
-func __Cef__OnBeforeCommandLineProcessing($ptr, $ptr2, $ptr3)
-	local $self = CefApp_Create($ptr)
+func __CefApp__OBCLP($self, $process_type, $command_line)
+	$self 		= CefApp_Create($self)
+	$process_type = CefString_Read($process_type)
+	;$command_line = CefCommandLine_Create($command_line)
 
-	call($self.__OBCLP)
+	call($self.__OBCLP, $self, $process_type, $command_line)
 endfunc
 
-func __Cef__OnRegisterCustomSchemes($ptr, $ptr2)
-	local $self = CefApp_Create($ptr)
+func __CefApp__ORCS($self, $registrar)
+	$self = CefApp_Create($self)
+	;$registrar = CefSchemeRegistrar_Create($registrar)
 
-	call($self.__ORCS)
+	call($self.__ORCS, $self, $registrar)
 endfunc
 
-func __Cef__GetResourceBundleHandler($ptr)
-	local $self = CefApp_Create($ptr)
+func __CefApp__GRBH($self, $registrar)
+	$self = CefApp_Create($self)
 
 	return call($self.__GRBH, $self)
 endfunc
 
-func __Cef__GetBrowserProcessHandler($ptr)
-	local $self = CefApp_Create($ptr)
+func __CefApp__GBPH($self)
+	$self = CefApp_Create($self)
 
 	return call($self.__GBPH, $self)
 endfunc
 
-func __Cef__GetRenderProcessHandler($ptr)
-	local $self = CefApp_Create($ptr)
+func __CefApp__GRPH($self)
+	$self = CefApp_Create($self)
 
 	return call($self.__GRPH, $self)
 endfunc

@@ -3,39 +3,37 @@
 	author: wuuyi123
 #ce
 
-Global $tag_IntPtr = 'ptr'
-Global $tag_LongPtr = 'ptr'
-Global $tag_DoublePtr = 'ptr'
+#include-once
 
-; int_ptr
+; CefInt
+; ==================================================
 
-func IntPtr_Set($self, $value)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'IntPtr_Set', 'ptr', $self, 'int', $value)
+global $tag_CefInt = 'int val;'
+
+func CefInt_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefInt, 'CefInt', $ptr)
+
+	return $struct
 endfunc
 
-func IntPtr_Get($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int', 'IntPtr_Set', 'ptr')
-	return @error ? 0 : $ret[0]
+; CefLong
+; ==================================================
+
+global $tag_CefLong = 'long val;'
+
+func CefLong_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefLong, 'CefLong', $ptr)
+
+	return $struct
 endfunc
 
-; long_ptr
+; CefDouble
+; ==================================================
 
-func LongPtr_Set($self, $value)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'LongPtr_Set', 'ptr', $self, 'long', $value)
-endfunc
+global $tag_CefDouble = 'double val;'
 
-func LongPtr_Get($self)
-	local $ret = dllcall($__Cefau3Dll__, 'long', 'LongPtr_Set', 'ptr', $self)
-	return @error ? 0 : $ret[0]
-endfunc
+func CefDouble_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefDouble, 'CefDouble', $ptr)
 
-; double_ptr
-
-func DoublePtr_Set($self, $value)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'DoublePtr_Set', 'ptr', $self, 'double', $value)
-endfunc
-
-func DoublePtr_Get($self)
-	local $ret = dllcall($__Cefau3Dll__, 'double:cdecl', 'DoublePtr_Set', 'ptr', $self)
-	return @error ? 0 : $ret[0]
+	return $struct
 endfunc

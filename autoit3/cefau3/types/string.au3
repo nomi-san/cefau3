@@ -3,9 +3,35 @@
 	author: wuuyi123
 #ce
 
-Global $tag_CefString = 'ptr str;int len;ptr dior;'
+#include-once
 
-func CefString_Create($string)
+; CefString
+; ==================================================
+
+global $tag_CefString = 'ptr str;uint len;ptr dior;'
+
+func CefString_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefString, 'CefString', $ptr)
+
+	CefStruct_AddMethod($struct, 'val', '__CefString_val')
+
+	return $struct
+endfunc
+
+func __CefString_val($self, $val = null)
+	if @numparams == 1 then 
+		local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefString_Read', 'ptr', $self.__pointer__)
+		return @error ? 0 : $ret[0]
+	endif
+
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Set', 'ptr', $self.__pointer__, 'wstr', $val)
+endfunc
+
+
+
+
+
+func CefString_Create_($string)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefString_Create', 'wstr', $string)
 	Return @error ? null : $ret[0]
 endfunc
@@ -34,42 +60,3 @@ func CefString_Copy($CefString)
 endfunc
 
 ;///////////////////
-
-func CefStringList_Create()
-	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefStringList_Create')
-	return @error ? null : $ret[0]
-endfunc
-
-func CefStringList_Size($CefStringList)
-	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'CefStringList_Size', 'ptr', $CefStringList)
-	return @error ? null : $ret[0]
-endfunc
-
-func CefStringList_Read($CefStringList, $index = 0)
-	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefStringList_Read', 'ptr', $CefStringList, 'uint', $index)
-	return @error ? null : $ret[0]
-endfunc
-
-func CefStringList_Append($CefStringList, $value)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefStringList_Append', 'ptr', $CefStringList, 'wstr', $value)
-endfunc
-
-func CefStringList_Clear($CefStringList)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefStringList_Clear', 'ptr', $CefStringList)
-endfunc
-
-func CefStringList_Free($CefStringList)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefStringList_Free', 'ptr', $CefStringList)
-endfunc
-
-func CefStringList_Copy($CefStringList)
-	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefStringList_Copy', 'ptr', $CefStringList)
-	return @error ? null : $ret[0]
-endfunc
-
-
-
-
-
-
-

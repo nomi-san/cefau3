@@ -3,69 +3,44 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefFrame
 ; ==================================================
 
 global $tag_CefFrane = ( _
     $tag_CefBase & _
-    'ptr;' & _ ; is_valid
-    'ptr;' & _ ; undo
-    'ptr;' & _ ; redo
-    'ptr;' & _ ; cut
-    'ptr;' & _ ; copy
-    'ptr;' & _ ; paste
-    'ptr;' & _ ; del
-    'ptr;' & _ ; select_all
-    'ptr;' & _ ; view_source
-    'ptr;' & _ ; get_source
-    'ptr;' & _ ; get_text
-    'ptr;' & _ ; load_request
-    'ptr;' & _ ; load_url
-    'ptr;' & _ ; load_string
-    'ptr;' & _ ; execute_java_script
-    'ptr;' & _ ; is_main
-    'ptr;' & _ ; is_focused
-    'ptr;' & _ ; get_name
-    'ptr;' & _ ; get_identifier
-    'ptr;' & _ ; get_parent
-    'ptr;' & _ ; get_url
-    'ptr;' & _ ; get_browser
-    'ptr;' & _ ; get_v8context
-    'ptr;' _ ; visit_dom
+    'ptr[24];' _
 )
 
 func CefFrame_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefFrane, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefFrane)
+    local $struct = CefStruct_Create($tag_CefFrane, 'CefFrame', $ptr)
 	$struct.size = $struct.__size__
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefFrame')
-
-	_AutoItObject_AddMethod($struct, 'IsValid', '__CefFrame_IsValid')
-	_AutoItObject_AddMethod($struct, 'Undo', '__CefFrame_Undo')
-	_AutoItObject_AddMethod($struct, 'Redo', '__CefFrame_Redo')
-	_AutoItObject_AddMethod($struct, 'Cut', '__CefFrame_Cut')
-	_AutoItObject_AddMethod($struct, 'Copy', '__CefFrame_Copy')
-	_AutoItObject_AddMethod($struct, 'Paste', '__CefFrame_Paste')
-	_AutoItObject_AddMethod($struct, 'Delete', '__CefFrame_Delete')
-	_AutoItObject_AddMethod($struct, 'SelectAll', '__CefFrame_SelectAll')
-	_AutoItObject_AddMethod($struct, 'ViewSource', '__CefFrame_ViewSource')
-	_AutoItObject_AddMethod($struct, 'GetSource', '__CefFrame_GetSource')
-	_AutoItObject_AddMethod($struct, 'GetText', '__CefFrame_GetText')
-	_AutoItObject_AddMethod($struct, 'LoadRequest', '__CefFrame_LoadRequest')
-	_AutoItObject_AddMethod($struct, 'LoadUrl', '__CefFrame_LoadUrl')
-	_AutoItObject_AddMethod($struct, 'LoadString', '__CefFrame_LoadString')
-	_AutoItObject_AddMethod($struct, 'ExecuteJavaScript', '__CefFrame_ExecuteJavaScript')
-	_AutoItObject_AddMethod($struct, 'IsMain', '__CefFrame_IsMain')
-	_AutoItObject_AddMethod($struct, 'IsFocused', '__CefFrame_IsFocused')
-	_AutoItObject_AddMethod($struct, 'GetName', '__CefFrame_GetName')
-	_AutoItObject_AddMethod($struct, 'GetIdentifier', '__CefFrame_GetIdentifier')
-	_AutoItObject_AddMethod($struct, 'GetParent', '__CefFrame_GetParent')
-	_AutoItObject_AddMethod($struct, 'GetUrl', '__CefFrame_GetUrl')
-	_AutoItObject_AddMethod($struct, 'GetBrowser', '__CefFrame_GetBrowser')
-	_AutoItObject_AddMethod($struct, 'GetV8Context', '__CefFrame_GetV8Context')
-	_AutoItObject_AddMethod($struct, 'VisitDOM', '__CefFrame_VisitDOM')
+	CefStruct_AddMethod($struct, 'IsValid', '__CefFrame_IsValid')
+	CefStruct_AddMethod($struct, 'Undo', '__CefFrame_Undo')
+	CefStruct_AddMethod($struct, 'Redo', '__CefFrame_Redo')
+	CefStruct_AddMethod($struct, 'Cut', '__CefFrame_Cut')
+	CefStruct_AddMethod($struct, 'Copy', '__CefFrame_Copy')
+	CefStruct_AddMethod($struct, 'Paste', '__CefFrame_Paste')
+	CefStruct_AddMethod($struct, 'Delete', '__CefFrame_Delete')
+	CefStruct_AddMethod($struct, 'SelectAll', '__CefFrame_SelectAll')
+	CefStruct_AddMethod($struct, 'ViewSource', '__CefFrame_ViewSource')
+	CefStruct_AddMethod($struct, 'GetSource', '__CefFrame_GetSource')
+	CefStruct_AddMethod($struct, 'GetText', '__CefFrame_GetText')
+	CefStruct_AddMethod($struct, 'LoadRequest', '__CefFrame_LoadRequest')
+	CefStruct_AddMethod($struct, 'LoadUrl', '__CefFrame_LoadUrl')
+	CefStruct_AddMethod($struct, 'LoadString', '__CefFrame_LoadString')
+	CefStruct_AddMethod($struct, 'ExecuteJavaScript', '__CefFrame_ExecuteJavaScript')
+	CefStruct_AddMethod($struct, 'IsMain', '__CefFrame_IsMain')
+	CefStruct_AddMethod($struct, 'IsFocused', '__CefFrame_IsFocused')
+	CefStruct_AddMethod($struct, 'GetName', '__CefFrame_GetName')
+	CefStruct_AddMethod($struct, 'GetIdentifier', '__CefFrame_GetIdentifier')
+	CefStruct_AddMethod($struct, 'GetParent', '__CefFrame_GetParent')
+	CefStruct_AddMethod($struct, 'GetUrl', '__CefFrame_GetUrl')
+	CefStruct_AddMethod($struct, 'GetBrowser', '__CefFrame_GetBrowser')
+	CefStruct_AddMethod($struct, 'GetV8Context', '__CefFrame_GetV8Context')
+	CefStruct_AddMethod($struct, 'VisitDOM', '__CefFrame_VisitDOM')
 
 	return $struct
 endfunc

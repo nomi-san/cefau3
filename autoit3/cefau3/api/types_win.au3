@@ -3,6 +3,8 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefWindowInfo
 ; ==================================================
 
@@ -21,13 +23,9 @@ global $tag_CefWindowInfo = ( _
 )
 
 func CefWindowInfo_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefWindowInfo, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefWindowInfo)
+	local $struct = CefStruct_Create($tag_CefWindowInfo, 'CefWindowInfo', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefWindowInfo')
-
-	_AutoItObject_AddMethod($struct, 'window_name', '__CefWindowInfo_wn')
+	CefStruct_AddMethod($struct, 'window_name', '__CefWindowInfo_wn')
 
 	return $struct
 endfunc
@@ -46,13 +44,10 @@ global $tag_CefMainArgs = ( _
 )
 
 func CefMainArgs_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefMainArgs, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefMainArgs)
-	local $mod = DllCall('user32.dll', 'ptr', 'GetModuleHandleA', 'ptr', 0)
-	$struct.instance =  @error ? null : $mod[0]
+	local $struct = CefStruct_Create($tag_CefMainArgs, 'CefMainArgs', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefMainArgs')
+	local $mod = DllCall('kernel32.dll', 'ptr', 'GetModuleHandleA', 'ptr', 0)
+	$struct.instance =  @error ? null : $mod[0]
 
 	return $struct
 endfunc

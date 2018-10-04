@@ -3,33 +3,32 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefAccessibilityHandler
 ; ==================================================
 
 global $tag_CefAccessibilityHandler = ( _
-    $tag_CefBase & _
-    'ptr __OATC;' & _ ; on_accessibility_tree_change
-    'ptr __OALC;' _ ;on_accessibility_location_change
+    $tag_CefBase 		& _
+    'ptr[2];'			& _
+    'char __OATC[100];' & _
+    'char __OALC[100];' _
 )
 
-global $__params_OnAccessibilityTreeChange = 'ptr;ptr', _
-	$__return_OnAccessibilityTreeChange = 'none'
+global $__CefAccessibilityHandler__OATC = Cef_CallbackRegister(__CefAccessibilityHandler__OATC, 'none', 'ptr;ptr')
+global $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccessibilityHandler__OALC, 'none', 'ptr;ptr')
 
-global $__params_OnAccessibilityLocationChange = 'ptr;ptr', _
-	$__return_OnAccessibilityLocationChange = 'none'
+; ==================================================
 
 func CefAccessibilityHandler_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefAccessibilityHandler, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefAccessibilityHandler)
+	local $struct = CefStruct_Create($tag_CefAccessibilityHandler, 'CefAccessibilityHandler', $ptr)
 	$struct.size = $struct.__size__;
 
 	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
 	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefAccessibilityHandler')
 
-	_AutoItObject_AddMethod($struct, 'OnBeforePopup', '__CefLifeSpanHandler_OBP')
-	_AutoItObject_AddMethod($struct, 'OnAfterCreated', '__CefLifeSpanHandler_OAC')
-	_AutoItObject_AddMethod($struct, 'DoClose', '__CefLifeSpanHandler_DC')
-	_AutoItObject_AddMethod($struct, 'OnBeforeClose', '__CefLifeSpanHandler_OBC')
+	CefStruct_AddMethod($struct, 'OnAccessibilityTreeChange', 		'__CefAccessibilityHandler_OATC')
+	CefStruct_AddMethod($struct, 'OnAccessibilityLocationChange', 	'__CefAccessibilityHandler_OALC')
 
 	return $struct
 endfunc
@@ -37,15 +36,29 @@ endfunc
 func __CefAccessibilityHandler_OATC($self, $func = null)
 	if @NumParams == 1 then return $self.__OATC
 
-	local $cb = dllcallbackregister($func, $__return_OnAccessibilityTreeChange, $__params_OnAccessibilityTreeChange)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityTreeChange', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OATC = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityTreeChange', 'ptr', $self.__pointer__, 'ptr', $__CefAccessibilityHandler__OATC)
 endfunc
 
 func __CefAccessibilityHandler_OALC($self, $func = null)
 	if @NumParams == 1 then return $self.__OALC
 
-	local $cb = dllcallbackregister($func, $__return_OnAccessibilityLocationChange, $__params_OnAccessibilityLocationChange)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityLocationChange', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OALC = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityLocationChange', 'ptr', $self.__pointer__, 'ptr', $__CefAccessibilityHandler__OALC)
+endfunc
+
+; ==================================================
+
+func __CefAccessibilityHandler__OATC($self, $value)
+	$self = CefAccessibilityHandler_Create($self)
+	;$value = CefValue_Create($value)
+
+	call($self.__OATC, $self, $value)
+endfunc
+
+func __CefAccessibilityHandler__OALC($self, $value)
+	$self = CefAccessibilityHandler_Create($self)
+	;$value = CefValue_Create($value)
+
+	call($self.__OALC, $self, $value)
 endfunc

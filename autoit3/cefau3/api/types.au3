@@ -3,6 +3,8 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 func __CefTypes_SetString($ptr, $name, $prop_name, $value)
 	dllcall($__Cefau3Dll__, 'none:cdecl', $name & '_Set_' & $prop_name, 'ptr', $ptr, 'wstr', $value)
 endfunc
@@ -56,28 +58,25 @@ global $tag_CefSettings = ( _
 )
 
 func CefSettings_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefSettings, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefSettings)
+	local $struct = CefStruct_Create($tag_CefSettings, 'CefSettings', $ptr)
 	$struct.size = $struct.__size__
+
 	$struct.log_severity = 99;
 	$struct.no_sandbox = true; // 1
 	$struct.multi_threaded_message_loop = true;
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefSettings')
-
-	_AutoItObject_AddMethod($struct, 'browser_subprocess_path', '__CefSettings_bsp')
-	_AutoItObject_AddMethod($struct, 'framework_dir_path', '__CefSettings_fdp')
-	_AutoItObject_AddMethod($struct, 'cache_path', '__CefSettings_cp')
-	_AutoItObject_AddMethod($struct, 'user_data_path', '__CefSettings_udp')
-	_AutoItObject_AddMethod($struct, 'user_agent', '__CefSettings_ua')
-	_AutoItObject_AddMethod($struct, 'product_version', '__CefSettings_pv')
-	_AutoItObject_AddMethod($struct, 'locale', '__CefSettings_l')
-	_AutoItObject_AddMethod($struct, 'log_file', '__CefSettings_lf')
-	_AutoItObject_AddMethod($struct, 'javascript_flags', '__CefSettings_jf')
-	_AutoItObject_AddMethod($struct, 'resources_dir_path', '__CefSettings_rdp')
-	_AutoItObject_AddMethod($struct, 'locales_dir_path', '__CefSettings_ldp')
-	_AutoItObject_AddMethod($struct, 'accept_language_list', '__CefSettings_all')
+	CefStruct_AddMethod($struct, 'browser_subprocess_path', '__CefSettings_bsp')
+	CefStruct_AddMethod($struct, 'framework_dir_path', '__CefSettings_fdp')
+	CefStruct_AddMethod($struct, 'cache_path', '__CefSettings_cp')
+	CefStruct_AddMethod($struct, 'user_data_path', '__CefSettings_udp')
+	CefStruct_AddMethod($struct, 'user_agent', '__CefSettings_ua')
+	CefStruct_AddMethod($struct, 'product_version', '__CefSettings_pv')
+	CefStruct_AddMethod($struct, 'locale', '__CefSettings_l')
+	CefStruct_AddMethod($struct, 'log_file', '__CefSettings_lf')
+	CefStruct_AddMethod($struct, 'javascript_flags', '__CefSettings_jf')
+	CefStruct_AddMethod($struct, 'resources_dir_path', '__CefSettings_rdp')
+	CefStruct_AddMethod($struct, 'locales_dir_path', '__CefSettings_ldp')
+	CefStruct_AddMethod($struct, 'accept_language_list', '__CefSettings_all')
 
 	return $struct
 endfunc
@@ -193,21 +192,17 @@ global $tag_CefBrowserSettings = ( _
 )
 
 func CefBrowserSettings_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefBrowserSettings, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefBrowserSettings)
+	local $struct = CefStruct_Create($tag_CefBrowserSettings, 'CefBrowserSettings', $ptr)
 	$struct.size = $struct.__size__
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefBrowserSettings')
-
-	_AutoItObject_AddMethod($struct, 'standard_font_family', '__CefBrowserSettings_sff')
-	_AutoItObject_AddMethod($struct, 'fixed_font_family', '__CefBrowserSettings_fff')
-	_AutoItObject_AddMethod($struct, 'serif_font_family', '__CefBrowserSettings_seff')
-	_AutoItObject_AddMethod($struct, 'sans_serif_font_family', '__CefBrowserSettings_ssff')
-	_AutoItObject_AddMethod($struct, 'cursive_font_family', '__CefBrowserSettings_cff')
-	_AutoItObject_AddMethod($struct, 'fantasy_font_family', '__CefBrowserSettings_faff')
-	_AutoItObject_AddMethod($struct, 'default_encoding', '__CefBrowserSettings_de')
-	_AutoItObject_AddMethod($struct, 'accept_language_list', '__CefBrowserSettings_all')
+	CefStruct_AddMethod($struct, 'standard_font_family', '__CefBrowserSettings_sff')
+	CefStruct_AddMethod($struct, 'fixed_font_family', '__CefBrowserSettings_fff')
+	CefStruct_AddMethod($struct, 'serif_font_family', '__CefBrowserSettings_seff')
+	CefStruct_AddMethod($struct, 'sans_serif_font_family', '__CefBrowserSettings_ssff')
+	CefStruct_AddMethod($struct, 'cursive_font_family', '__CefBrowserSettings_cff')
+	CefStruct_AddMethod($struct, 'fantasy_font_family', '__CefBrowserSettings_faff')
+	CefStruct_AddMethod($struct, 'default_encoding', '__CefBrowserSettings_de')
+	CefStruct_AddMethod($struct, 'accept_language_list', '__CefBrowserSettings_all')
 
 	return $struct
 endfunc
@@ -260,29 +255,6 @@ func __CefBrowserSettings_all($self, $value = null)
     __CefTypes_SetString($self.__pointer__, 'CefBrowserSettings', 'accept_language_list', $value)
 endfunc
 
-; CefKeyEventType
-; ==================================================
-
-global $tag_CefKeyEventType = ( _
-	'int type;' & _
-	'uint modifiers;' & _
-	'int windows_key_code;' & _
-	'int native_key_code;' & _
-	'wchar character;' & _
-	'wchar unmodified_character;' & _
-	'int focus_on_editable_field;' _
-)
-
-func CefKeyEventType_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefKeyEventType, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefKeyEventType)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefKeyEventType')
-
-	return $struct
-endfunc
-
 ; CefRequestContextSettings
 ; ==================================================
 
@@ -297,15 +269,11 @@ global $tag_CefRequestContextSettings = ( _
 )
 
 func CefRequestContextSettings_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefRequestContextSettings, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefRequestContextSettings)
+	local $struct = CefStruct_Create($tag_CefRequestContextSettings, 'CefRequestContextSettings', $ptr)
 	$struct.size = $struct.__size__
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefRequestContextSettings')
-
-	_AutoItObject_AddMethod($struct, 'cache_path', '__CefRequestContextSettings_cp')
-	_AutoItObject_AddMethod($struct, 'accept_language_list', '__CefRequestContextSettings_all')
+	CefStruct_AddMethod($struct, 'cache_path', '__CefRequestContextSettings_cp')
+	CefStruct_AddMethod($struct, 'accept_language_list', '__CefRequestContextSettings_all')
 
 	return $struct
 endfunc
@@ -338,21 +306,17 @@ global $tag_CefURLParts = ( _
 )
 
 func CefURLParts_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefURLParts, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefURLParts)
+	local $struct = CefStruct_Create($tag_CefURLParts, 'CefURLParts', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefURLParts')
-
-	_AutoItObject_AddMethod($struct, 'spec', '__CefURLParts_sff')
-	_AutoItObject_AddMethod($struct, 'scheme', '__CefURLParts_scheme')
-	_AutoItObject_AddMethod($struct, 'username', '__CefURLParts_username')
-	_AutoItObject_AddMethod($struct, 'password', '__CefURLParts_password')
-	_AutoItObject_AddMethod($struct, 'host', '__CefURLParts_host')
-	_AutoItObject_AddMethod($struct, 'port', '__CefURLParts_port')
-	_AutoItObject_AddMethod($struct, 'origin', '__CefURLParts_origin')
-	_AutoItObject_AddMethod($struct, 'path', '__CefURLParts_path')
-	_AutoItObject_AddMethod($struct, 'query', '__CefURLParts_query')
+	CefStruct_AddMethod($struct, 'spec', '__CefURLParts_sff')
+	CefStruct_AddMethod($struct, 'scheme', '__CefURLParts_scheme')
+	CefStruct_AddMethod($struct, 'username', '__CefURLParts_username')
+	CefStruct_AddMethod($struct, 'password', '__CefURLParts_password')
+	CefStruct_AddMethod($struct, 'host', '__CefURLParts_host')
+	CefStruct_AddMethod($struct, 'port', '__CefURLParts_port')
+	CefStruct_AddMethod($struct, 'origin', '__CefURLParts_origin')
+	CefStruct_AddMethod($struct, 'path', '__CefURLParts_path')
+	CefStruct_AddMethod($struct, 'query', '__CefURLParts_query')
 
 	return $struct
 endfunc
@@ -426,11 +390,7 @@ global $tag_CefTime = ( _
 )
 
 func CefTime_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefTime, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefTime)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefTime')
+	local $struct = CefStruct_Create($tag_CefTime, 'CefTime', $ptr)
 
 	return $struct
 endfunc
@@ -452,16 +412,12 @@ global $tag_CefCookie = ( _
 )
 
 func CefCookie_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefCookie, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefCookie)
+	local $struct = CefStruct_Create($tag_CefCookie, 'CefCookie', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefCookie')
-
-	_AutoItObject_AddMethod($struct, 'name' , '__CefCookie_name')
-	_AutoItObject_AddMethod($struct, 'value' , '__CefCookie_value')
-	_AutoItObject_AddMethod($struct, 'domain' , '__CefCookie_domain')
-	_AutoItObject_AddMethod($struct, 'path' , '__CefCookie_path')
+	CefStruct_AddMethod($struct, 'name' , '__CefCookie_name')
+	CefStruct_AddMethod($struct, 'value' , '__CefCookie_value')
+	CefStruct_AddMethod($struct, 'domain' , '__CefCookie_domain')
+	CefStruct_AddMethod($struct, 'path' , '__CefCookie_path')
 
 	return $struct
 endfunc
@@ -499,11 +455,7 @@ global $tag_CefPoint = ( _
 )
 
 func CefPoint_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefPoint, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefPoint)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefPoint')
+	local $struct = CefStruct_Create($tag_CefPoint, 'CefPoint', $ptr)
 
 	return $struct
 endfunc
@@ -519,11 +471,7 @@ global $tag_CefRect = ( _
 )
 
 func CefRect_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefRect, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefRect)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefRect')
+	local $struct = CefStruct_Create($tag_CefRect, 'CefRect', $ptr)
 
 	return $struct
 endfunc
@@ -537,11 +485,7 @@ global $tag_CefSize = ( _
 )
 
 func CefSize_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefSize, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefSize)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefSize')
+	local $struct = CefStruct_Create($tag_CefSize, 'CefSize', $ptr)
 
 	return $struct
 endfunc
@@ -555,11 +499,7 @@ global $tag_CefRange = ( _
 )
 
 func CefRange_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefRange, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefRange)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefRange')
+	local $struct = CefStruct_Create($tag_CefRange, 'CefRange', $ptr)
 
 	return $struct
 endfunc
@@ -575,11 +515,7 @@ global $tag_CefInsets = ( _
 )
 
 func CefInsets_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefInsets, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefInsets)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefInsets')
+	local $struct = CefStruct_Create($tag_CefInsets, 'CefInsets', $ptr)
 
 	return $struct
 endfunc
@@ -591,6 +527,20 @@ global $tag_CefDraggableRegion = ( _
 	$tag_CefRect & _ ; bounds;
 	'int draggable;' _
 )
+
+func CefDraggableRegion_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefDraggableRegion, 'CefDraggableRegion', $ptr)
+
+	CefStruct_AddMethod($struct, 'bounds', '__CefDraggableRegion_b')
+
+	return $struct
+endfunc
+
+func __CefDraggableRegion_b($self, $value = null)
+	if @numparams == 1 then _
+		return __CefTypes_GetPtr($self.__pointer__, 'CefDraggableRegion', 'bounds')
+    __CefTypes_SetPtr($self.__pointer__, 'CefDraggableRegion', 'bounds', $value)
+endfunc
 
 ; CefScreenInfo
 ; ==================================================
@@ -604,6 +554,27 @@ global $tag_CefScreenInfo = ( _
 	$tag_CefRect _ ;available_rect;
 )
 
+func CefScreenInfo_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefScreenInfo, 'CefScreenInfo', $ptr)
+
+	CefStruct_AddMethod($struct, 'rect', '__CefScreenInfo_r')
+	CefStruct_AddMethod($struct, 'available_rect', '__CefScreenInfo_ar')
+
+	return $struct
+endfunc
+
+func __CefScreenInfo_r($self, $value = null)
+	if @numparams == 1 then _
+		return __CefTypes_GetPtr($self.__pointer__, 'CefScreenInfo', 'rect')
+    __CefTypes_SetPtr($self.__pointer__, 'CefScreenInfo', 'rect', $value)
+endfunc
+
+func __CefScreenInfo_ar($self, $value = null)
+	if @numparams == 1 then _
+		return __CefTypes_GetPtr($self.__pointer__, 'CefScreenInfo', 'available_rect')
+    __CefTypes_SetPtr($self.__pointer__, 'CefScreenInfo', 'available_rect', $value)
+endfunc
+
 ; CefMouseEvent
 ; ==================================================
 
@@ -614,11 +585,7 @@ global $tag_CefMouseEvent = ( _
 )
 
 func CefMouseEvent_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefMouseEvent, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefMouseEvent)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefMouseEvent')
+	local $struct = CefStruct_Create($tag_CefMouseEvent, 'CefMouseEvent', $ptr)
 
 	return $struct
 endfunc
@@ -637,11 +604,7 @@ global $tag_CefKeyEvent = ( _
 )
 
 func CefKeyEvent_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefKeyEvent, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefKeyEvent)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefKeyEvent')
+	local $struct = CefStruct_Create($tag_CefKeyEvent, 'CefKeyEvent', $ptr)
 
 	return $struct
 endfunc
@@ -665,11 +628,7 @@ global $tag_CefPopupFeatures = ( _
 )
 
 func CefPopupFeatures_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefPopupFeatures, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefPopupFeatures)
-
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefPopupFeatures')
+	local $struct = CefStruct_Create($tag_CefPopupFeatures, 'CefPopupFeatures', $ptr)
 
 	return $struct
 endfunc
@@ -691,14 +650,10 @@ global $tag_CefGeoPosition = ( _
 )
 
 func CefGeoPosition_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefGeoPosition, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefGeoPosition)
+	local $struct = CefStruct_Create($tag_CefGeoPosition, 'CefGeoPosition', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefGeoPosition')
-
-	_AutoItObject_AddMethod($struct, 'timestamp', '__CefGeoPosition_t')
-	_AutoItObject_AddMethod($struct, 'error_message', '__CefCursorInfo_em')
+	CefStruct_AddMethod($struct, 'timestamp', '__CefGeoPosition_t')
+	CefStruct_AddMethod($struct, 'error_message', '__CefCursorInfo_em')
 
 	return $struct
 endfunc
@@ -726,14 +681,10 @@ global $tag_CefCursorInfo = ( _
 )
 
 func CefCursorInfo_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefCursorInfo, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefCursorInfo)
+	local $struct = CefStruct_Create($tag_CefCursorInfo, 'CefCursorInfo', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefCursorInfo')
-
-	_AutoItObject_AddMethod($struct, 'hotspot', '__CefCursorInfo_h')
-	_AutoItObject_AddMethod($struct, 'size', '__CefCursorInfo_s')
+	CefStruct_AddMethod($struct, 'hotspot', '__CefCursorInfo_h')
+	CefStruct_AddMethod($struct, 'size', '__CefCursorInfo_s')
 
 	return $struct
 endfunc
@@ -771,14 +722,10 @@ global $tag_CefPDFPrintSettings = ( _
 )
 
 func CefPDFPrintSettings_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefPDFPrintSettings, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefPDFPrintSettings)
+	local $struct = CefStruct_Create($tag_CefPDFPrintSettings, 'CefPDFPrintSettings', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefPDFPrintSettings')
-
-	_AutoItObject_AddMethod($struct, 'header_footer_title', '__CefPDFPrintSettings_hft')
-	_AutoItObject_AddMethod($struct, 'header_footer_title', '__CefPDFPrintSettings_hfu')
+	CefStruct_AddMethod($struct, 'header_footer_title', '__CefPDFPrintSettings_hft')
+	CefStruct_AddMethod($struct, 'header_footer_title', '__CefPDFPrintSettings_hfu')
 
 	return $struct
 endfunc
@@ -811,13 +758,9 @@ global $tag_CefBoxLayoutSettings = ( _
 )
 
 func CefBoxLayoutSettings_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefBoxLayoutSettings, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefBoxLayoutSettings)
+	local $struct = CefStruct_Create($tag_CefBoxLayoutSettings, 'CefBoxLayoutSettings', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefBoxLayoutSettings')
-
-	_AutoItObject_AddMethod($struct, 'inside_border_insets', '__CefBoxLayoutSettings_ibi')
+	CefStruct_AddMethod($struct, 'inside_border_insets', '__CefBoxLayoutSettings_ibi')
 
 	return $struct
 endfunc
@@ -839,13 +782,9 @@ global $tag_CefCompositionUnderline = ( _
 )
 
 func CefCompositionUnderline_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefCompositionUnderline, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefCompositionUnderline)
+	local $struct = CefStruct_Create($tag_CefCompositionUnderline, 'CefCompositionUnderline', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefCompositionUnderline')
-
-	_AutoItObject_AddMethod($struct, 'range', '__CefCompositionUnderline_r')
+	CefStruct_AddMethod($struct, 'range', '__CefCompositionUnderline_r')
 
 	return $struct
 endfunc

@@ -3,41 +3,34 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefLoadHandler
 ; ==================================================
 
 global $tag_CefLoadHandler = ( _
-    $tag_CefBase & _
-    'ptr __OLSC;' & _ ; on_loading_state_change
-    'ptr __OLS;' & _ ; on_load_start
-    'ptr __OLEn;' & _ ; on_load_end
-    'ptr __OLEr;' _ ; on_load_error
+    $tag_CefBase & 'ptr;ptr;ptr;' & _
+    'char __OLSC[100];' & _ ; on_loading_state_change
+    'char __OLS[100];' 	& _ ; on_load_start
+    'char __OLEn[100];' & _ ; on_load_end
+    'char __OLEr[100];' _ 	; on_load_error
 )
 
-global $__params_OnLoadingStateChange = 'ptr;ptr;int;int;int', _
-	$__return_OnLoadingStateChange = 'none'
+global $__CefLoadHandler__OLSC 	= Cef_CallbackRegister(__CefLoadHandler__OLSC, 	'none', 'ptr;ptr;int;int;int')
+global $__CefLoadHandler__OLS 	= Cef_CallbackRegister(__CefLoadHandler__OLS, 	'none', 'ptr;ptr;ptr;int')
+global $__CefLoadHandler__OLEn 	= Cef_CallbackRegister(__CefLoadHandler__OLEn, 	'none', 'ptr;ptr;ptr;int')
+global $__CefLoadHandler__OLEr 	= Cef_CallbackRegister(__CefLoadHandler__OLEr, 	'none', 'ptr;ptr;ptr;int;ptr;ptr')
 
-global $__params_OnLoadStart = 'ptr;ptr;ptr;int', _
-	$__return_OnLoadStart = 'none'
-
-global $__params_OnLoadEnd = 'ptr;ptr;ptr;int', _
-	$__return_OnLoadEnd = 'none'
-
-global $__params_OnLoadError = 'ptr;ptr;ptr;int;ptr;ptr', _
-	$__return_OnLoadError = 'none'
+; ==================================================
 
 func CefLoadHandler_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefLoadHandler, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefLoadHandler)
+	local $struct = CefStruct_Create($tag_CefLoadHandler, 'CefLoadHandler', $ptr)
 	$struct.size = $struct.__size__;
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefLoadHandler')
-
-	_AutoItObject_AddMethod($struct, 'OnLoadingStateChange', '__CefLoadHandler_OLSCd')
-	_AutoItObject_AddMethod($struct, 'OnLoadStart', '__CefLoadHandler_OLSd')
-	_AutoItObject_AddMethod($struct, 'OnLoadEnd', '__CefLoadHandler_OLEnd')
-	_AutoItObject_AddMethod($struct, 'OnLoadError', '__CefLoadHandler_OLErd')
+	CefStruct_AddMethod($struct, 'OnLoadingStateChange', 	'__CefLoadHandler_OLSC')
+	CefStruct_AddMethod($struct, 'OnLoadStart', 			'__CefLoadHandler_OLS')
+	CefStruct_AddMethod($struct, 'OnLoadEnd', 				'__CefLoadHandler_OLEn')
+	CefStruct_AddMethod($struct, 'OnLoadError', 			'__CefLoadHandler_OLEr')
 
 	return $struct
 endfunc
@@ -45,31 +38,63 @@ endfunc
 func __CefLoadHandler_OLSC($self, $func = null)
 	if @NumParams == 1 then return $self.__OLSC
 
-	local $cb = dllcallbackregister($func, $__return_OnLoadingStateChange, $__params_OnLoadingStateChange)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadingStateChange', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OLSC = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadingStateChange', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLSC)
 endfunc
 
 func __CefLoadHandler_OLS($self,  $func = null)
 	if @NumParams == 1 then return $self.__OLS
 
-	local $cb = dllcallbackregister($func, $__return_OnLoadStart, $__params_OnLoadStart)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadStart', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OLS = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadStart', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLS)
 endfunc
 
 func __CefLoadHandler_OLEn($self,  $func = null)
 	if @NumParams == 1 then return $self.__OLEn
 
-	local $cb = dllcallbackregister($func, $__return_OnLoadEnd, $__params_OnLoadEnd)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadEnd', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OLEn = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadEnd', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLEn)
 endfunc
 
 func __CefLoadHandler_OLEr($self,  $func = null)
 	if @NumParams == 1 then return $self.__OLEr
 
-	local $cb = dllcallbackregister($func, $__return_OnLoadError, $__params_OnLoadError)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadError', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OLEr = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadError', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLEr)
+endfunc
+
+; ==================================================
+
+func __CefLoadHandler__OLSC($self, $browser, $isLoading, $canGoBack, $canGoForward)
+	$self 		= CefLoadHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+
+	call($self.__OLSC, $self, $browser, $isLoading, $canGoBack, $canGoForward)
+endfunc
+
+func __CefLoadHandler__OLS($self, $browser, $frame, $transition_type)
+	$self 		= CefLoadHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+	$frame 		= CefFrame_Create($frame)
+
+	call($self.__OLS, $self, $browser, $frame, $transition_type)
+endfunc
+
+func __CefLoadHandler__OLEn($self, $browser, $frame, $httpStatusCode)
+	$self 		= CefLoadHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+	$frame 		= CefFrame_Create($frame)
+
+	call($self.__OLEn, $self, $browser, $frame, $httpStatusCode)
+endfunc
+
+func __CefLoadHandler__OLEr($self, $browser, $frame, $errorCode, $errorText, $failedUrl)
+	$self 		= CefLoadHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+	$frame 		= CefFrame_Create($frame)
+
+	$errorText 	= CefString_Read($errorText)
+	$failedUrl 	= CefString_Read($failedUrl)
+
+	call($self.__OLEr, $self, $browser, $frame, $errorCode, $errorText, $failedUrl)
 endfunc

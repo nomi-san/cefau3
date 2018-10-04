@@ -3,37 +3,172 @@
 	author: wuuyi123
 #ce
 
-global $tag_CefV8Handler = ( _
-	$tag_CefBase & _
-	'ptr Execute;' _
+#include-once
+
+; CefV8Context
+; ==================================================
+
+global $tag_CefV8Context = ( _
+    $tag_CefBase 	& _
+    'ptr[9];' 		_
 )
 
-global $__params_Execute = 'ptr;ptr;ptr;uint;ptr;ptr;ptr', _
-	$__return_Execute = 'int'
+func CefV8Context_Create($ptr = null)
+    local $struct = CefStruct_Create($tag_CefV8Context, 'CefV8Context', $ptr)
+    $struct.size = $struct.__size__
 
-func CefV8Handler_Create()
-	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Handler_Create')
+    CefStruct_AddMethod($struct, 'GetTaskRunner',   '__CefV8Context_GetTaskRunner')
+    CefStruct_AddMethod($struct, 'IsValid',         '__CefV8Context_IsValid')
+    CefStruct_AddMethod($struct, 'GetBrowser',      '__CefV8Context_GetBrowser')
+    CefStruct_AddMethod($struct, 'GetFrame',        '__CefV8Context_GetFrame')
+    CefStruct_AddMethod($struct, 'GetGlobal',       '__CefV8Context_GetGlobal')
+    CefStruct_AddMethod($struct, 'Enter',           '__CefV8Context_Enter')
+    CefStruct_AddMethod($struct, 'Exit',            '__CefV8Context_Exit')
+    CefStruct_AddMethod($struct, 'IsSame',          '__CefV8Context_IsSame')
+    CefStruct_AddMethod($struct, 'Eval',            '__CefV8Context_Eval')
+
+    ; static functions
+    CefStruct_AddMethod($struct, 'GetCurrentContext',	'__CefV8Context_GetCurrentContext')
+    CefStruct_AddMethod($struct, 'GetEnteredContext',	'__CefV8context_GetEnteredContext')
+    CefStruct_AddMethod($struct, 'InContext',			'__CefV8context_InContext')
+
+    return $struct
+endfunc
+
+func __CefV8Context_GetTaskRunner($self)
+    local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetTaskRunner', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_IsValid($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Context_IsValid', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_GetBrowser($self)
+    local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetBrowser', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_GetFrame($self)
+    local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetFrame', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_GetGlobal($self)
+    local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetGlobal', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_Enter($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Context_Enter', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_Exit($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Context_Exit', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_IsSame($self, $that)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Context_IsSame', 'ptr', $self.__pointer__, 'ptr', $that)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8Context_Eval($self, $code, $script_url, $start_line, $retval, $exception)
+    local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_Eval', _
+        'ptr', $self.__pointer__, _
+        'wstr', $code, _
+        'wstr', $script_url, _
+        'int', $start_line, _
+        'ptr', $retval, _
+        'ptr', $exception _
+    )
+    return @error ? 0 : $ret[0]
+endfunc
+
+; static functions ------------------------------
+
+func __CefV8Context_GetCurrentContext($self)
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetCurrentContext')
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Handler_Execute($self, $func = null)
-	local $ptr = null
-	if ($func) then
-		local $cb = dllcallbackregister($func, $__return_Execute, $__params_Execute)
-		if not @error then $ptr = dllcallbackgetptr($cb)
-	endif
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_Execute', 'ptr', $self, 'ptr', $ptr)
-endfunc
-
-func CefRegisterExtension($extension_name, $javascript_code, $v8handler)
-	if (not $extension_name) then $extension_name = 'v8/app' ; default
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefRegisterExtension', _
-		'wstr', $extension_name, _
-		'wstr', $javascript_code, _
-		'ptr', $v8handler _
-	)
+func __CefV8context_GetEnteredContext($self)
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8context_GetEnteredContext')
 	return @error ? 0 : $ret[0]
 endfunc
+
+func __CefV8context_InContext($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8context_InContext')
+	return @error ? 0 : $ret[0]
+endfunc
+
+; ----------
+
+func CefV8Context_GetCurrentContext()
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetCurrentContext')
+	return @error ? 0 : $ret[0]
+endfunc
+
+func CefV8context_GetEnteredContext()
+	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8context_GetEnteredContext')
+	return @error ? 0 : $ret[0]
+endfunc
+
+func CefV8context_InContext()
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8context_InContext', 'ptr')
+	return @error ? 0 : $ret[0]
+endfunc
+
+; CefV8Handler
+; ==================================================
+
+global $tag_CefV8Handler = ( _
+	$tag_CefBase & 'ptr;' & _
+	'char __E[100];' _
+)
+
+global $__CefV8Handler__E = Cef_CallbackRegister(__CefV8Handler__E, 'int', 'ptr;ptr;ptr;uint;ptr;ptr;ptr')
+
+; ==================================================
+
+func CefV8Handler_Create($ptr = null)
+	local $struct = CefStruct_Create($tag_CefV8Handler, 'CefV8Handler', $ptr)
+	$struct.size = $struct.__size__
+
+	CefStruct_AddMethod($struct, 'Execute', '__CefV8Handler_E')
+
+	return $struct
+endfunc
+
+func __CefV8Handler_E($self, $func = null)
+	if @numparams == 1 then return $self.__E
+
+	$self.__E = $func
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_Execute', 'ptr', $self.__pointer__, 'ptr', $__CefV8Handler__E)
+endfunc
+
+; ==================================================
+
+func __CefV8Handler__E($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
+	$self = CefV8Handler_Create($self)
+	$name = CefString_Read($name)
+	;$object = CefV8Value_Create($object)
+
+	;$arguments
+	;$retval
+	;$exception
+
+	return call($self.__E, $self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
+endfunc
+
+
+
+;/////////////////////////////////
+; ==================================================
+
+
 
 ; //////////////////////////////////////
 
@@ -189,4 +324,101 @@ endfunc
 func CefV8ValueArg_Get($V8Value_Struct, $index)
 	local $ret = dllstructgetdata($V8Value_Struct, 1, $index) ; count from 1, not like array
 	return @error ? null : $ret
+endfunc
+
+
+
+
+
+
+
+
+
+; CefV8StackFrame
+; ==================================================
+
+global $tag_CefV8StackFrame = ( _
+	$tag_CefBase & _
+	'ptr[8];'	 _
+)
+
+func CefV8StackFrame_Create($ptr = null)
+    local $struct = CefStruct_Create($tag_CefV8StackFrame, 'CefV8StackFrame', $ptr)
+    $struct.size = $struct.__size__
+
+    CefStruct_AddMethod($struct, 'IsValid',   		'__CefV8StackFrame_IsValid')
+    CefStruct_AddMethod($struct, 'GetScriptName',   '__CefV8StackFrame_GetScriptName')
+    CefStruct_AddMethod($struct, 'GetScriptNameOrSourceUrl',   '__CefV8StackFrame_GetScriptNameOrSourceUrl')
+    CefStruct_AddMethod($struct, 'GetFunctionName', '__CefV8StackFrame_GetFunctionName')
+    CefStruct_AddMethod($struct, 'GetLineNumber',   '__CefV8StackFrame_GetLineNumber')
+    CefStruct_AddMethod($struct, 'GetColumn',   	'__CefV8StackFrame_GetColumn')
+    CefStruct_AddMethod($struct, 'IsEval',   		'__CefV8StackFrame_IsEval')
+    CefStruct_AddMethod($struct, 'IsConstructor',   '__CefV8StackFrame_IsConstructor')
+
+    return $struct
+endfunc
+
+func __CefV8StackFrame_IsValid($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8StackFrame_IsValid', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_GetScriptName($self)
+    local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8StackFrame_GetScriptName', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_GetScriptNameOrSourceUrl($self)
+    local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8StackFrame_GetScriptNameOrSourceUrl', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_GetFunctionName($self)
+    local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8StackFrame_GetFunctionName', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_GetLineNumber($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8StackFrame_GetLineNumber', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_GetColumn($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8StackFrame_GetColumn', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_IsEval($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8StackFrame_IsEval', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+func __CefV8StackFrame_IsConstructor($self)
+    local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8StackFrame_IsConstructor', 'ptr', $self.__pointer__)
+    return @error ? 0 : $ret[0]
+endfunc
+
+; static functions
+; ==================================================
+
+func __Cef_RegisterExtension($self, $extension_name = null, $javascript_code = null, $v8handler = null)
+	if @numparams == 1 then return
+
+	if (not $extension_name) then $extension_name = 'v8/app' ; default
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefRegisterExtension', _
+		'wstr', $extension_name, _
+		'wstr', $javascript_code, _
+		'ptr', $v8handler _
+	)
+	return @error ? 0 : $ret[0]
+endfunc
+
+func Cef_RegisterExtension($extension_name, $javascript_code, $v8handler)
+	if (not $extension_name) then $extension_name = 'v8/app' ; default
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefRegisterExtension', _
+		'wstr', $extension_name, _
+		'wstr', $javascript_code, _
+		'ptr', $v8handler _
+	)
+	return @error ? 0 : $ret[0]
 endfunc

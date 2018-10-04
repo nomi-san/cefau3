@@ -3,31 +3,29 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 ; CefKeyboardHandler
 ; ==================================================
 
 global $tag_CefKeyboardHandler = ( _
-	$tag_CefBase & _
-	'ptr __OPKE;' & _
-	'ptr __OKE;' _
+	$tag_CefBase 		& _
+	'ptr[2];'			& _
+	'char __OPKE[100];' & _
+	'char __OKE[100];' 	_
 )
 
-global $__params_CefKeybordHandler_OnPreKeyEvent = 'ptr;ptr;ptr;ptr;ptr', _
-	$__return_CefKeybordHandler_OnPreKeyEvent = 'int'
+global $__CefKeyboardHandler__OPKE 	= Cef_CallbackRegister(__CefKeyboardHandler__OPKE, 	'int', 'ptr;ptr;ptr;ptr;ptr')
+global $__CefKeyboardHandler__OKE 	= Cef_CallbackRegister(__CefKeyboardHandler__OKE, 	'int', 'ptr;ptr;ptr;ptr')
 
-global $__params_CefKeybordHandler_OnKeyEvent = 'ptr;ptr;ptr;ptr', _
-	$__return_CefKeybordHandler_OnKeyEvent = 'int'
+; ==================================================
 
 Func CefKeyboardHandler_Create($ptr = null)
-	local $struct = $ptr ? _AutoItObject_DllStructCreate($tag_CefKeyboardHandler, $ptr) _
-		: _AutoItObject_DllStructCreate($tag_CefKeyboardHandler)
+	local $struct = CefStruct_Create($tag_CefKeyboardHandler, 'CefKeyboardHandler', $ptr)
 	$struct.size = $struct.__size__
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefKeyboardHandler')
-
-	_AutoItObject_AddMethod($struct, 'OnPreKeyEvent', '__CefKeyboardHandler_OPKE')
-	_AutoItObject_AddMethod($struct, 'OnKeyEvent', '__CefKeyboardHandler_OKE')
+	CefStruct_AddMethod($struct, 'OnPreKeyEvent', 	'__CefKeyboardHandler_OPKE')
+	CefStruct_AddMethod($struct, 'OnKeyEvent', 		'__CefKeyboardHandler_OKE')
 
 	return $struct
 EndFunc
@@ -35,15 +33,34 @@ EndFunc
 func __CefKeyboardHandler_OPKE($self, $func)
 	if @NumParams == 1 then return $self.__OPKE
 
-	local $cb = dllcallbackregister($func, $__return_CefKeybordHandler_OnPreKeyEvent, $__params_CefKeybordHandler_OnPreKeyEvent)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefKeyboardHandler_OnPreKeyEvent', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OPKE = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefKeyboardHandler_OnPreKeyEvent', 'ptr', $self.__pointer__, 'ptr', $__CefKeyboardHandler__OPKE)
 endfunc
 
 func __CefKeyboardHandler_OKE($self, $func)
 	if @NumParams == 1 then return $self.__OKE
 
-	local $cb = dllcallbackregister($func, $__return_CefKeybordHandler_OnKeyEvent, $__params_CefKeybordHandler_OnKeyEvent)
-	if @error then return
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefKeyboardHandler_OnKeyEvent', 'ptr', $self.__pointer__, 'ptr', dllcallbackgetptr($cb))
+	$self.__OKE = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefKeyboardHandler_OnKeyEvent', 'ptr', $self.__pointer__, 'ptr', $__CefKeyboardHandler__OKE)
+endfunc
+
+; ==================================================
+
+func __CefKeyboardHandler__OPKE($self, $browser, $event, $os_event, $is_keyboard_shortcut)
+	$self 		= CefKeyboardHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+	;$event 	=
+	;$os_event 	=
+	;$is_keyboard_shortcut =
+
+	return call($self.__OPKE, $self, $browser, $event, $os_event, $is_keyboard_shortcut)
+endfunc
+
+func __CefKeyboardHandler__OKE($self, $browser, $event, $os_event)
+	$self 		= CefKeyboardHandler_Create($self)
+	$browser 	= CefBrowser_Create($browser)
+	;$event 	=
+	;$os_event 	=
+
+	return call($self.__OKE, $self, $browser, $event, $os_event)
 endfunc
