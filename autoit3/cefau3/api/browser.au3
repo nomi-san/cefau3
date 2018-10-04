@@ -14,15 +14,8 @@ global $tag_CefBrowser = ( _
 )
 
 func CefBrowser_Create($ptr = null)
-	local $self = CefObject_Create()
-	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowser_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
+	local $self = CefObject_Create('CefBrowser', $ptr)
 
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
-	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefBrowser')
 	CefObject_AddMethod($self, 'GetHost',             '__CefBrowser_GetHost')
 	CefObject_AddMethod($self, 'CanGoBack',           '__CefBrowser_CanGoBack')
 	CefObject_AddMethod($self, 'GoBack',              '__CefBrowser_GoBack')
@@ -157,15 +150,7 @@ global $tag_CefBrowserHost = ( _
 )
 
 func CefBrowserHost_Create($ptr = null)
-	local $self = CefObject_Create()
-	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowserHost_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
-
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
-	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefBrowserHost')
+	local $self = CefObject_Create('CefBrowserHost', $ptr)
 
 	CefObject_AddMethod($self, 'GetBrowser', '__CefBrowserHost_GetBrowser')
 	CefObject_AddMethod($self, 'CloseBrowser', '__CefBrowserHost_CloseBrowser')

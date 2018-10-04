@@ -296,9 +296,23 @@ endfunc
 ; CefObject
 ; ==================================================
 
-func CefObject_Create($parent = null)
+func CefObject_Clone($parent = null)
 	local $object = $parent ? _AutoItObject_Create($parent) _
 		: _AutoItObject_Create()
+
+	return $object
+endfunc
+
+func CefObject_Create($type_name, $ptr = null)
+	local $object = _AutoItObject_Create()
+	
+	if ($ptr == null) then
+		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', $type_name & '_Create')
+		$ptr = @error ? 0: $ret[0]
+	endif
+
+	_AutoItObject_AddProperty($object, '__ptr', $ELSCOPE_READONLY, $ptr)
+	_AutoItObject_AddProperty($object, '__type', $ELSCOPE_READONLY, $type_name)
 
 	return $object
 endfunc

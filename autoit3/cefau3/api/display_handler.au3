@@ -19,15 +19,8 @@ global $__CefDisplayHandler__OCM	= Cef_CallbackRegister(__CefDisplayHandler__OCM
 ; ==================================================
 
 func CefDisplayHandler_Create($ptr = null)
-	local $self = CefObject_Create()
+	local $self = CefObject_Create('CefDisplayHandler', $ptr)
 	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefDisplayHandler_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
-
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
-	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefDisplayHandler')
 	CefObject_AddMethod($self, 'OnAddressChange', 			'__CefDisplayHandler_OAC')
 	CefObject_AddMethod($self, 'OnTitleChange', 			'__CefDisplayHandler_OTC')
 	CefObject_AddMethod($self, 'OnFaviconUrlChange', 		'__CefDisplayHandler_OFUC')

@@ -11,15 +11,8 @@
 global $tag_CefString = 'ptr str;uint len;ptr dior;'
 
 func CefString_Create($ptr = null)
-	local $self = CefObject_Create()
-	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefString_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
+	local $self = CefObject_Create('CefString', $ptr)
 
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
-	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefString')
 	CefObject_AddMethod($self, 'val', '__CefString_val')
 	CefObject_AddMethod($self, 'len', '__CefString_len')
 	CefObject_AddMethod($self, 'clear', '__CefString_clear')

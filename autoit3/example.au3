@@ -23,7 +23,7 @@ global $cef_app = $cef.new('App'), _
 if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 ; if $cef_settings.single_process = 1 (true, in line 36),
-; do not insert anothers code above (e.g: MsgBox, GUICreate, user interface, etc)
+; do not insert another codes above (e.g: MsgBox, GUICreate, user interface, etc)
 ; -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
 
 Cef_Print('CEF: ' & $cef.Version  & '\n' & _

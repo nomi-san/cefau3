@@ -16,14 +16,8 @@ global $__CefLifeSpanHandler__OBC 	= Cef_CallbackRegister(__CefLifeSpanHandler__
 ; ==================================================
 
 func CefLifeSpanHandler_Create($ptr = null)
-	local $self = CefObject_Create()
-	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefLifeSpanHandler_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
+	local $self = CefObject_Create('CefLifeSpanHandler', $ptr)
 
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
 	CefObject_AddMethod($self, 'OnBeforePopup', 	'__CefLifeSpanHandler_OBP')
 	CefObject_AddMethod($self, 'OnAfterCreated',	'__CefLifeSpanHandler_OAC')
 	CefObject_AddMethod($self, 'DoClose', 			'__CefLifeSpanHandler_DC')

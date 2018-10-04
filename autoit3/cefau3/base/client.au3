@@ -29,15 +29,7 @@ global const $__CefClient__OPMR 	= Cef_CallbackRegister(__CefClient__OPMR, 	'int
 ; ==================================================
 
 func CefClient_Create($ptr = null)
-	local $self = CefObject_Create()
-	
-	if ($ptr == null) then
-		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefClient_Create')
-		$ptr = @error ? 0: $ret[0]
-	endif
-
-	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
-	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefClient')
+	local $self = CefObject_Create('CefClient', $ptr)
 
 	CefObject_AddMethod($self, 'GetContextMenuHandler', 	'__CefClient_GCMH')
 	CefObject_AddMethod($self, 'GetDialogHandler', 			'__CefClient_GDiaH')

@@ -27,51 +27,50 @@ global $__CefApp__GRPH	= Cef_CallbackRegister(__CefApp__GRPH, 	'ptr', 	'ptr')
 ; ==================================================
 
 func CefApp_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefApp, 'CefApp', $ptr)
-	$struct.size = $struct.__size__
+	local $self = CefObject_Create('CefApp', $ptr)
 
-	CefStruct_AddMethod($struct, 'OnBeforeCommandLineProcessing', 	'__CefApp_OBCLP')
-	CefStruct_AddMethod($struct, 'OnRegisterCustomSchemes', 		'__CefApp_ORCS')
-	CefStruct_AddMethod($struct, 'GetResourceBundleHandler', 		'__CefApp_GRBH')
-	CefStruct_AddMethod($struct, 'GetBrowserProcessHandler', 		'__CefApp_GBPH')
-	CefStruct_AddMethod($struct, 'GetRenderProcessHandler', 		'__CefApp_GRPH')
+	CefObject_AddMethod($self, 'OnBeforeCommandLineProcessing', '__CefApp_OBCLP')
+	CefObject_AddMethod($self, 'OnRegisterCustomSchemes', 		'__CefApp_ORCS')
+	CefObject_AddMethod($self, 'GetResourceBundleHandler', 		'__CefApp_GRBH')
+	CefObject_AddMethod($self, 'GetBrowserProcessHandler', 		'__CefApp_GBPH')
+	CefObject_AddMethod($self, 'GetRenderProcessHandler', 		'__CefApp_GRPH')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefApp_OBCLP($self, $func = null)
 	if @numparams == 1 then return $self.__OBCLP
 
 	$self.__OBCLP = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnBeforeCommandLineProcessing', 'ptr', $self.__pointer__, 'ptr', $__CefApp__OBCLP)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnBeforeCommandLineProcessing', 'ptr', $self.__ptr, 'ptr', $__CefApp__OBCLP)
 endfunc
 
 func __CefApp_ORCS($self, $func = null)
 	if @numparams == 1 then return $self.__ORCS
 
 	$self.__ORCS = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnRegisterCustomSchemes', 'ptr', $self.__pointer__, 'ptr', $__CefApp__ORCS)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnRegisterCustomSchemes', 'ptr', $self.__ptr, 'ptr', $__CefApp__ORCS)
 endfunc
 
 func __CefApp_GRBH($self, $func = null)
 	if @numparams == 1 then return $self.__GRBH
 
 	$self.__GRBH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetResourceBundleHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GRBH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetResourceBundleHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GRBH)
 endfunc
 
 func __CefApp_GBPH($self, $func = null)
 	if @numparams == 1 then return $self.__GBPH
 
 	$self.__GBPH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetBrowserProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GBPH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetBrowserProcessHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GBPH)
 endfunc
 
 func __CefApp_GRPH($self, $func = null)
 	if @numparams == 1 then return $self.__GRPH
 
 	$self.__GRPH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetRenderProcessHandler', 'ptr', $self.__pointer__, 'ptr', $__CefApp__GRPH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetRenderProcessHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GRPH)
 endfunc
 
 ; ==================================================
