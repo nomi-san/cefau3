@@ -13,6 +13,13 @@ CEFAU3API cef_get_geolocation_callback_t *  CefGetGeolocationCallback_Create()
 	return p;
 }
 
+CEFAU3API void CefGeolocationCallback_OnLocationUpdate(cef_get_geolocation_callback_t *self, void *p)
+{
+	self->on_location_update = p;
+}
+
+// static
+
 CEFAU3API int CefGetGeolocation(cef_get_geolocation_callback_t* callback)
 {
 	return cef_get_geolocation(callback);

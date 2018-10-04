@@ -5,28 +5,74 @@
 /* CefLifeSpanHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_life_span_handler_t * CefLifeSpanHandler_Create()
-{
-	size_t sz = sizeof(cef_life_span_handler_t);
-	cef_life_span_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefLifeSpanHandler {
+	cef_life_span_handler_t self;
+	const char *OBP;
+	const char *OAC;
+	const char *DC;
+	const char *OBC;
+} CefLifeSpanHandler;
 
-	return p;
+CefCreation(CefLifeSpanHandler);
+
+CEFAU3API void CefLifeSpanHandler_OnBeforePopup(CefLifeSpanHandler *self, void *ptr)
+{
+	self->self.on_before_popup = ptr;
 }
 
-CEFAU3API void CefLifeSpanHandler_OnBeforePopup(cef_life_span_handler_t *self, void *ptr)
+CEFAU3API void CefLifeSpanHandler_OnAfterCreated(CefLifeSpanHandler *self, void *ptr)
 {
-	self->on_before_popup = ptr;
+	self->self.on_after_created = ptr;
 }
-CEFAU3API void CefLifeSpanHandler_OnAfterCreated(cef_life_span_handler_t *self, void *ptr)
+
+CEFAU3API void CefLifeSpanHandler_DoClose(CefLifeSpanHandler *self, void *ptr)
 {
-	self->on_after_created = ptr;
+	self->self.do_close = ptr;
 }
-CEFAU3API void CefLifeSpanHandler_DoClose(cef_life_span_handler_t *self, void *ptr)
+
+CEFAU3API void CefLifeSpanHandler_OnBeforeClose(CefLifeSpanHandler *self, void *ptr)
 {
-	self->do_close = ptr;
+	self->self.on_before_close = ptr;
 }
-CEFAU3API void CefLifeSpanHandler_OnBeforeClose(cef_life_span_handler_t *self, void *ptr)
+
+//--------------------------------------------------
+
+CEFAU3API void CefLifeSpanHandler_Set_OBP(CefLifeSpanHandler *self, const char *fn)
 {
-	self->on_before_close = ptr;
+	self->OBP = _strdup(fn);
+}
+
+CEFAU3API const char *CefLifeSpanHandler_Get_OBP(CefLifeSpanHandler *self)
+{
+	return self->OBP;
+}
+
+CEFAU3API void CefLifeSpanHandler_Set_OAC(CefLifeSpanHandler *self, const char *fn)
+{
+	self->OAC = _strdup(fn);
+}
+
+CEFAU3API const char *CefLifeSpanHandler_Get_OAC(CefLifeSpanHandler *self)
+{
+	return self->OAC;
+}
+
+CEFAU3API void CefLifeSpanHandler_Set_DC(CefLifeSpanHandler *self, const char *fn)
+{
+	self->DC = _strdup(fn);
+}
+
+CEFAU3API const char *CefLifeSpanHandler_Get_DC(CefLifeSpanHandler *self)
+{
+	return self->DC;
+}
+
+CEFAU3API void CefLifeSpanHandler_Set_OBC(CefLifeSpanHandler *self, const char *fn)
+{
+	self->OBC = _strdup(fn);
+}
+
+CEFAU3API const char *CefLifeSpanHandler_Get_OBC(CefLifeSpanHandler *self)
+{
+	return self->OBC;
 }

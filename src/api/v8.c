@@ -16,40 +16,40 @@ CEFAU3API int CefV8Context_IsValid(struct _cef_v8context_t* self)
 	return self->is_valid(self);
 }
 
-CEFAU3API cef_browser_t* CefV8Context_get_browser(
+CEFAU3API cef_browser_t* CefV8Context_GetBrowser(
 	struct _cef_v8context_t* self)
 {
 	return self->get_browser(self);
 }
 
-CEFAU3API cef_frame_t* CefV8Context_get_frame(struct _cef_v8context_t* self)
+CEFAU3API cef_frame_t* CefV8Context_GetFrame(struct _cef_v8context_t* self)
 {
 	return self->get_frame(self);
 }
 
-CEFAU3API cef_v8value_t* CefV8Context_get_global(
+CEFAU3API cef_v8value_t* CefV8Context_GetGlobal(
 	struct _cef_v8context_t* self)
 {
 	return self->get_global(self);
 }
 
-CEFAU3API int CefV8Context_enter(struct _cef_v8context_t* self)
+CEFAU3API int CefV8Context_Enter(struct _cef_v8context_t* self)
 {
 	return self->enter(self);
 }
 
-CEFAU3API int CefV8Context_exit(struct _cef_v8context_t* self)
+CEFAU3API int CefV8Context_Exit(struct _cef_v8context_t* self)
 {
 	return self->exit(self);
 }
 
-CEFAU3API int CefV8Context_is_same(struct _cef_v8context_t* self,
+CEFAU3API int CefV8Context_IsSame(struct _cef_v8context_t* self,
 	struct _cef_v8context_t* that)
 {
 	return self->is_same(self, that);
 }
 
-CEFAU3API int CefV8Context_eval(struct _cef_v8context_t* self,
+CEFAU3API int CefV8Context_Eval(struct _cef_v8context_t* self,
 	const wchar_t* code,
 	const wchar_t* script_url,
 	int start_line,
@@ -68,17 +68,17 @@ CEFAU3API int CefV8Context_eval(struct _cef_v8context_t* self,
 
 ////////////////////////////////////////////////////////////////////////
 
-CEFAU3API cef_v8context_t* CefV8ContextGetCurrentContext()
+CEFAU3API cef_v8context_t* CefV8Context_GetCurrentContext()
 {
 	return cef_v8context_get_current_context();
 }
 
-CEFAU3API cef_v8context_t* CefV8contextGetEnteredContext()
+CEFAU3API cef_v8context_t* CefV8context_GetEnteredContext()
 {
 	return cef_v8context_get_entered_context();
 }
 
-CEFAU3API int CefV8contextInContext()
+CEFAU3API int CefV8context_InContext()
 {
 	return cef_v8context_in_context();
 }
@@ -151,7 +151,7 @@ CEFAU3API int CefV8Interceptor_GetByName(struct _cef_v8interceptor_t* self,
 	);
 }
 
-CEFAU3API int CefV8Interceptor_GetByindex(struct _cef_v8interceptor_t* self,
+CEFAU3API int CefV8Interceptor_GetByIndex(struct _cef_v8interceptor_t* self,
 	int index,
 	struct _cef_v8value_t* object,
 	struct _cef_v8value_t** retval,
@@ -166,7 +166,7 @@ CEFAU3API int CefV8Interceptor_GetByindex(struct _cef_v8interceptor_t* self,
 	);
 }
 
-CEFAU3API int CefV8Interceptor_SetByname(struct _cef_v8interceptor_t* self,
+CEFAU3API int CefV8Interceptor_SetByName(struct _cef_v8interceptor_t* self,
 	const wchar_t* name,
 	struct _cef_v8value_t* object,
 	struct _cef_v8value_t* value,
@@ -666,15 +666,10 @@ CEFAU3API int CefRegisterExtension(
 	const wchar_t* javascript_code,
 	cef_v8handler_t* handler)
 {
-	cef_string_t s1 = { 0 };
-	cef_string_t s2 = { 0 };
-
-	cef_string_from_wide(extension_name, wcslen(extension_name), &s1);
-	cef_string_from_wide(javascript_code, wcslen(javascript_code), &s2);
-
 	return cef_register_extension(
-		&s1,
-		&s2,
+		cefstring_pwcs(extension_name),
+		cefstring_pwcs(javascript_code),
 		handler
 	);
 }
+

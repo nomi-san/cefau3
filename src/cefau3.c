@@ -3,8 +3,8 @@
 #include "include/cef_version.h"
 
 #define QUITAPPMESSAGE 0x696969
-HWND __main_window_message = NULL;
-MSG __main_message = { 0 };
+static HWND __main_window_message = NULL;
+static MSG __main_message = { 0 };
 const wchar_t *__window_message_class = L"Cef.Message";
 
 typedef void(__stdcall * au3_func)();
@@ -14,8 +14,9 @@ typedef void(__stdcall * au3_func)();
 // |     |___|  _|___ _ _|_  |
 // |   --| -_|  _| .'| | |_  |
 // |_____|___|_| |__,|___|___|
-
-//  Chromium Embedded Framework for AutoIt 3
+//
+/*  Chromium Embedded Framework for AutoIt 3
+--------------------------------------------------*/
 
 CEFAU3API void Cef_Release(void *p)
 {
@@ -84,11 +85,31 @@ CEFAU3API HWND Cef_CreateWindowMessage()
 			0,
 			0,
 			0,
-			HWND_MESSAGE,
+			(HWND)-3,
 			0,
 			NULL,
 			0
 		);
 	}
 	return __main_window_message;
+}
+
+
+
+CEFAU3API void *CefMem_Alloc(size_t sz)
+{
+	return calloc(1, sz);
+}
+
+CEFAU3API void CefMem_Free(void *p)
+{
+	if (p) {
+		free(p);
+		p = (void*)0;
+	}
+}
+
+CEFAU3API void *CefMem_ReAlloc(void *p, size_t sz)
+{
+	return realloc(p, sz);
 }

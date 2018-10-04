@@ -20,6 +20,26 @@ cef_string_t cefstring_wcs(const wchar_t *);
 	cef_string_userfree_free(_s_); \
 	return _wcs_;
 
+#define CefCreation(t)					\
+	CEFAU3API t * t ## _Create ()		\
+	{									\
+		t *p = calloc(1, sizeof(t));	\
+		p->self.base.size = sizeof(t);	\
+		return p;						\
+	}									\
+
+#define func(n, t, ...) \
+	t (__cdecl* n) \
+		(__VA_ARGS__);
+
+#define func_std(n, t, ...) \
+	t (__stdcall* n) \
+		(__VA_ARGS__);
+
+#include "au3obj_wrap.h"
+
+#define alloc(sz) calloc(1, sz)
+
 #if defined(_MSC_VER) | defined(__GNUC__)
 #define CEFAU3API __declspec(dllexport)
 #else

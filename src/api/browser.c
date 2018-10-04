@@ -5,7 +5,7 @@
 /* CefBrowser
 --------------------------------------------------*/
 
-CEFAU3API struct _cef_browser_host_t*  CefBrowser_GetHost(
+CEFAU3API cef_browser_host_t*  CefBrowser_GetHost(
 	struct _cef_browser_t* self)
 {
 	return self->get_host(self);

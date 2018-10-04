@@ -5,23 +5,50 @@
 /* CefAccessibilityHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_accessibility_handler_t * CefAccessibilityHandler_Create()
-{
-	size_t sz = sizeof(cef_accessibility_handler_t);
-	cef_accessibility_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefAccessibility {
+	cef_accessibility_handler_t self;
+	const char *OATC;
+	const char *OALC;
+} CefAccessibility;
 
-	return p;
+CefCreation(CefAccessibility);
+
+//--------------------------------------------------
+
+CEFAU3API void CefAccessibilityHandler_pOATC(
+	CefAccessibility *self, void *p)
+{
+	self->self.on_accessibility_tree_change = p;
 }
 
-CEFAU3API void CefAccessibilityHandler_OnAccessibilityTreeChange(
-	struct _cef_accessibility_handler_t* self, void *p)
+CEFAU3API void CefAccessibilityHandler_pOALC(
+	CefAccessibility *self, void *p)
 {
-	self->on_accessibility_tree_change = p;
+	self->self.on_accessibility_location_change = p;
 }
 
-CEFAU3API void CefAccessibilityHandler_OnAccessibilityLocationchange(
-	struct _cef_accessibility_handler_t* self, void *p)
+//--------------------------------------------------
+
+CEFAU3API void CefAccessibilityHandler_Set_OATC(
+	CefAccessibility *self, const char *fn)
 {
-	self->on_accessibility_location_change = p;
+	self->OATC = _strdup(fn);
+}
+
+CEFAU3API const char* CefAccessibilityHandler_Get_OATC(
+	CefAccessibility *self)
+{
+	return self->OATC;
+}
+
+CEFAU3API void CefAccessibilityHandler_Set_OALC(
+	CefAccessibility *self, const char *fn)
+{
+	self->OALC = _strdup(fn);
+}
+
+CEFAU3API const char* CefAccessibilityHandler_Get_OALC(
+	CefAccessibility *self)
+{
+	return self->OALC;
 }

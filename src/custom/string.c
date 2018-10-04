@@ -14,6 +14,12 @@ CEFAU3API cef_string_t * CefString_Create(wchar_t *wcs)
 	return p;
 }
 
+CEFAU3API void CefString_Set(cef_string_t *self, const wchar_t* wcs)
+{
+	self->str = (wchar_t*)wcs;
+	self->length = wcslen(wcs);
+}
+
 CEFAU3API void CefString_Free(cef_string_userfree_t s)
 {
 	if (s) {
