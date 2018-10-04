@@ -11,22 +11,41 @@
 global $tag_CefString = 'ptr str;uint len;ptr dior;'
 
 func CefString_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefString, 'CefString', $ptr)
+	local $self = CefObject_Create()
+	
+	if ($ptr == null) then
+		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefString_Create')
+		$ptr = @error ? 0: $ret[0]
+	endif
 
-	CefStruct_AddMethod($struct, 'val', '__CefString_val')
+	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
+	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefString')
+	CefObject_AddMethod($self, 'val', '__CefString_val')
+	CefObject_AddMethod($self, 'len', '__CefString_len')
+	CefObject_AddMethod($self, 'clear', '__CefString_clear')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefString_val($self, $val = null)
 	if @numparams == 1 then 
-		local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefString_Read', 'ptr', $self.__pointer__)
+		local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefString_Read', 'ptr', $self.__ptr)
 		return @error ? 0 : $ret[0]
 	endif
 
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Set', 'ptr', $self.__pointer__, 'wstr', $val)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Set', 'ptr', $self.__ptr, 'wstr', $val)
 endfunc
 
+func __CefString_len($self)
+	if @numparams <> 1 then return
+	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'CefString_Len', 'ptr', $self.__ptr)
+	return @error ? 0 : $ret[0]
+endfunc
+
+func __CefString_clear($self)
+	if @numparams <> 1 then return
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Clear', 'ptr', $self.__ptr)
+endfunc
 
 
 

@@ -37,6 +37,7 @@ func CefClient_Create($ptr = null)
 	endif
 
 	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
+	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefClient')
 
 	CefObject_AddMethod($self, 'GetContextMenuHandler', 	'__CefClient_GCMH')
 	CefObject_AddMethod($self, 'GetDialogHandler', 			'__CefClient_GDiaH')

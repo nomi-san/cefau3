@@ -11,14 +11,21 @@
 global $tag_CefStringList = 'ptr;'
 
 func CefStringList_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefStringList, 'CefStringList', $ptr)
+	local $self = CefObject_Create()
+	
+	if ($ptr == null) then
+		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefStringList_Create')
+		$ptr = @error ? 0: $ret[0]
+	endif
 
-	CefStruct_AddMethod($struct, 'Size', 	'__CefStringList_Size')
-	CefStruct_AddMethod($struct, 'Read', 	'__CefStringList_Read')
-	CefStruct_AddMethod($struct, 'Append', 	'__CefStringList_Append')
-	CefStruct_AddMethod($struct, 'Clear', 	'__CefStringList_Clear')
+	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
+	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefStringList')
+	CefObject_AddMethod($self, 'size', 		'__CefStringList_Size')
+	CefObject_AddMethod($self, 'read', 		'__CefStringList_Read')
+	CefObject_AddMethod($self, 'append', 	'__CefStringList_Append')
+	CefObject_AddMethod($self, 'clear', 	'__CefStringList_Clear')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefStringList_Size($self)

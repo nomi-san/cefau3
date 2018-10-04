@@ -3,6 +3,8 @@
 	author: wuuyi123
 #ce
 
+#include-once
+
 global $__user32 = dllopen('user32.dll')
 global $__kernel32 = dllopen('kernel32.dll')
 

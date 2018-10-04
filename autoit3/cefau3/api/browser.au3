@@ -22,6 +22,7 @@ func CefBrowser_Create($ptr = null)
 	endif
 
 	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
+	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefBrowser')
 	CefObject_AddMethod($self, 'GetHost',             '__CefBrowser_GetHost')
 	CefObject_AddMethod($self, 'CanGoBack',           '__CefBrowser_CanGoBack')
 	CefObject_AddMethod($self, 'GoBack',              '__CefBrowser_GoBack')
@@ -164,6 +165,8 @@ func CefBrowserHost_Create($ptr = null)
 	endif
 
 	CefObject_AddProperty($self, '__ptr', $ELSCOPE_READONLY, $ptr)
+	CefObject_AddProperty($self, '__type', $ELSCOPE_READONLY, 'CefBrowserHost')
+
 	CefObject_AddMethod($self, 'GetBrowser', '__CefBrowserHost_GetBrowser')
 	CefObject_AddMethod($self, 'CloseBrowser', '__CefBrowserHost_CloseBrowser')
 	CefObject_AddMethod($self, 'TryCloseBrowser', '__CefBrowserHost_TryCloseBrowser')

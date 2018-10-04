@@ -31,6 +31,8 @@ if "%1"=="tcc" (
 	call :msvc
 ) else if "%1"=="clean" (
 	call :clean
+) else if "%1"=="sln" (
+	call :solution
 ) else if "%1"=="" (
 	echo     please insert argument!
 	call :usage
@@ -73,6 +75,12 @@ goto :eof
 	goto :eof
 )
 
+:solution (
+	::if not exist vs mkdir vs
+	::if exist vs\*.* del /Q /F vs\*.*
+	goto :eof
+)
+
 :clean (
 	if exist release\object\*.* del /Q /F release\object\*.*
 	if exist release\*.def del release\*.def
@@ -92,5 +100,6 @@ goto :eof
 	echo         gcc     - GNU C compiler
 	echo         tcc     - Tiny C compiler
 	echo         msvc    - Microsoft Visual C/C++ compiler
+	echo         sln     - create Visual Studio solution
 	echo         clean   - clean all file generated
 )

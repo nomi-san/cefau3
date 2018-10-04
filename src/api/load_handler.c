@@ -5,30 +5,37 @@
 /* CefLoadHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_load_handler_t * CefLoadHandler_Create()
+typedef struct CefLoadHandler {
+	cef_load_handler_t self;
+	const char *OLSC;
+	const char *OLS;
+	const char *OLEn;
+	const char *OLEr;
+} CefLoadHandler;
+
+CefCreation(CefLoadHandler);
+
+CefHandlerSetGetFunc(CefLoadHandler, OLSC);
+CefHandlerSetGetFunc(CefLoadHandler, OLS);
+CefHandlerSetGetFunc(CefLoadHandler, OLEn);
+CefHandlerSetGetFunc(CefLoadHandler, OLEr);
+
+CEFAU3API void CefLoadHandler_OnLoadingStateChange(CefLoadHandler *self, void* p)
 {
-	size_t sz = sizeof(cef_load_handler_t);
-	cef_load_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
+	self->self.on_loading_state_change = p;
 }
 
-CEFAU3API void CefLoadHandler_OnLoadingStateChange(cef_load_handler_t *self, void* ptr)
+CEFAU3API void CefLoadHandler_OnLoadStart(CefLoadHandler *self, void* p)
 {
-	self->on_loading_state_change = ptr;
+	self->self.on_load_start = p;
 }
 
-CEFAU3API void CefLoadHandler_OnLoadStart(cef_load_handler_t *self, void* ptr)
+CEFAU3API void CefLoadHandler_OnLoadEnd(CefLoadHandler *self, void* p)
 {
-	self->on_load_start = ptr;
+	self->self.on_load_end = p;
 }
 
-CEFAU3API void CefLoadHandler_OnLoadEnd(cef_load_handler_t *self, void* ptr)
+CEFAU3API void CefLoadHandler_OnLoadError(CefLoadHandler *self, void* p)
 {
-	self->on_load_end = ptr;
-}
-
-CEFAU3API void CefLoadHandler_OnLoadError(cef_load_handler_t *self, void* ptr)
-{
-	self->on_load_error = ptr;
+	self->self.on_load_error = p;
 }

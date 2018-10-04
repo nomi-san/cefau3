@@ -13,6 +13,9 @@ typedef struct CefAccessibility {
 
 CefCreation(CefAccessibility);
 
+CefHandlerSetGetFunc(CefAccessibility, OATC);
+CefHandlerSetGetFunc(CefAccessibility, OALC);
+
 //--------------------------------------------------
 
 CEFAU3API void CefAccessibilityHandler_pOATC(
@@ -25,30 +28,4 @@ CEFAU3API void CefAccessibilityHandler_pOALC(
 	CefAccessibility *self, void *p)
 {
 	self->self.on_accessibility_location_change = p;
-}
-
-//--------------------------------------------------
-
-CEFAU3API void CefAccessibilityHandler_Set_OATC(
-	CefAccessibility *self, const char *fn)
-{
-	self->OATC = _strdup(fn);
-}
-
-CEFAU3API const char* CefAccessibilityHandler_Get_OATC(
-	CefAccessibility *self)
-{
-	return self->OATC;
-}
-
-CEFAU3API void CefAccessibilityHandler_Set_OALC(
-	CefAccessibility *self, const char *fn)
-{
-	self->OALC = _strdup(fn);
-}
-
-CEFAU3API const char* CefAccessibilityHandler_Get_OALC(
-	CefAccessibility *self)
-{
-	return self->OALC;
 }

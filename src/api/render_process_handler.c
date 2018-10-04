@@ -5,66 +5,86 @@
 /* CefRenderProcessHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_render_process_handler_t * CefRenderProcessHandler_Create()
-{
-	size_t sz = sizeof(cef_render_process_handler_t);
-	cef_render_process_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefRenderProcessHandler {
+	cef_render_process_handler_t self;
+	const char *ORTC;
+	const char *OWKI;
+	const char *OBC;
+	const char *OBD;
+	const char *GLH;
+	const char *OBN;
+	const char *OCC;
+	const char *OCR;
+	const char *OUE;
+	const char *OFNC;
+	const char *OPMR;
+} CefRenderProcessHandler;
 
-	return p;
+CefCreation(CefRenderProcessHandler);
+
+CefHandlerSetGetFunc(CefRenderProcessHandler, ORTC);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OWKI);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OBC);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OBD);
+CefHandlerSetGetFunc(CefRenderProcessHandler, GLH);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OBN);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OCC);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OCR);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OUE);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OFNC);
+CefHandlerSetGetFunc(CefRenderProcessHandler, OPMR);
+
+CEFAU3API void CefRenderProcessHandler_OnRenderThreadCreated(CefRenderProcessHandler *self, void* p)
+{
+	self->self.on_render_thread_created = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnRenderThreadCreated(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnWebKitInitialized(CefRenderProcessHandler *self, void* p)
 {
-	self->on_render_thread_created = ptr;
+	self->self.on_web_kit_initialized = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnWebKitInitialized(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnBrowserCreated(CefRenderProcessHandler *self, void* p)
 {
-	self->on_web_kit_initialized = ptr;
+	self->self.on_browser_created = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnBrowserCreated(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnBrowserDestroyed(CefRenderProcessHandler *self, void* p)
 {
-	self->on_browser_created = ptr;
+	self->self.on_browser_destroyed = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnBrowserDestroyed(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_GetLoadHandler(CefRenderProcessHandler *self, void* p)
 {
-	self->on_browser_destroyed = ptr;
+	self->self.get_load_handler = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_GetLoadHandler(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnBeforeNavigation(CefRenderProcessHandler *self, void* p)
 {
-	self->get_load_handler = ptr;
+	self->self.on_before_navigation = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnBeforeNavigation(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnContextCreated(CefRenderProcessHandler *self, void* p)
 {
-	self->on_before_navigation = ptr;
+	self->self.on_context_created = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnContextCreated(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnContextReleased(CefRenderProcessHandler *self, void* p)
 {
-	self->on_context_created = ptr;
+	self->self.on_context_released = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnContextReleased(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnUncaughtException(CefRenderProcessHandler *self, void* p)
 {
-	self->on_context_released = ptr;
+	self->self.on_uncaught_exception = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnUncaughtException(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnFocusedNodeChanged(CefRenderProcessHandler *self, void* p)
 {
-	self->on_uncaught_exception = ptr;
+	self->self.on_focused_node_changed = p;
 }
 
-CEFAU3API void CefRenderProcessHandler_OnFocusedNodeChanged(cef_render_process_handler_t *self, void* ptr)
+CEFAU3API void CefRenderProcessHandler_OnProcessMessageReceived(CefRenderProcessHandler *self, void* p)
 {
-	self->on_focused_node_changed = ptr;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnProcessMessageReceived(cef_render_process_handler_t *self, void* ptr)
-{
-	self->on_process_message_received = ptr;
+	self->self.on_process_message_received = p;
 }

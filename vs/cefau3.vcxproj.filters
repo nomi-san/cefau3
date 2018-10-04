@@ -14,9 +14,6 @@
     <Filter Include="src\custom">
       <UniqueIdentifier>{b129a744-671d-45c7-9e30-2008989fbceb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\au3obj">
-      <UniqueIdentifier>{3edda8fe-7af7-4d7b-aece-64007ef14b1b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cefau3.c">
@@ -154,34 +151,10 @@
     <ClCompile Include="..\src\au3obj_wrap.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItElement.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItEnumObject.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItObject.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItObjectClass.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItWrapElement.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\AutoItWrapObject.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\main.cpp">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\cefau3.def">
       <Filter>src</Filter>
-    </None>
-    <None Include="..\src\au3obj\Exports.def">
-      <Filter>src\au3obj</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -193,33 +166,6 @@
     </ClInclude>
     <ClInclude Include="..\src\au3obj_wrap.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItCallbacks.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItElement.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItEnumObject.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItObject.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItObjectClass.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItWrapElement.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\AutoItWrapObject.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\dll.h">
-      <Filter>src\au3obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj\vector.h">
-      <Filter>src\au3obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

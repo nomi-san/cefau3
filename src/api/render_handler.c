@@ -5,14 +5,38 @@
 /* CefRenderHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_render_handler_t * CefRenderHander_Create()
-{
-	size_t sz = sizeof(cef_render_handler_t);
-	cef_render_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefRenderHandler {
+	cef_render_handler_t self;
+	const char *GAH;
+	const char *GRSR;
+	const char *GVR;
+	const char *GSP;
+	const char *GSI;
+	const char *OPSh;
+	const char *OPSi;
+	const char *OP;
+	const char *OCC;
+	const char *SD;
+	const char *UDC;
+	const char *OSOC;
+	const char *OICRC;
+} CefRenderHandler;
 
-	return p;
-}
+CefCreation(CefRenderHandler);
+
+CefHandlerSetGetFunc(CefRenderHandler, GAH);
+CefHandlerSetGetFunc(CefRenderHandler, GRSR);
+CefHandlerSetGetFunc(CefRenderHandler, GVR);
+CefHandlerSetGetFunc(CefRenderHandler, GSP);
+CefHandlerSetGetFunc(CefRenderHandler, GSI);
+CefHandlerSetGetFunc(CefRenderHandler, OPSh);
+CefHandlerSetGetFunc(CefRenderHandler, OPSi);
+CefHandlerSetGetFunc(CefRenderHandler, OP);
+CefHandlerSetGetFunc(CefRenderHandler, OCC);
+CefHandlerSetGetFunc(CefRenderHandler, SD);
+CefHandlerSetGetFunc(CefRenderHandler, UDC);
+CefHandlerSetGetFunc(CefRenderHandler, OSOC);
+CefHandlerSetGetFunc(CefRenderHandler, OICRC);
 
 CEFAU3API void CefRenderHandler_GetAccessibilityHandler(cef_render_handler_t *self, ptr p)
 {

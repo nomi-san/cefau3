@@ -28,6 +28,14 @@ cef_string_t cefstring_wcs(const wchar_t *);
 		return p;						\
 	}									\
 
+#define CefHandlerSetGetFunc(t, n)                             \
+	CEFAU3API void t ## _Set_ ## n(t *self, const char *fn) {  \
+		self->n = _strdup(fn);                                 \
+	}                                                          \
+	CEFAU3API const char *t ## _Get_ ## n(t *self) {           \
+		return self->n;                                        \
+	}
+
 #define func(n, t, ...) \
 	t (__cdecl* n) \
 		(__VA_ARGS__);

@@ -19,7 +19,7 @@ $cef.EnableHighDPISupport()
 global $cef_app = $cef.new('App'), _
 	$cef_args = $cef.new('MainArgs')
 
-; execute process,
+; execute process
 if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 ; if $cef_settings.single_process = 1 (true, in line 36),
@@ -61,6 +61,8 @@ $cef_lifespan.OnAfterCreated 	= __onAfterCreated
 $cef_lifespan.OnBeforeClose 	= __onBeforeClose
 
 $cef_display.OnTitleChange		= __onTitleChange
+$cef_display.OnAddressChange	= __onAddressChange
+$cef_display.OnFaviconUrlChange	= __onFaviconUrlChange
 
 global $url = 'https://www.google.com/'
 $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
@@ -93,6 +95,14 @@ func __onBeforeClose($browser)
 endfunc
 
 func __onTitleChange($browser, $title)
-	Cef_Print('Title change: ' & $title & '\n')
-	WinSetTitle($cef_browser_hwnd, '', $title)
+	Cef_Print('Title change: ' & $title.val & '\n')
+	WinSetTitle($cef_browser_hwnd, '', $title.val)
+endfunc
+
+func __onAddressChange($browser, $frame, $url)
+	Cef_Print('URL change: ' & $url.val & '\n')
+endfunc
+
+func __onFaviconUrlChange($browser, $frame, $icon_urls)
+	Cef_Print('Favicon change: ' & $icon_urls.read() & '\n')
 endfunc

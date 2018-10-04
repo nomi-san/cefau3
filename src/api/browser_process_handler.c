@@ -5,35 +5,45 @@
 /* CefBrowserProcessHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_browser_process_handler_t *  CefBrowserProcessHandler_Create()
+typedef struct CefBrowserProcessHandler {
+	cef_browser_process_handler_t self;
+	const char *OCI;
+	const char *OBCPL;
+	const char *ORPTC;
+	const char *GPH;
+	const char *OSMPW;
+} CefBrowserProcessHandler;
+
+CefCreation(CefBrowserProcessHandler);
+
+CefHandlerSetGetFunc(CefBrowserProcessHandler, OCI);
+CefHandlerSetGetFunc(CefBrowserProcessHandler, OBCPL);
+CefHandlerSetGetFunc(CefBrowserProcessHandler, ORPTC);
+CefHandlerSetGetFunc(CefBrowserProcessHandler, GPH);
+CefHandlerSetGetFunc(CefBrowserProcessHandler, OSMPW);
+
+
+CEFAU3API void  CefBrowserProcessHandler_OnContextInitialized(CefBrowserProcessHandler *self, void* ptr)
 {
-	size_t sz = sizeof(cef_browser_process_handler_t);
-	cef_browser_process_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
+	self->self.on_context_initialized = ptr;
 }
 
-CEFAU3API void  CefBrowserProcessHandler_OnContextInitialized(cef_browser_process_handler_t *self, void* ptr)
+CEFAU3API void  CefBrowserProcessHandler_OnBeforeChildProcessLaunch(CefBrowserProcessHandler *self, void* ptr)
 {
-	self->on_context_initialized = ptr;
+	self->self.on_before_child_process_launch = ptr;
 }
 
-CEFAU3API void  CefBrowserProcessHandler_OnBeforeChildProcessLaunch(cef_browser_process_handler_t *self, void* ptr)
+CEFAU3API void  CefBrowserProcessHandler_OnRenderProcessThreadCreated(CefBrowserProcessHandler *self, void* ptr)
 {
-	self->on_before_child_process_launch = ptr;
+	self->self.on_render_process_thread_created = ptr;
 }
 
-CEFAU3API void  CefBrowserProcessHandler_OnRenderProcessThreadCreated(cef_browser_process_handler_t *self, void* ptr)
+CEFAU3API void  CefBrowserProcessHandler_GetPrintHandler(CefBrowserProcessHandler *self, void* ptr)
 {
-	self->on_render_process_thread_created = ptr;
+	self->self.get_print_handler = ptr;
 }
 
-CEFAU3API void  CefBrowserProcessHandler_GetPrintHandler(cef_browser_process_handler_t *self, void* ptr)
+CEFAU3API void  CefBrowserProcessHandler_OnScheduleMessagePumpWork(CefBrowserProcessHandler *self, void* ptr)
 {
-	self->get_print_handler = ptr;
-}
-
-CEFAU3API void  CefBrowserProcessHandler_OnScheduleMessagePumpWork(cef_browser_process_handler_t *self, void* ptr)
-{
-	self->on_schedule_message_pump_work = ptr;
+	self->self.on_schedule_message_pump_work = ptr;
 }
