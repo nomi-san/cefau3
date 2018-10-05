@@ -27,41 +27,51 @@ CEFAU3API void CefPrintJobCallback_Continue(struct _cef_print_job_callback_t* se
 /* CefPrintHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_print_handler_t * CefPrintHandler_Create()
-{
-	size_t sz = sizeof(cef_print_handler_t);
-	cef_print_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefPrintHandler {
+	cef_print_handler_t self;
+	const char *OPSt;
+	const char *OPSe;
+	const char *OPD;
+	const char *OPJ;
+	const char *OPR;
+	const char *GPPS;
+} CefPrintHandler;
 
-	return p;
+CefCreation(CefPrintHandler);
+
+CefHandlerSetGetFunc(CefPrintHandler, OPSt);
+CefHandlerSetGetFunc(CefPrintHandler, OPSe);
+CefHandlerSetGetFunc(CefPrintHandler, OPD);
+CefHandlerSetGetFunc(CefPrintHandler, OPJ);
+CefHandlerSetGetFunc(CefPrintHandler, OPR);
+CefHandlerSetGetFunc(CefPrintHandler, GPPS);
+
+CEFAU3API void CefPrintHandler_OnPrintStart(CefPrintHandler* self, void *p)
+{
+	self->self.on_print_start = p;
 }
 
-CEFAU3API void CefPrintHandler_OnPrintStart(struct _cef_print_handler_t* self, void *p)
+CEFAU3API void CefPrintHandler_OnPrintSettings(CefPrintHandler* self, void *p)
 {
-	self->on_print_start = p;
+	self->self.on_print_start = p;
 }
 
-CEFAU3API void CefPrintHandler_OnPrintSettings(struct _cef_print_handler_t* self, void *p)
+CEFAU3API void CefPrintHandler_OnPrintDialog(CefPrintHandler* self, void *p)
 {
-	self->on_print_start = p;
+	self->self.on_print_dialog = p;
 }
 
-CEFAU3API void CefPrintHandler_OnPrintDialog(struct _cef_print_handler_t* self, void *p)
+CEFAU3API void CefPrintHandler_OnPrintJob(CefPrintHandler* self, void *p)
 {
-	self->on_print_dialog = p;
+	self->self.on_print_job = p;
 }
 
-CEFAU3API void CefPrintHandler_OnPrintJob(struct _cef_print_handler_t* self, void *p)
+CEFAU3API void CefPrintHandler_OnPrintReset(CefPrintHandler* self, void *p)
 {
-	self->on_print_job = p;
+	self->self.on_print_reset = p;
 }
 
-CEFAU3API void CefPrintHandler_OnPrintReset(struct _cef_print_handler_t* self, void *p)
+CEFAU3API void CefPrintHandler_GetPDFPaperSize(CefPrintHandler *self, void *p)
 {
-	self->on_print_reset = p;
-}
-
-CEFAU3API void CefPrintHandler_GetPDFPaperSize(struct _cef_print_handler_t *self, void *p)
-{
-	self->get_pdf_paper_size = p;
+	self->self.get_pdf_paper_size = p;
 }

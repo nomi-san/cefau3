@@ -5,24 +5,27 @@
 /* CefGeolocationHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_geolocation_handler_t * CefGeolocationHandler_Create()
-{
-	size_t sz = sizeof(cef_geolocation_handler_t);
-	cef_geolocation_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
-}
+typedef struct CefGeolocationHandler {
+	cef_geolocation_handler_t self;
+	const char *ORGP;
+	const char *OCGP;
+} CefGeolocationHandler;
+
+CefCreation(CefGeolocationHandler);
+
+CefHandlerSetGetFunc(CefGeolocationHandler, ORGP);
+CefHandlerSetGetFunc(CefGeolocationHandler, OCGP);
 
 CEFAU3API void CefGeolocationHandler_OnRequestGeolocationPermission(
-	cef_geolocation_handler_t *self,
+	CefGeolocationHandler *self,
 	void *ptr)
 {
-	self->on_request_geolocation_permission = ptr;
+	self->self.on_request_geolocation_permission = ptr;
 }
 
 CEFAU3API void CefGeolocationHandler_OnCancelGeolocationPermission(
-	cef_geolocation_handler_t *self,
+	CefGeolocationHandler *self,
 	void *ptr)
 {
-	self->on_cancel_geolocation_permission = ptr;
+	self->self.on_cancel_geolocation_permission = ptr;
 }

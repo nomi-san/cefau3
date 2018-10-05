@@ -5,20 +5,23 @@
 /* CefDragHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_drag_handler_t * CefDragHandler_Create()
+typedef struct CefDragHandler {
+	cef_drag_handler_t self;
+	const char *ODE;
+	const char *ODRC;
+} CefDragHandler;
+
+CefCreation(CefDragHandler);
+
+CefHandlerSetGetFunc(CefDragHandler, ODE);
+CefHandlerSetGetFunc(CefDragHandler, ODRC);
+
+CEFAU3API void CefDragHandler_OnDragEnter(CefDragHandler *self, void *ptr)
 {
-	size_t sz = sizeof(cef_drag_handler_t);
-	struct _cef_drag_handler_t * p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
+	self->self.on_drag_enter = ptr;
 }
 
-CEFAU3API void CefDragHandler_OnDragEnter(cef_drag_handler_t *self, void *ptr)
+CEFAU3API void CefDragHandler_OnDraggableRegionsChanged(CefDragHandler *self, void *ptr)
 {
-	self->on_drag_enter = ptr;
-}
-
-CEFAU3API void CefDragHandler_OnDraggableRegionsChanged(cef_drag_handler_t *self, void *ptr)
-{
-	self->on_draggable_regions_changed = ptr;
+	self->self.on_draggable_regions_changed = ptr;
 }

@@ -86,16 +86,16 @@ CEFAU3API int CefV8context_InContext()
 /* CefV8Handler
 --------------------------------------------------*/
 
-CEFAU3API cef_v8handler_t * CefV8Handler_Create()
-{
-	size_t sz = sizeof(cef_v8handler_t);
-	cef_v8handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefV8Handler {
+	cef_v8handler_t self;
+	const char *E;
+} CefV8Handler;
 
-	return p;
-}
+CefCreation(CefV8Handler);
 
-CEFAU3API void CefV8Handler_Execute(cef_v8handler_t *self, void *ptr)
+CefHandlerSetGetFunc(CefV8Handler, E);
+
+CEFAU3API void CefV8Handler_E(cef_v8handler_t *self, void *ptr)
 {
 	self->execute = ptr;
 }

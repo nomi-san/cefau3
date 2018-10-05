@@ -15,6 +15,11 @@ typedef struct CefLifeSpanHandler {
 
 CefCreation(CefLifeSpanHandler);
 
+CefHandlerSetGetFunc(CefLifeSpanHandler, OBP);
+CefHandlerSetGetFunc(CefLifeSpanHandler, OAC);
+CefHandlerSetGetFunc(CefLifeSpanHandler, DC);
+CefHandlerSetGetFunc(CefLifeSpanHandler, OBC);
+
 CEFAU3API void CefLifeSpanHandler_OnBeforePopup(CefLifeSpanHandler *self, void *ptr)
 {
 	self->self.on_before_popup = ptr;
@@ -33,46 +38,4 @@ CEFAU3API void CefLifeSpanHandler_DoClose(CefLifeSpanHandler *self, void *ptr)
 CEFAU3API void CefLifeSpanHandler_OnBeforeClose(CefLifeSpanHandler *self, void *ptr)
 {
 	self->self.on_before_close = ptr;
-}
-
-//--------------------------------------------------
-
-CEFAU3API void CefLifeSpanHandler_Set_OBP(CefLifeSpanHandler *self, const char *fn)
-{
-	self->OBP = _strdup(fn);
-}
-
-CEFAU3API const char *CefLifeSpanHandler_Get_OBP(CefLifeSpanHandler *self)
-{
-	return self->OBP;
-}
-
-CEFAU3API void CefLifeSpanHandler_Set_OAC(CefLifeSpanHandler *self, const char *fn)
-{
-	self->OAC = _strdup(fn);
-}
-
-CEFAU3API const char *CefLifeSpanHandler_Get_OAC(CefLifeSpanHandler *self)
-{
-	return self->OAC;
-}
-
-CEFAU3API void CefLifeSpanHandler_Set_DC(CefLifeSpanHandler *self, const char *fn)
-{
-	self->DC = _strdup(fn);
-}
-
-CEFAU3API const char *CefLifeSpanHandler_Get_DC(CefLifeSpanHandler *self)
-{
-	return self->DC;
-}
-
-CEFAU3API void CefLifeSpanHandler_Set_OBC(CefLifeSpanHandler *self, const char *fn)
-{
-	self->OBC = _strdup(fn);
-}
-
-CEFAU3API const char *CefLifeSpanHandler_Get_OBC(CefLifeSpanHandler *self)
-{
-	return self->OBC;
 }

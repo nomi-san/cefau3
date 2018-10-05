@@ -20,32 +20,39 @@ CEFAU3API void CefRunContextMenuCallback_Cancel(struct _cef_run_context_menu_cal
 /* CefContextMenuHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_context_menu_handler_t * CefContextMenuHandler_Create()
+typedef struct CefContextMenuHandler {
+	cef_context_menu_handler_t self;
+	const char *OBCM;
+	const char *RCM;
+	const char *OCMC;
+	const char *OCMD;
+} CefContextMenuHandler;
+
+CefCreation(CefContextMenuHandler);
+
+CefHandlerSetGetFunc(CefContextMenuHandler, OBCM);
+CefHandlerSetGetFunc(CefContextMenuHandler, RCM);
+CefHandlerSetGetFunc(CefContextMenuHandler, OCMC);
+CefHandlerSetGetFunc(CefContextMenuHandler, OCMD);
+
+CEFAU3API void CefContextMenuHandler_OnBeforeContextMenu(CefContextMenuHandler *self, void *ptr)
 {
-	size_t sz = sizeof(cef_context_menu_handler_t);
-	cef_context_menu_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
+	self->self.on_before_context_menu = ptr;
 }
 
-CEFAU3API void CefContextMenuHandler_OnBeforeContextMenu(cef_context_menu_handler_t *self, void *ptr)
+CEFAU3API void CefContextMenuHandler_RunContextMenu(CefContextMenuHandler *self, void *ptr)
 {
-	self->on_before_context_menu = ptr;
+	self->self.run_context_menu = ptr;
 }
 
-CEFAU3API void CefContextMenuHandler_RunContextMenu(cef_context_menu_handler_t *self, void *ptr)
+CEFAU3API void CefContextMenuHandler_OnContextMenuCommand(CefContextMenuHandler *self, void *ptr)
 {
-	self->run_context_menu = ptr;
+	self->self.on_context_menu_command = ptr;
 }
 
-CEFAU3API void CefContextMenuHandler_OnContextMenuCommand(cef_context_menu_handler_t *self, void *ptr)
+CEFAU3API void CefContextMenuHandler_OnContextMenuDismissed(CefContextMenuHandler *self, void *ptr)
 {
-	self->on_context_menu_command = ptr;
-}
-
-CEFAU3API void CefContextMenuHandler_OnContextMenuDismissed(cef_context_menu_handler_t *self, void *ptr)
-{
-	self->on_context_menu_dismissed = ptr;
+	self->self.on_context_menu_dismissed = ptr;
 }
 
 /* CefContextMenuParams

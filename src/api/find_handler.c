@@ -5,15 +5,16 @@
 /* CefFindHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_find_handler_t * CefFindHandler_Create()
-{
-	size_t sz = sizeof(cef_find_handler_t);
-	cef_find_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
-}
+typedef struct CefFindHandler {
+	cef_find_handler_t self;
+	const char *OFR;
+} CefFindHandler;
 
-CEFAU3API void CefFindHandler_OnFindResult(struct _cef_find_handler_t* self, void *ptr)
+CefCreation(CefFindHandler);
+
+CefHandlerSetGetFunc(CefFindHandler, OFR);
+
+CEFAU3API void CefFindHandler_OnFindResult(CefFindHandler* self, void *ptr)
 {
-	self->on_find_result = ptr;
+	self->self.on_find_result = ptr;
 }

@@ -5,21 +5,23 @@
 /* CefRequestContextHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_request_context_handler_t * CefRequestContextHandler_Create()
-{
-	size_t sz = sizeof(cef_request_context_handler_t);
-	cef_request_context_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefRequestContextHandler {
+	cef_request_context_handler_t self;
+	const char *GCM;
+	const char *OBPL;
+} CefRequestContextHandler;
 
-	return p;
+CefCreation(CefRequestContextHandler);
+
+CefHandlerSetGetFunc(CefRequestContextHandler, GCM);
+CefHandlerSetGetFunc(CefRequestContextHandler, OBPL);
+
+CEFAU3API void CefRequestContextHandler_GetCookieManager(CefRequestContextHandler *self, void *p)
+{
+	self->self.get_cookie_manager = p;
 }
 
-CEFAU3API void CefRequestContextHandler_GetCookieManager(cef_request_context_handler_t *self, void *p)
+CEFAU3API void CefRequestContextHandler_OnBeforePluginLoad(CefRequestContextHandler *self, void *p)
 {
-	self->get_cookie_manager = p;
-}
-
-CEFAU3API void CefRequestContextHandler_OnBeforePluginLoad(cef_request_context_handler_t *self, void *p)
-{
-	self->on_before_plugin_load = p;
+	self->self.on_before_plugin_load = p;
 }

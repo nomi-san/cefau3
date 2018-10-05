@@ -20,15 +20,16 @@ CEFAU3API void CefFileDialogCallback_Cancel(struct _cef_file_dialog_callback_t* 
 /* CefDialogHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_dialog_handler_t * CefDialogHandler_Create()
-{
-	size_t sz = sizeof(cef_dialog_handler_t);
-	cef_dialog_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
-}
+typedef struct CefDialogHandler {
+	cef_dialog_handler_t self;
+	const char *OFD;
+} CefDialogHandler;
 
-CEFAU3API void CefDialodHandler_OnFileDialog(cef_dialog_handler_t *self, void *ptr)
+CefCreation(CefDialogHandler);
+
+CefHandlerSetGetFunc(CefDialogHandler, OFD);
+
+CEFAU3API void CefDialodHandler_OnFileDialog(CefDialogHandler *self, void *ptr)
 {
-	self->on_file_dialog = ptr;
+	self->self.on_file_dialog = ptr;
 }

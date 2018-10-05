@@ -5,31 +5,37 @@
 /* CefJSDialogHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_jsdialog_handler_t * CefJSDialogHandler_Create()
-{
-	size_t sz = sizeof(cef_jsdialog_handler_t);
-	cef_jsdialog_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
+typedef struct CefJSDialogHandler {
+	cef_jsdialog_handler_t self;
+	const char *OJD;
+	const char *OBUD;
+	const char *ORDS;
+	const char *ODC;
+} CefJSDialogHandler;
 
-	return p;
+CefCreation(CefJSDialogHandler);
+
+CefHandlerSetGetFunc(CefJSDialogHandler, OJD);
+CefHandlerSetGetFunc(CefJSDialogHandler, OBUD);
+CefHandlerSetGetFunc(CefJSDialogHandler, ORDS);
+CefHandlerSetGetFunc(CefJSDialogHandler, ODC);
+
+CEFAU3API void CefJSDialogHandler_OnJSDialog(CefJSDialogHandler *self, void *p)
+{
+	self->self.on_jsdialog = p;
 }
 
-CEFAU3API void CefJSDialogHandler_OnJSDialog(cef_jsdialog_handler_t *self, void *p)
+CEFAU3API void CefJSDialogHandler_OnBeforeUnloadDialog(CefJSDialogHandler *self, void *p)
 {
-	self->on_jsdialog = p;
+	self->self.on_before_unload_dialog = p;
 }
 
-CEFAU3API void CefJSDialogHandler_OnBeforeUnloadDialog(cef_jsdialog_handler_t *self, void *p)
+CEFAU3API void CefJSDialogHandler_OnResetDialogState(CefJSDialogHandler *self, void *p)
 {
-	self->on_before_unload_dialog = p;
+	self->self.on_reset_dialog_state = p;
 }
 
-CEFAU3API void CefJSDialogHandler_OnResetDialogState(cef_jsdialog_handler_t *self, void *p)
+CEFAU3API void CefJSDialogHandler_OnDialogClosed(CefJSDialogHandler *self, void *p)
 {
-	self->on_reset_dialog_state = p;
-}
-
-CEFAU3API void CefJSDialogHandler_OnDialogClosed(cef_jsdialog_handler_t *self, void *p)
-{
-	self->on_dialog_closed = p;
+	self->self.on_dialog_closed = p;
 }

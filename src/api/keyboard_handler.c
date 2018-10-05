@@ -5,20 +5,23 @@
 /* CefKeyboardHandler
 --------------------------------------------------*/
 
-CEFAU3API cef_keyboard_handler_t * CefKeyboardHandler_Create()
+typedef struct CefKeyboardHandler {
+	cef_keyboard_handler_t self;
+	const char *OPKE;
+	const char *OKE;
+} CefKeyboardHandler;
+
+CefCreation(CefKeyboardHandler);
+
+CefHandlerSetGetFunc(CefKeyboardHandler, OPKE);
+CefHandlerSetGetFunc(CefKeyboardHandler, OKE);
+
+CEFAU3API void CefKeyboardHandler_OnPreKeyEvent(CefKeyboardHandler *self, void* ptr)
 {
-	size_t sz = sizeof(cef_keyboard_handler_t);
-	cef_keyboard_handler_t *p = calloc(1, sz);
-	p->base.size = sz;
-	return p;
+	self->self.on_pre_key_event = ptr;
 }
 
-CEFAU3API void CefKeyboardHandler_OnPreKeyEvent(cef_keyboard_handler_t *self, void* ptr)
+CEFAU3API void CefKeyboardHandler_OnKeyEvent(CefKeyboardHandler *self, void* ptr)
 {
-	self->on_pre_key_event = ptr;
-}
-
-CEFAU3API void CefKeyboardHandler_OnKeyEvent(cef_keyboard_handler_t *self, void* ptr)
-{
-	self->on_key_event = ptr;
+	self->self.on_key_event = ptr;
 }
