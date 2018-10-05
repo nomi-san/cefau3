@@ -17,45 +17,11 @@ typedef struct CefDisplayHandler {
 } CefDisplayHandler;
 
 CefHandlerCreate(CefDisplayHandler);
-CefHandlerSetGetFunc(CefDisplayHandler, OAC);
-CefHandlerSetGetFunc(CefDisplayHandler, OTC);
-CefHandlerSetGetFunc(CefDisplayHandler, OFUC);
-CefHandlerSetGetFunc(CefDisplayHandler, OFMC);
-CefHandlerSetGetFunc(CefDisplayHandler, OT);
-CefHandlerSetGetFunc(CefDisplayHandler, OSM);
-CefHandlerSetGetFunc(CefDisplayHandler, OCM);
 
-CEFAU3API void CefDisplayHandler_OnAddressChange(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_address_change = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnTitleChange(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_title_change = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnFaviconUrlChange(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_favicon_urlchange = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnFullscreenModeChange(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_fullscreen_mode_change = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnTooltip(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_tooltip = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnStatusMessage(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_status_message = ptr;
-}
-
-CEFAU3API void CefDisplayHandler_OnConsoleMessage(CefDisplayHandler *self, void* ptr)
-{
-	self->self.on_console_message = ptr;
-}
+CefHandlerFunc(CefDisplayHandler, on_address_change, OAC);
+CefHandlerFunc(CefDisplayHandler, on_title_change, OTC);
+CefHandlerFunc(CefDisplayHandler, on_favicon_urlchange, OFUC);
+CefHandlerFunc(CefDisplayHandler, on_fullscreen_mode_change, OFMC);
+CefHandlerFunc(CefDisplayHandler, on_tooltip, OT);
+CefHandlerFunc(CefDisplayHandler, on_status_message, OSM);
+CefHandlerFunc(CefDisplayHandler, on_console_message, OCM);

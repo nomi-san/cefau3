@@ -16,34 +16,8 @@ typedef struct CefBrowserProcessHandler {
 
 CefHandlerCreate(CefBrowserProcessHandler);
 
-CefHandlerSetGetFunc(CefBrowserProcessHandler, OCI);
-CefHandlerSetGetFunc(CefBrowserProcessHandler, OBCPL);
-CefHandlerSetGetFunc(CefBrowserProcessHandler, ORPTC);
-CefHandlerSetGetFunc(CefBrowserProcessHandler, GPH);
-CefHandlerSetGetFunc(CefBrowserProcessHandler, OSMPW);
-
-
-CEFAU3API void  CefBrowserProcessHandler_OnContextInitialized(CefBrowserProcessHandler *self, void* ptr)
-{
-	self->self.on_context_initialized = ptr;
-}
-
-CEFAU3API void  CefBrowserProcessHandler_OnBeforeChildProcessLaunch(CefBrowserProcessHandler *self, void* ptr)
-{
-	self->self.on_before_child_process_launch = ptr;
-}
-
-CEFAU3API void  CefBrowserProcessHandler_OnRenderProcessThreadCreated(CefBrowserProcessHandler *self, void* ptr)
-{
-	self->self.on_render_process_thread_created = ptr;
-}
-
-CEFAU3API void  CefBrowserProcessHandler_GetPrintHandler(CefBrowserProcessHandler *self, void* ptr)
-{
-	self->self.get_print_handler = ptr;
-}
-
-CEFAU3API void  CefBrowserProcessHandler_OnScheduleMessagePumpWork(CefBrowserProcessHandler *self, void* ptr)
-{
-	self->self.on_schedule_message_pump_work = ptr;
-}
+CefHandlerFunc(CefBrowserProcessHandler, on_context_initialized, OCI);
+CefHandlerFunc(CefBrowserProcessHandler, on_before_child_process_launch, OBCPL);
+CefHandlerFunc(CefBrowserProcessHandler, on_render_process_thread_created, ORPTC);
+CefHandlerFunc(CefBrowserProcessHandler, get_print_handler, GPH);
+CefHandlerFunc(CefBrowserProcessHandler, on_schedule_message_pump_work, OSMPW);

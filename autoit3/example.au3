@@ -78,7 +78,7 @@ OnAutoItExitRegister(CefEnd) ; register CefEnd for on exit
 do ; message loop
 until Cef_WindowMessage()
 
-; -- callback function
+; -- callback functions
 
 func __getLifeSpanHandler()
 	return $cef_lifespan.__ptr
@@ -125,7 +125,7 @@ func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 			Cef_MsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nCef simple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
 			return 1
 		endif
-	EndIf
+	endif
 	return 0
 endfunc
 

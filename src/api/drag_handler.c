@@ -13,15 +13,5 @@ typedef struct CefDragHandler {
 
 CefHandlerCreate(CefDragHandler);
 
-CefHandlerSetGetFunc(CefDragHandler, ODE);
-CefHandlerSetGetFunc(CefDragHandler, ODRC);
-
-CEFAU3API void CefDragHandler_OnDragEnter(CefDragHandler *self, void *ptr)
-{
-	self->self.on_drag_enter = ptr;
-}
-
-CEFAU3API void CefDragHandler_OnDraggableRegionsChanged(CefDragHandler *self, void *ptr)
-{
-	self->self.on_draggable_regions_changed = ptr;
-}
+CefHandlerFunc(CefDragHandler, on_drag_enter, ODE);
+CefHandlerFunc(CefDragHandler, on_draggable_regions_changed, ODRC);

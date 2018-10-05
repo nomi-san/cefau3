@@ -21,13 +21,12 @@ global $__CefGeolocationHandler__OCGP = Cef_CallbackRegister(__CefGeolocationHan
 ; ==================================================
 
 func CefGeolocationHandler_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefGeolocationHandler, 'CefGeolocationHandler_Create', $ptr)
-	$struct.size = $struct.__size__
+	local $self = CefObject_Create('CefGeolocationHandler', $ptr)
 
-	CefStruct_AddMethod($struct, 'OnRequestGeolocationPermission', 	'__CefGeolocationHandler_ORGP')
-	CefStruct_AddMethod($struct, 'OnCancelGeolocationPermission', 	'__CefGeolocationHandler_OCGP')
+	CefObject_AddMethod($self, 'OnRequestGeolocationPermission', 	'__CefGeolocationHandler_ORGP')
+	CefObject_AddMethod($self, 'OnCancelGeolocationPermission', 	'__CefGeolocationHandler_OCGP')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefGeolocationHandler_ORGP($self, $func = null)

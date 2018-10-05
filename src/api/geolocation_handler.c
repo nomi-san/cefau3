@@ -13,19 +13,5 @@ typedef struct CefGeolocationHandler {
 
 CefHandlerCreate(CefGeolocationHandler);
 
-CefHandlerSetGetFunc(CefGeolocationHandler, ORGP);
-CefHandlerSetGetFunc(CefGeolocationHandler, OCGP);
-
-CEFAU3API void CefGeolocationHandler_OnRequestGeolocationPermission(
-	CefGeolocationHandler *self,
-	void *ptr)
-{
-	self->self.on_request_geolocation_permission = ptr;
-}
-
-CEFAU3API void CefGeolocationHandler_OnCancelGeolocationPermission(
-	CefGeolocationHandler *self,
-	void *ptr)
-{
-	self->self.on_cancel_geolocation_permission = ptr;
-}
+CefHandlerFunc(CefGeolocationHandler, on_request_geolocation_permission, ORGP);
+CefHandlerFunc(CefGeolocationHandler, on_cancel_geolocation_permission, OCGP);

@@ -39,39 +39,9 @@ typedef struct CefPrintHandler {
 
 CefHandlerCreate(CefPrintHandler);
 
-CefHandlerSetGetFunc(CefPrintHandler, OPSt);
-CefHandlerSetGetFunc(CefPrintHandler, OPSe);
-CefHandlerSetGetFunc(CefPrintHandler, OPD);
-CefHandlerSetGetFunc(CefPrintHandler, OPJ);
-CefHandlerSetGetFunc(CefPrintHandler, OPR);
-CefHandlerSetGetFunc(CefPrintHandler, GPPS);
-
-CEFAU3API void CefPrintHandler_OnPrintStart(CefPrintHandler* self, void *p)
-{
-	self->self.on_print_start = p;
-}
-
-CEFAU3API void CefPrintHandler_OnPrintSettings(CefPrintHandler* self, void *p)
-{
-	self->self.on_print_start = p;
-}
-
-CEFAU3API void CefPrintHandler_OnPrintDialog(CefPrintHandler* self, void *p)
-{
-	self->self.on_print_dialog = p;
-}
-
-CEFAU3API void CefPrintHandler_OnPrintJob(CefPrintHandler* self, void *p)
-{
-	self->self.on_print_job = p;
-}
-
-CEFAU3API void CefPrintHandler_OnPrintReset(CefPrintHandler* self, void *p)
-{
-	self->self.on_print_reset = p;
-}
-
-CEFAU3API void CefPrintHandler_GetPDFPaperSize(CefPrintHandler *self, void *p)
-{
-	self->self.get_pdf_paper_size = p;
-}
+CefHandlerFunc(CefPrintHandler, on_print_start, OPSt);
+CefHandlerFunc(CefPrintHandler, on_print_settings, OPSe);
+CefHandlerFunc(CefPrintHandler, on_print_dialog, OPD);
+CefHandlerFunc(CefPrintHandler, on_print_job, OPJ);
+CefHandlerFunc(CefPrintHandler, on_print_reset, OPR);
+CefHandlerFunc(CefPrintHandler, get_pdf_paper_size, GPPS);

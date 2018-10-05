@@ -93,12 +93,7 @@ typedef struct CefV8Handler {
 
 CefHandlerCreate(CefV8Handler);
 
-CefHandlerSetGetFunc(CefV8Handler, E);
-
-CEFAU3API void CefV8Handler_E(cef_v8handler_t *self, void *ptr)
-{
-	self->execute = ptr;
-}
+CefHandlerFunc(CefV8Handler, execute, E);
 
 /* CefV8Accessor
 --------------------------------------------------*/

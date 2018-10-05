@@ -305,7 +305,7 @@ endfunc
 
 func CefObject_Create($type_name, $ptr = null)
 	local $object = _AutoItObject_Create()
-	
+
 	if ($ptr == null) then
 		local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', $type_name & '_Create')
 		$ptr = @error ? 0: $ret[0]
@@ -360,7 +360,7 @@ func Cef_MsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
 	local $fn = funcname($OnMsgBoxClosed)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_MsgBox', _
 		'ptr', $__Cef_MsgBox_Port, _
-		'str', $fn ? fn : null, _
+		'str', $fn ? $fn : null, _
 		'uint', $flags, _
 		'wstr', stringformat($title), _
 		'wstr', stringformat($text), 	_

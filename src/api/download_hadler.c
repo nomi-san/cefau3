@@ -38,15 +38,5 @@ typedef struct CefDownloadHandler {
 } CefDownloadHandler;
 
 CefHandlerCreate(CefDownloadHandler);
-CefHandlerSetGetFunc(CefDownloadHandler, OBD);
-CefHandlerSetGetFunc(CefDownloadHandler, ODU);
-
-CEFAU3API void CefDownloadHandler_OnBeforeDownload(cef_download_handler_t *self, void* p)
-{
-	self->on_before_download = p;
-}
-
-CEFAU3API void CefDownloadHandler_OnDownloadUpdated(cef_download_handler_t *self, void* p)
-{
-	self->on_download_updated = p;
-}
+CefHandlerFunc(CefDownloadHandler, on_before_download, OBD);
+CefHandlerFunc(CefDownloadHandler, on_download_updated, ODU);

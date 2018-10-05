@@ -30,30 +30,10 @@ typedef struct CefContextMenuHandler {
 
 CefHandlerCreate(CefContextMenuHandler);
 
-CefHandlerSetGetFunc(CefContextMenuHandler, OBCM);
-CefHandlerSetGetFunc(CefContextMenuHandler, RCM);
-CefHandlerSetGetFunc(CefContextMenuHandler, OCMC);
-CefHandlerSetGetFunc(CefContextMenuHandler, OCMD);
-
-CEFAU3API void CefContextMenuHandler_OnBeforeContextMenu(CefContextMenuHandler *self, void *ptr)
-{
-	self->self.on_before_context_menu = ptr;
-}
-
-CEFAU3API void CefContextMenuHandler_RunContextMenu(CefContextMenuHandler *self, void *ptr)
-{
-	self->self.run_context_menu = ptr;
-}
-
-CEFAU3API void CefContextMenuHandler_OnContextMenuCommand(CefContextMenuHandler *self, void *ptr)
-{
-	self->self.on_context_menu_command = ptr;
-}
-
-CEFAU3API void CefContextMenuHandler_OnContextMenuDismissed(CefContextMenuHandler *self, void *ptr)
-{
-	self->self.on_context_menu_dismissed = ptr;
-}
+CefHandlerFunc(CefContextMenuHandler, on_before_context_menu, OBCM);
+CefHandlerFunc(CefContextMenuHandler, run_context_menu, RCM);
+CefHandlerFunc(CefContextMenuHandler, on_context_menu_command, OCMC);
+CefHandlerFunc(CefContextMenuHandler, on_context_menu_dismissed, OCMD);
 
 /* CefContextMenuParams
 --------------------------------------------------*/

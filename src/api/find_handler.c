@@ -12,9 +12,4 @@ typedef struct CefFindHandler {
 
 CefHandlerCreate(CefFindHandler);
 
-CefHandlerSetGetFunc(CefFindHandler, OFR);
-
-CEFAU3API void CefFindHandler_OnFindResult(CefFindHandler* self, void *ptr)
-{
-	self->self.on_find_result = ptr;
-}
+CefHandlerFunc(CefFindHandler, on_find_result, OFR);

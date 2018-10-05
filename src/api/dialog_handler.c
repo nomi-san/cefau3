@@ -27,9 +27,4 @@ typedef struct CefDialogHandler {
 
 CefHandlerCreate(CefDialogHandler);
 
-CefHandlerSetGetFunc(CefDialogHandler, OFD);
-
-CEFAU3API void CefDialodHandler_OnFileDialog(CefDialogHandler *self, void *ptr)
-{
-	self->self.on_file_dialog = ptr;
-}
+CefHandlerFunc(CefDialogHandler, on_file_dialog, OFD);

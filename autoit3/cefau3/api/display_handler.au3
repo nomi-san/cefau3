@@ -36,49 +36,49 @@ func __CefDisplayHandler_OAC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OAC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OAC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnAddressChange', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OAC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OAC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OAC : null)
 endfunc
 
 func __CefDisplayHandler_OTC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OTC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OTC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnTitleChange', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OTC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OTC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OTC : null)
 endfunc
 
 func __CefDisplayHandler_OFUC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OFUC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OFUC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnFaviconUrlChange', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OFUC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OFUC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OFUC : null)
 endfunc
 
 func __CefDisplayHandler_OFMC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OFMC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OFMC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnFullscreenModeChange', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OFMC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OFMC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OFMC : null)
 endfunc
 
 func __CefDisplayHandler_OT($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OT', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OT', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnTooltip', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OT : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OT', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OT : null)
 endfunc
 
 func __CefDisplayHandler_OSM($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OSM', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OSM', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnStatusMessage', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OSM : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OSM', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OSM : null)
 endfunc
 
 func __CefDisplayHandler_OCM($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OCM', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_Set_OCM', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OnConsoleMessage', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OCM : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDisplayHandler_OCM', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefDisplayHandler__OCM : null)
 endfunc
 
 ; ==================================================

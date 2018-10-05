@@ -14,21 +14,6 @@ typedef struct CefFocusHandler {
 
 CefHandlerCreate(CefFocusHandler);
 
-CefHandlerSetGetFunc(CefFocusHandler, OTF);
-CefHandlerSetGetFunc(CefFocusHandler, OSF);
-CefHandlerSetGetFunc(CefFocusHandler, OGF);
-
-CEFAU3API void CefFocusHandler_OnTakeFocus(CefFocusHandler *self, void *ptr)
-{
-	self->self.on_take_focus = ptr;
-}
-
-CEFAU3API void CefFocusHandler_OnSetFocus(CefFocusHandler *self, void *ptr)
-{
-	self->self.on_set_focus = ptr;
-}
-
-CEFAU3API void CefFocusHandler_OnGotFocus(CefFocusHandler *self, void *ptr)
-{
-	self->self.on_got_focus = ptr;
-}
+CefHandlerFunc(CefFocusHandler, on_take_focus, OTF);
+CefHandlerFunc(CefFocusHandler, on_set_focus, OSF);
+CefHandlerFunc(CefFocusHandler, on_got_focus, OGF);

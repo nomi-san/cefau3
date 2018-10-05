@@ -8,14 +8,6 @@
 ; CefLoadHandler
 ; ==================================================
 
-global $tag_CefLoadHandler = ( _
-    $tag_CefBase & 'ptr;ptr;ptr;' & _
-    'char __OLSC[100];' & _ ; on_loading_state_change
-    'char __OLS[100];' 	& _ ; on_load_start
-    'char __OLEn[100];' & _ ; on_load_end
-    'char __OLEr[100];' _ 	; on_load_error
-)
-
 global $__CefLoadHandler__OLSC 	= Cef_CallbackRegister(__CefLoadHandler__OLSC, 	'none', 'ptr;ptr;int;int;int')
 global $__CefLoadHandler__OLS 	= Cef_CallbackRegister(__CefLoadHandler__OLS, 	'none', 'ptr;ptr;ptr;int')
 global $__CefLoadHandler__OLEn 	= Cef_CallbackRegister(__CefLoadHandler__OLEn, 	'none', 'ptr;ptr;ptr;int')
@@ -24,77 +16,76 @@ global $__CefLoadHandler__OLEr 	= Cef_CallbackRegister(__CefLoadHandler__OLEr, 	
 ; ==================================================
 
 func CefLoadHandler_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefLoadHandler, 'CefLoadHandler', $ptr)
-	$struct.size = $struct.__size__;
+	local $self = CefObject_Create('CefLoadHandler', $ptr)
 
-	CefStruct_AddMethod($struct, 'OnLoadingStateChange', 	'__CefLoadHandler_OLSC')
-	CefStruct_AddMethod($struct, 'OnLoadStart', 			'__CefLoadHandler_OLS')
-	CefStruct_AddMethod($struct, 'OnLoadEnd', 				'__CefLoadHandler_OLEn')
-	CefStruct_AddMethod($struct, 'OnLoadError', 			'__CefLoadHandler_OLEr')
+	CefObject_AddMethod($self, 'OnLoadingStateChange', 	'__CefLoadHandler_OLSC')
+	CefObject_AddMethod($self, 'OnLoadStart', 			'__CefLoadHandler_OLS')
+	CefObject_AddMethod($self, 'OnLoadEnd', 			'__CefLoadHandler_OLEn')
+	CefObject_AddMethod($self, 'OnLoadError', 			'__CefLoadHandler_OLEr')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefLoadHandler_OLSC($self, $func = null)
-	if @NumParams == 1 then return $self.__OLSC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLSC', 'ptr', $self.__ptr)[0]
 
-	$self.__OLSC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadingStateChange', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLSC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_Set_OLSC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OLSC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLoadHandler__OLSC : null)
 endfunc
 
 func __CefLoadHandler_OLS($self,  $func = null)
-	if @NumParams == 1 then return $self.__OLS
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLS', 'ptr', $self.__ptr)[0]
 
-	$self.__OLS = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadStart', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLS)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_Set_OLS', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OLS', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLoadHandler__OLS : null)
 endfunc
 
 func __CefLoadHandler_OLEn($self,  $func = null)
-	if @NumParams == 1 then return $self.__OLEn
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLEn', 'ptr', $self.__ptr)[0]
 
-	$self.__OLEn = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadEnd', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLEn)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_Set_OLEn', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OLEn', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLoadHandler__OLEn : null)
 endfunc
 
 func __CefLoadHandler_OLEr($self,  $func = null)
-	if @NumParams == 1 then return $self.__OLEr
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLEr', 'ptr', $self.__ptr)[0]
 
-	$self.__OLEr = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OnLoadError', 'ptr', $self.__pointer__, 'ptr', $__CefLoadHandler__OLEr)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_Set_OLEr', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLoadHandler_OLEr', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLoadHandler__OLEr : null)
 endfunc
 
 ; ==================================================
 
 func __CefLoadHandler__OLSC($self, $browser, $isLoading, $canGoBack, $canGoForward)
-	$self 		= CefLoadHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLSC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__OLSC, $self, $browser, $isLoading, $canGoBack, $canGoForward)
+	call($self, $browser, $isLoading, $canGoBack, $canGoForward)
 endfunc
 
 func __CefLoadHandler__OLS($self, $browser, $frame, $transition_type)
-	$self 		= CefLoadHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLS', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 
-	call($self.__OLS, $self, $browser, $frame, $transition_type)
+	call($self, $browser, $frame, $transition_type)
 endfunc
 
 func __CefLoadHandler__OLEn($self, $browser, $frame, $httpStatusCode)
-	$self 		= CefLoadHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLEn', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 
-	call($self.__OLEn, $self, $browser, $frame, $httpStatusCode)
+	call($self, $browser, $frame, $httpStatusCode)
 endfunc
 
 func __CefLoadHandler__OLEr($self, $browser, $frame, $errorCode, $errorText, $failedUrl)
-	$self 		= CefLoadHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLoadHandler_Get_OLEr', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 
-	$errorText 	= CefString_Read($errorText)
-	$failedUrl 	= CefString_Read($failedUrl)
+	$errorText 	= CefString_Create($errorText)
+	$failedUrl 	= CefString_Create($failedUrl)
 
-	call($self.__OLEr, $self, $browser, $frame, $errorCode, $errorText, $failedUrl)
+	call($self, $browser, $frame, $errorCode, $errorText, $failedUrl)
 endfunc

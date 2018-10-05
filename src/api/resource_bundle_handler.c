@@ -14,21 +14,6 @@ typedef struct CefResourceBundleHandler {
 
 CefHandlerCreate(CefResourceBundleHandler);
 
-CefHandlerSetGetFunc(CefResourceBundleHandler, GLS);
-CefHandlerSetGetFunc(CefResourceBundleHandler, GDR);
-CefHandlerSetGetFunc(CefResourceBundleHandler, GDRFS);
-
-CEFAU3API void CefResourceBundleHandler_GetLocalizedString(CefResourceBundleHandler *self, void *p)
-{
-	self->self.get_localized_string = p;
-}
-
-CEFAU3API void CefResourceBundleHandler_GetDataResource(CefResourceBundleHandler *self, void *p)
-{
-	self->self.get_data_resource = p;
-}
-
-CEFAU3API void CefResourceBundleHandler_GetDataResourceForScale(CefResourceBundleHandler *self, void *p)
-{
-	self->self.get_data_resource_for_scale = p;
-}
+CefHandlerFunc(CefResourceBundleHandler, get_localized_string, GLS);
+CefHandlerFunc(CefResourceBundleHandler, get_data_resource, GDR);
+CefHandlerFunc(CefResourceBundleHandler, get_data_resource_for_scale, GDRFS);

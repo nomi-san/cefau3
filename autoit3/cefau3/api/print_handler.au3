@@ -76,17 +76,16 @@ global $__CefPrintHandler__GPPS = Cef_CallbackRegister(__CefPrintHandler__GPPS, 
 ; ==================================================
 
 func CefPrintHandler_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefPrintHandler, 'CefPrintHandler_Create', $ptr)
-	$struct.size = $struct.__size__
+	local $self = CefObject_Create('CefPrintHandler', $ptr)
 
-	CefStruct_AddMethod($struct, 'OnPrintStart', 	'__CefPrintHandler_OPSt')
-	CefStruct_AddMethod($struct, 'OnPrintSettings', '__CefPrintHandler_OPSe')
-	CefStruct_AddMethod($struct, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
-	CefStruct_AddMethod($struct, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
-	CefStruct_AddMethod($struct, 'OnPrintReset', 	'__CefPrintHandler_OPR')
-	CefStruct_AddMethod($struct, 'GetPDFPaperSize', '__CefPrintHandler_GPPS')
+	CefObject_AddMethod($self, 'OnPrintStart', 		'__CefPrintHandler_OPSt')
+	CefObject_AddMethod($self, 'OnPrintSettings',	'__CefPrintHandler_OPSe')
+	CefObject_AddMethod($self, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
+	CefObject_AddMethod($self, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
+	CefObject_AddMethod($self, 'OnPrintReset', 		'__CefPrintHandler_OPR')
+	CefObject_AddMethod($self, 'GetPDFPaperSize', 	'__CefPrintHandler_GPPS')
 
-	return $struct
+	return $self
 endfunc
 
 func __CefPrintHandler_OPSt($self, $func = null)

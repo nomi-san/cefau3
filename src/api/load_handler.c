@@ -15,27 +15,7 @@ typedef struct CefLoadHandler {
 
 CefHandlerCreate(CefLoadHandler);
 
-CefHandlerSetGetFunc(CefLoadHandler, OLSC);
-CefHandlerSetGetFunc(CefLoadHandler, OLS);
-CefHandlerSetGetFunc(CefLoadHandler, OLEn);
-CefHandlerSetGetFunc(CefLoadHandler, OLEr);
-
-CEFAU3API void CefLoadHandler_OnLoadingStateChange(CefLoadHandler *self, void* p)
-{
-	self->self.on_loading_state_change = p;
-}
-
-CEFAU3API void CefLoadHandler_OnLoadStart(CefLoadHandler *self, void* p)
-{
-	self->self.on_load_start = p;
-}
-
-CEFAU3API void CefLoadHandler_OnLoadEnd(CefLoadHandler *self, void* p)
-{
-	self->self.on_load_end = p;
-}
-
-CEFAU3API void CefLoadHandler_OnLoadError(CefLoadHandler *self, void* p)
-{
-	self->self.on_load_error = p;
-}
+CefHandlerFunc(CefLoadHandler, on_loading_state_change, OLSC);
+CefHandlerFunc(CefLoadHandler, on_load_start, OLS);
+CefHandlerFunc(CefLoadHandler, on_load_end, OLEn);
+CefHandlerFunc(CefLoadHandler, on_load_error, OLEr);

@@ -15,27 +15,7 @@ typedef struct CefJSDialogHandler {
 
 CefHandlerCreate(CefJSDialogHandler);
 
-CefHandlerSetGetFunc(CefJSDialogHandler, OJD);
-CefHandlerSetGetFunc(CefJSDialogHandler, OBUD);
-CefHandlerSetGetFunc(CefJSDialogHandler, ORDS);
-CefHandlerSetGetFunc(CefJSDialogHandler, ODC);
-
-CEFAU3API void CefJSDialogHandler_OnJSDialog(CefJSDialogHandler *self, void *p)
-{
-	self->self.on_jsdialog = p;
-}
-
-CEFAU3API void CefJSDialogHandler_OnBeforeUnloadDialog(CefJSDialogHandler *self, void *p)
-{
-	self->self.on_before_unload_dialog = p;
-}
-
-CEFAU3API void CefJSDialogHandler_OnResetDialogState(CefJSDialogHandler *self, void *p)
-{
-	self->self.on_reset_dialog_state = p;
-}
-
-CEFAU3API void CefJSDialogHandler_OnDialogClosed(CefJSDialogHandler *self, void *p)
-{
-	self->self.on_dialog_closed = p;
-}
+CefHandlerFunc(CefJSDialogHandler, on_jsdialog, OJD);
+CefHandlerFunc(CefJSDialogHandler, on_before_unload_dialog, OBUD);
+CefHandlerFunc(CefJSDialogHandler, on_reset_dialog_state, ORDS);
+CefHandlerFunc(CefJSDialogHandler, on_dialog_closed, ODC);

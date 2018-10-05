@@ -22,69 +22,14 @@ typedef struct CefRenderProcessHandler {
 
 CefHandlerCreate(CefRenderProcessHandler);
 
-CefHandlerSetGetFunc(CefRenderProcessHandler, ORTC);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OWKI);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OBC);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OBD);
-CefHandlerSetGetFunc(CefRenderProcessHandler, GLH);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OBN);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OCC);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OCR);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OUE);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OFNC);
-CefHandlerSetGetFunc(CefRenderProcessHandler, OPMR);
-
-CEFAU3API void CefRenderProcessHandler_OnRenderThreadCreated(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_render_thread_created = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnWebKitInitialized(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_web_kit_initialized = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnBrowserCreated(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_browser_created = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnBrowserDestroyed(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_browser_destroyed = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_GetLoadHandler(CefRenderProcessHandler *self, void* p)
-{
-	self->self.get_load_handler = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnBeforeNavigation(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_before_navigation = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnContextCreated(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_context_created = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnContextReleased(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_context_released = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnUncaughtException(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_uncaught_exception = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnFocusedNodeChanged(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_focused_node_changed = p;
-}
-
-CEFAU3API void CefRenderProcessHandler_OnProcessMessageReceived(CefRenderProcessHandler *self, void* p)
-{
-	self->self.on_process_message_received = p;
-}
+CefHandlerFunc(CefRenderProcessHandler, on_render_thread_created, ORTC);
+CefHandlerFunc(CefRenderProcessHandler, on_web_kit_initialized, OWKI);
+CefHandlerFunc(CefRenderProcessHandler, on_browser_created, OBC);
+CefHandlerFunc(CefRenderProcessHandler, on_browser_destroyed, OBD);
+CefHandlerFunc(CefRenderProcessHandler, get_load_handler, GLH);
+CefHandlerFunc(CefRenderProcessHandler, on_before_navigation, OBN);
+CefHandlerFunc(CefRenderProcessHandler, on_context_created, OCC);
+CefHandlerFunc(CefRenderProcessHandler, on_context_released, OCR);
+CefHandlerFunc(CefRenderProcessHandler, on_uncaught_exception, OUE);
+CefHandlerFunc(CefRenderProcessHandler, on_focused_node_changed, OFNC);
+CefHandlerFunc(CefRenderProcessHandler, on_process_message_received, OPMR);
