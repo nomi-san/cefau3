@@ -28,6 +28,9 @@
 -------
 ## Changelog
 
+#### 2018.10.04 [75% * rollback to previous]
+- change struct creation method to C side
+- struct is implemented
 
 #### 2018.09.20 [82%]
 - use AutoItObject for save code
