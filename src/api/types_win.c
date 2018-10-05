@@ -9,7 +9,7 @@ CEFAU3API cef_main_args_t * CefMainArgs_Create()
 {
 	size_t sz = sizeof(cef_main_args_t);
 	cef_main_args_t *p = calloc(1, sz);
-	p->instance = GetModuleHandleA(NULL);
+	p->instance = GetModuleHandleA((const char*)0);
 
 	return p;
 }

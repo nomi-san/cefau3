@@ -40,70 +40,70 @@ func CefBrowserProcessHandler_Create($ptr = null)
 endfunc
 
 func __CefBrowserProcessHandler_OCI($self, $func = null)
-	if @NumParams == 1 then return $self.__OCI
+if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_OCI', 'ptr', $self.__ptr)[0]
 
-	$self.__OCI = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OnContextInitialized', 'ptr', $self.__pointer__, 'ptr', $__CefBrowserProcessHandler__OCI)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_Set_OCI', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OCI', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefBrowserProcessHandler__OCI : null)
 endfunc
 
 func __CefBrowserProcessHandler_OBCPL($self, $func = null)
-	if @NumParams == 1 then return $self.__OBCPL
+if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_OBCPL', 'ptr', $self.__ptr)[0]
 
-	$self.__OBCPL = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OnBeforeChildProcessLaunch', 'ptr', $self.__pointer__, 'ptr', $__CefBrowserProcessHandler__OBCPL)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_Set_OBCPL', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OBCPL', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefBrowserProcessHandler__OBCPL : null)
 endfunc
 
 func __CefBrowserProcessHandler_ORPTC($self, $func = null)
-	if @NumParams == 1 then return $self.__ORPTC
+if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_ORPTC', 'ptr', $self.__ptr)[0]
 
-	$self.__ORPTC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OnRenderProcessThreadCreated', 'ptr', $self.__pointer__, 'ptr', $__CefBrowserProcessHandler__ORPTC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_Set_ORPTC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_ORPTC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefBrowserProcessHandler__ORPTC : null)
 endfunc
 
 func __CefBrowserProcessHandler_GPH($self, $func = null)
-	if @NumParams == 1 then return $self.__GPH
+if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_GPH', 'ptr', $self.__ptr)[0]
 
-	$self.__GPH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_GetPrintHandler', 'ptr', $self.__pointer__, 'ptr', $__CefBrowserProcessHandler__GPH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_Set_GPH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_GPH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefBrowserProcessHandler__GPH : null)
 endfunc
 
 func __CefBrowserProcessHandler_OSMPW($self, $func = null)
-	if @NumParams == 1 then return $self.__OSMPW
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_GPH', 'ptr', $self.__ptr)[0]
 
-	$self.__OSMPW = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_OnScheduleMessagePumpWork', 'ptr', $self.__pointer__, 'ptr', $__CefBrowserProcessHandler__OSMPW)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_Set_GPH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBrowserProcessHandler_GPH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefBrowserProcessHandler__GPH : null)
 endfunc
 
 ; ==================================================
 
 func __CefBrowserProcessHandler__OCI($self)
-	$self = CefBrowserProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_OCI', 'ptr', $self)[0]
 
-	call($self.__OCI, $self)
+	call($self, $self)
 endfunc
 
 func __CefBrowserProcessHandler__OBCPL($self, $command_line)
-	$self = CefBrowserProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_OBCPL', 'ptr', $self)[0]
 	;$command_line = CefCommandLine_Create($command_line)
 
-	call($self.__OBCPL, $self, $command_line)
+	call($self, $self, $command_line)
 endfunc
 
 func __CefBrowserProcessHandler__ORPTC($self, $extra_info)
-	$self = CefBrowserProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_ORPTC', 'ptr', $self)[0]
 	;$extra_info = CefListValue_Create($extra_info)
 
-	call($self.__ORPTC, $self, $extra_info)
+	call($self, $self, $extra_info)
 endfunc
 
 func __CefBrowserProcessHandler__GPH($self)
-	$self = CefBrowserProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_GPH', 'ptr', $self)[0]
 
-	return call($self.__GPH, $self)
+	return call($self, $self)
 endfunc
 
 func __CefBrowserProcessHandler__OSMPW($self, $delay_ms)
-	$self = CefBrowserProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefBrowserProcessHandler_Get_OSMPW', 'ptr', $self)[0]
 
-	call($self.__OSMPW, $self, $delay_ms)
+	call($self, $self, $delay_ms)
 endfunc

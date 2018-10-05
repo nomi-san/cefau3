@@ -64,202 +64,202 @@ func CefRenderHandler_Create($ptr = null)
 endfunc
 
 func __CefRenderHandler_GAH($self, $func = null)
-	if @NumParams == 1 then return $self.__GAH
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GAH', 'ptr', $self.__ptr)[0]
 
-	$self.__GAH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GetAccessibilityHandler', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__GAH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_GAH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GAH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__GAH : null)
 endfunc
 
 func __CefRenderHandler_GRSR($self, $func = null)
-	if @NumParams == 1 then return $self.__GRSR
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GRSR', 'ptr', $self.__ptr)[0]
 
-	$self.__GRSR = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GetRootScreenRect', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__GRSR)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_GRSR', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GRSR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__GRSR : null)
 endfunc
 
 func __CefRenderHandler_GVR($self, $func = null)
-	if @NumParams == 1 then return $self.__GVR
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GVR', 'ptr', $self.__ptr)[0]
 
-	$self.__GVR = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GetViewRect', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__GVR)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_GVR', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GVR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__GVR : null)
 endfunc
 
 func __CefRenderHandler_GSP($self, $func = null)
-	if @NumParams == 1 then return $self.__GSP
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GSP', 'ptr', $self.__ptr)[0]
 
-	$self.__GSP = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GetScreenPoint', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__GSP)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_GSP', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GSP', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__GSP : null)
 endfunc
 
 func __CefRenderHandler_GSI($self, $func = null)
-	if @NumParams == 1 then return $self.__GSI
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GSI', 'ptr', $self.__ptr)[0]
 
-	$self.__GSI = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GetScreenInfo', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__GSI)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_GSI', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_GSI', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__GSI : null)
 endfunc
 
 func __CefRenderHandler_OPSh($self, $func = null)
-	if @NumParams == 1 then return $self.__OPSh
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OPSh', 'ptr', $self.__ptr)[0]
 
-	$self.__OPSh = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnPopupShow', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OPSh)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OPSh', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OPSh', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OPSh : null)
 endfunc
 
 func __CefRenderHandler_OPSi($self, $func = null)
-	if @NumParams == 1 then return $self.__OPSi
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OPSi', 'ptr', $self.__ptr)[0]
 
-	$self.__OPSi = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnPopupSize', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OPSi)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OPSi', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OPSi', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OPSi : null)
 endfunc
 
 func __CefRenderHandler_OP($self, $func = null)
-	if @NumParams == 1 then return $self.__OP
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OP', 'ptr', $self.__ptr)[0]
 
-	$self.__OP = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnPaint', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OP)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OP', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OP', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OP : null)
 endfunc
 
 func __CefRenderHandler_OCC($self, $func = null)
-	if @NumParams == 1 then return $self.__OCC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OCC', 'ptr', $self.__ptr)[0]
 
-	$self.__OCC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnCursorChange', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OCC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OCC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OCC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OCC : null)
 endfunc
 
 func __CefRenderHandler_SD($self, $func = null)
-	if @NumParams == 1 then return $self.__SD
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_SD', 'ptr', $self.__ptr)[0]
 
-	$self.__SD = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_StartDragging', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__SD)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_SD', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_SD', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__SD : null)
 endfunc
 
 func __CefRenderHandler_UDC($self, $func = null)
-	if @NumParams == 1 then return $self.__UDC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_UDC', 'ptr', $self.__ptr)[0]
 
-	$self.__UDC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_UpdateDragCursor', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__UDC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_UDC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_UDC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__UDC : null)
 endfunc
 
 func __CefRenderHandler_OSOC($self, $func = null)
-	if @NumParams == 1 then return $self.__OSOC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OSOC', 'ptr', $self.__ptr)[0]
 
-	$self.__OSOC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnScrollOffsetChanged', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OSOC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OSOC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OSOC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OSOC : null)
 endfunc
 
 func __CefRenderHandler_OICRC($self, $func = null)
-	if @NumParams == 1 then return $self.__OICRC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OICRC', 'ptr', $self.__ptr)[0]
 
-	$self.__OICRC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OnIMECompositionRangeChanged', 'ptr', $self.__pointer__, 'ptr', $__CefRenderHandler__OICRC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_Set_OICRC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderHandler_OICRC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderHandler__OICRC : null)
 endfunc
 
 ; ==================================================
 
 func __CefRenderHandler__GAH($self)
-	$self = CefRenderHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GAH', 'ptr', $self.__ptr)[0]
 
-	return call($self.__GAH, $self)
+	return call($self)
 endfunc
 
 func __CefRenderHandler__GRSR($self, $browser, $rect)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GRSR', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$rect 		= CefRect_Create($rect)
 
-	return call($self.__GRSR, $self, $browser, $rect)
+	return call($self, $browser, $rect)
 endfunc
 
 func __CefRenderHandler__GVR($self, $browser, $rect)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GVR', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$rect 		= CefRect_Create($rect)
 
-	return call($self.__GVR, $self, $browser, $rect)
+	return call($self, $browser, $rect)
 endfunc
 
 func __CefRenderHandler__GSP($self, $browser, $viewX, $viewY, $screenX, $screenY)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GSP', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 
 	$screenX 	= CefInt_Create($screenX)
 	$screenY 	= CefInt_Create($screenY)
 
-	return call($self.__GSP, $self, $browser, $viewX, $viewY, $screenX, $screenY)
+	return call($self, $browser, $viewX, $viewY, $screenX, $screenY)
 endfunc
 
 func __CefRenderHandler__GSI($self, $browser, $screen_info)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_GSI', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$screen_info = CefScreenInfo_Create($screen_info)
 
-	return call($self.__GSI, $self, $browser, $screen_info)
+	return call($self, $browser, $screen_info)
 endfunc
 
 func __CefRenderHandler__OPSh($self, $browser, $show)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OPSh', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	return call($self.__OPSh, $self, $browser, $show)
+	return call($self, $browser, $show)
 endfunc
 
 func __CefRenderHandler__OPSi($self, $browser, $rect)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OPSi', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$rect 		= CefRect_Create($rect)
 
-	return call($self.__OPSi, $self, $browser, $rect)
+	return call($self, $browser, $rect)
 endfunc
 
 func __CefRenderHandler__OP($self, $browser, $type, $dirtyRectsCount, $dirtyRects, $buffer, $width, $height)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OP', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 
 	; <list>dirtyRects
 
-	return call($self.__OP, $self, $browser, $type, $dirtyRectsCount, $dirtyRects, $buffer, $width, $height)
+	return call($self, $browser, $type, $dirtyRectsCount, $dirtyRects, $buffer, $width, $height)
 endfunc
 
 func __CefRenderHandler__OCC($self, $browser, $cursor, $type, $custom_cursor_info)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OCC', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 
 	$custom_cursor_info = CefCursorInfo_Create($custom_cursor_info)
 
-	call($self.__OCC, $self, $browser, $cursor, $type, $custom_cursor_info)
+	call($self, $browser, $cursor, $type, $custom_cursor_info)
 endfunc
 
 func __CefRenderHandler__SD($self, $browser, $drag_data, $allowed_ops, $x, $y)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_SD', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	;$drag_data 	= CefDragData_Create($drag_data)
 
-	return call($self.__SD, $self, $browser, $drag_data, $allowed_ops, $x, $y)
+	return call($self, $browser, $drag_data, $allowed_ops, $x, $y)
 endfunc
 
 func __CefRenderHandler__UDC($self, $browser, $operation)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_UDC', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__UDC, $self, $browser, $operation)
+	call($self, $browser, $operation)
 endfunc
 
 func __CefRenderHandler__OSOC($self, $browser, $x, $y)
-	$self 		= CefRenderHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OSOC', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__OSOC, $self, $browser, $x, $y)
+	call($self, $browser, $x, $y)
 endfunc
 
 func __CefRenderHandler__OICRC($self, $browser, $selected_range, $character_boundsCount, $character_bounds)
-	$self = CefRenderHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderHandler_Get_OICRC', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	;$selected_range = CefRange_Create($selected_range)
 	;
 	;
 
-	call($self.__OICRC, $self, $browser, $selected_range, $character_boundsCount, $character_bounds)
+	call($self, $browser, $selected_range, $character_boundsCount, $character_bounds)
 endfunc

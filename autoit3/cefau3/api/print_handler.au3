@@ -89,92 +89,92 @@ func CefPrintHandler_Create($ptr = null)
 endfunc
 
 func __CefPrintHandler_OPSt($self, $func = null)
-	if @numparams == 1 then return $self.__OPSt
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPSt', 'ptr', $self.__ptr)[0]
 
-	$self.__OPSt = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_OnPrintStart', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__OPSt)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_OPSt', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerOPSt', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__OPSt : null)
 endfunc
 
 func __CefPrintHandler_OPSe($self, $func = null)
-	if @numparams == 1 then return $self.__OPSe
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPSe', 'ptr', $self.__ptr)[0]
 
-	$self.__OPSe = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_OnPrintSettings', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__OPSe)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_OPSe', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerOPSe', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__OPSe : null)
 endfunc
 
 func __CefPrintHandler_OPD($self, $func = null)
-	if @numparams == 1 then return $self.__OPD
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPD', 'ptr', $self.__ptr)[0]
 
-	$self.__OPD = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_OnPrintDialog', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__OPD)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_OPD', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerOPD', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__OPD : null)
 endfunc
 
 func __CefPrintHandler_OPJ($self, $func = null)
-	if @numparams == 1 then return $self.__OPJ
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPJ', 'ptr', $self.__ptr)[0]
 
-	$self.__OPJ = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_OnPrintJob', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__OPJ)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_OPJ', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerOPJ', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__OPJ : null)
 endfunc
 
 func __CefPrintHandler_OPR($self, $func = null)
-	if @numparams == 1 then return $self.__OPR
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPR', 'ptr', $self.__ptr)[0]
 
-	$self.__OPR = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_OnPrintReset', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__OPR)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_OPR', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerOPR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__OPR : null)
 endfunc
 
 func __CefPrintHandler_GPPS($self, $func = null)
-	if @numparams == 1 then return $self.__GPPS
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_GPPS', 'ptr', $self.__ptr)[0]
 
-	$self.__GPPS = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandler_GetPDFPaperSize', 'ptr', $self.__pointer__, 'ptr', $__CefPrintHandler__GPPS)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerSet_GPPS', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintHandlerGPPS', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefPrintHandler__GPPS : null)
 endfunc
 
 ; ==================================================
 
 func __CefPrintHandler__OPSt($self, $browser)
-	$self 		= CefPrintHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPSt', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	return call($self.__OPSt, $self, $browser)
+	return call($self, $browser)
 endfunc
 
 func __CefPrintHandler__OPSe($self, $browser, $settings, $get_defaults)
-	$self 		= CefPrintHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPSe', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 	;$settings 	= CefPrintSettings_Create($settings)
 
-	return call($self.__OPSe, $self,  $browser, $settings, $get_defaults)
+	return call($self,  $browser, $settings, $get_defaults)
 endfunc
 
 func __CefPrintHandler__OPD($self, $browser, $has_selection, $callback)
-	$self 		= CefPrintHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPD', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 	$callback 	= CefPrintDialogCallback_Create($callback)
 
-	return call($self.__OPD, $self, $browser, $has_selection, $callback)
+	return call($self, $browser, $has_selection, $callback)
 endfunc
 
 func __CefPrintHandler__OPJ($self, $browser, $document_name, $pdf_file_path, $callback)
-	$self 			= CefPrintHandler_Create($self)
+	$self 			= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPJ', 'ptr', $self.__ptr)[0]
 	$browser 		= CefBrowser_Create($browser)
 	$document_name 	= CefString_Read($document_name)
 	$pdf_file_path 	= CefString_Read($pdf_file_path)
 	$callback 		= CefPrintJobCallback_Create($callback)
 
-	return call($self.__OPJ, $self, $browser, $document_name, $pdf_file_path, $callback)
+	return call($self, $browser, $document_name, $pdf_file_path, $callback)
 endfunc
 
 func __CefPrintHandler__OPR($self, $browser)
-	$self 		= CefPrintHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_OPR', 'ptr', $self.__ptr)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__OPR, $self, $browser)
+	call($self, $browser)
 endfunc
 
 func __CefPrintHandler__GPPS($self, $device_units_per_inch)
-	$self = CefPrintHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefPrintHandlerGet_GPPS', 'ptr', $self.__ptr)[0]
 
-	return call($self.__GPPS, $self, $device_units_per_inch)
+	return call($self, $device_units_per_inch)
 endfunc

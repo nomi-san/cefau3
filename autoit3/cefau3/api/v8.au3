@@ -136,24 +136,25 @@ func CefV8Handler_Create($ptr = null)
 endfunc
 
 func __CefV8Handler_E($self, $func = null)
-	if @numparams == 1 then return $self.__E
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefV8Handler_Get_E', 'ptr', $self.__ptr)[0]
 
-	$self.__E = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_Execute', 'ptr', $self.__ptr, 'ptr', $__CefV8Handler__E)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_Set_E', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_E', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefV8Handler__E : null)
 endfunc
+
 
 ; ==================================================
 
 func __CefV8Handler__E($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
-	$self = CefV8Handler_Create($self)
-	$name = CefString_Read($name)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefV8Handler_Get_E', 'ptr', $self)[0]
+	$name = CefString_Create($name)
 	;$object = CefV8Value_Create($object)
 
 	;$arguments
 	;$retval
 	;$exception
 
-	return call($self.__E, $self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
+	return call($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
 endfunc
 
 
