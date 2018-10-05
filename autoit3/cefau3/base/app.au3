@@ -8,16 +8,6 @@
 ; CefApp
 ; ==================================================
 
-global $tag_CefApp = ( _
-	$tag_CefBase 			& _
-	'ptr[5];' 				& _
-	'char __OBCLP[100];' 	& _
-	'char __ORCS[100];' 	& _
-	'char __GRBH[100];' 	& _
-	'char __GBPH[100]; '	& _
-	'char __GRPH[100];' 	_
-)
-
 global $__CefApp__OBCLP	= Cef_CallbackRegister(__CefApp__OBCLP, 'none', 'ptr;ptr;ptr')
 global $__CefApp__ORCS	= Cef_CallbackRegister(__CefApp__ORCS, 	'none', 'ptr;ptr')
 global $__CefApp__GRBH	= Cef_CallbackRegister(__CefApp__GRBH, 	'ptr', 	'ptr')
@@ -39,73 +29,73 @@ func CefApp_Create($ptr = null)
 endfunc
 
 func __CefApp_OBCLP($self, $func = null)
-	if @numparams == 1 then return $self.__OBCLP
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_OBCLP', 'ptr', $self.__ptr)[0]
 
-	$self.__OBCLP = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnBeforeCommandLineProcessing', 'ptr', $self.__ptr, 'ptr', $__CefApp__OBCLP)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_Set_OBCLP', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OBCLP', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefApp__OBCLP : null)
 endfunc
 
 func __CefApp_ORCS($self, $func = null)
-	if @numparams == 1 then return $self.__ORCS
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_ORCS', 'ptr', $self.__ptr)[0]
 
-	$self.__ORCS = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_OnRegisterCustomSchemes', 'ptr', $self.__ptr, 'ptr', $__CefApp__ORCS)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_Set_ORCS', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_ORCS', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefApp__ORCS : null)
 endfunc
 
 func __CefApp_GRBH($self, $func = null)
-	if @numparams == 1 then return $self.__GRBH
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRBH', 'ptr', $self.__ptr)[0]
 
-	$self.__GRBH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetResourceBundleHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GRBH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_Set_GRBH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GRBH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefApp__GRBH : null)
 endfunc
 
 func __CefApp_GBPH($self, $func = null)
-	if @numparams == 1 then return $self.__GBPH
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GBPH', 'ptr', $self.__ptr)[0]
 
-	$self.__GBPH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetBrowserProcessHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GBPH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_Set_GBPH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GBPH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefApp__GBPH : null)
 endfunc
 
 func __CefApp_GRPH($self, $func = null)
-	if @numparams == 1 then return $self.__GRPH
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRPH', 'ptr', $self.__ptr)[0]
 
-	$self.__GRPH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GetRenderProcessHandler', 'ptr', $self.__ptr, 'ptr', $__CefApp__GRPH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_Set_GRPH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefApp_GRPH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefApp__GRPH : null)
 endfunc
 
 ; ==================================================
 
 func __CefApp__OBCLP($self, $process_type, $command_line)
-	$self 		= CefApp_Create($self)
-	$process_type = CefString_Read($process_type)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_OBCLP', 'ptr', $self)[0]
+	$process_type = CefString_Create($process_type)
 	;$command_line = CefCommandLine_Create($command_line)
 
 	call($self.__OBCLP, $self, $process_type, $command_line)
 endfunc
 
 func __CefApp__ORCS($self, $registrar)
-	$self = CefApp_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_ORCS', 'ptr', $self)[0]
 	;$registrar = CefSchemeRegistrar_Create($registrar)
 
-	call($self.__ORCS, $self, $registrar)
+	call($self, $registrar)
 endfunc
 
 func __CefApp__GRBH($self, $registrar)
-	$self = CefApp_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRBH', 'ptr', $self)[0]
 
-	return call($self.__GRBH, $self)
+	return call($self)
 endfunc
 
 func __CefApp__GBPH($self)
-	$self = CefApp_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GBPH', 'ptr', $self)[0]
 
-	return call($self.__GBPH, $self)
+	return call($self)
 endfunc
 
 func __CefApp__GRPH($self)
-	$self = CefApp_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRPH', 'ptr', $self)[0]
 
-	return call($self.__GRPH, $self)
+	return call($self)
 endfunc
 
 

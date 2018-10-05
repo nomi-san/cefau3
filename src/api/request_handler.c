@@ -48,7 +48,7 @@ typedef struct CefRequestHandler {
 	const char *ORPT;
 } CefRequestHandler;
 
-CefCreation(CefRequestHandler);
+CefHandlerCreate(CefRequestHandler);
 
 CefHandlerSetGetFunc(CefRequestHandler, OBB);
 CefHandlerSetGetFunc(CefRequestHandler, OOUFT);

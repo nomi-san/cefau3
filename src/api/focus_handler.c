@@ -12,7 +12,7 @@ typedef struct CefFocusHandler {
 	const char *OGF;
 } CefFocusHandler;
 
-CefCreation(CefFocusHandler);
+CefHandlerCreate(CefFocusHandler);
 
 CefHandlerSetGetFunc(CefFocusHandler, OTF);
 CefHandlerSetGetFunc(CefFocusHandler, OSF);

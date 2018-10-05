@@ -113,3 +113,53 @@ CEFAU3API void *CefMem_ReAlloc(void *p, size_t sz)
 {
 	return realloc(p, sz);
 }
+
+
+
+
+
+/* CefMisc
+--------------------------------------------------*/
+
+typedef struct CefMsgBoxData {
+	unsigned int flags;
+	wchar_t	*title;
+	wchar_t	*text;
+	HWND	parent;
+	int		(__stdcall *fn)(int ret, const char *fn_name);
+	char	*fn_name;
+} CefMsgBoxData;
+
+unsigned long __stdcall __Cef_MsgBox_Proc(void* param)
+{
+	CefMsgBoxData *data = (CefMsgBoxData*)param;
+	int ret = 0; 
+	
+	ret = MessageBoxW(
+		data->parent,
+		data->text,
+		data->title,
+		data->flags
+	);
+
+	if (data->fn || data->fn_name)
+		data->fn(ret, data->fn_name);
+
+	free(data->fn_name);
+	free(data->text);
+	free(data->title);
+	free(data);
+	data = NULL;
+	return 0;
+}
+
+CEFAU3API void Cef_MsgBox(void* fn, char* fn_name, unsigned int flags, wchar_t *title, wchar_t *text, HWND parent) {
+	CefMsgBoxData *data = calloc(1, sizeof(CefMsgBoxData));
+	data->flags = flags;
+	data->title = _wcsdup(title);
+	data->text = _wcsdup(text);
+	data->parent = parent;
+	data->fn = fn;
+	data->fn_name = fn_name ? _strdup(fn_name) : NULL;
+	CreateThread(NULL, 0, __Cef_MsgBox_Proc, data, 0, NULL);
+}

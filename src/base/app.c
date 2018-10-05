@@ -2,40 +2,25 @@
 
 #include "include/capi/cef_app_capi.h"
 
-CEFAU3API cef_app_t * CefApp_Create()
-{
-	size_t sz = sizeof(cef_app_t);
-	cef_app_t *p = calloc(1, sz);
-	p->base.size = sz;
+/* CefApp
+--------------------------------------------------*/
 
-	return p;
-}
+typedef struct CefApp {
+	cef_app_t self;
+	const char *OBCLP;
+	const char *ORCS;
+	const char *GRBH;
+	const char *GBPH;
+	const char *GRPH;
+} CefApp;
 
-CEFAU3API void CefApp_OnBeforeCommandLineProcessing(cef_app_t *self, void* ptr)
-{
-	self->on_before_command_line_processing = ptr;
-}
+CefHandlerCreate(CefApp);
 
-CEFAU3API void CefApp_OnRegisterCustomSchemes(cef_app_t *self, void* ptr)
-{
-	self->on_register_custom_schemes = ptr;
-}
-
-CEFAU3API void CefApp_GetResourceBundleHandler(cef_app_t *self, void* ptr)
-{
-	self->get_resource_bundle_handler = ptr;
-}
-
-CEFAU3API void CefApp_GetBrowserProcessHandler(cef_app_t *self, void* ptr)
-{
-	self->get_browser_process_handler = ptr;
-}
-
-CEFAU3API void CefApp_GetRenderProcessHandler(cef_app_t *self, void* ptr)
-{
-	self->get_render_process_handler = ptr;
-}
-
+CefHandlerFunc(CefApp, on_before_command_line_processing, OBCLP);
+CefHandlerFunc(CefApp, on_register_custom_schemes, ORCS);
+CefHandlerFunc(CefApp, get_resource_bundle_handler, GRBH);
+CefHandlerFunc(CefApp, get_browser_process_handler, GBPH);
+CefHandlerFunc(CefApp, get_render_process_handler, GRPH);
 
 /////////////////////////////////////////////
 

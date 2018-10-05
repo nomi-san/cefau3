@@ -25,7 +25,7 @@ typedef struct CefDialogHandler {
 	const char *OFD;
 } CefDialogHandler;
 
-CefCreation(CefDialogHandler);
+CefHandlerCreate(CefDialogHandler);
 
 CefHandlerSetGetFunc(CefDialogHandler, OFD);
 

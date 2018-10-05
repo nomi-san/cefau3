@@ -37,7 +37,7 @@ typedef struct CefPrintHandler {
 	const char *GPPS;
 } CefPrintHandler;
 
-CefCreation(CefPrintHandler);
+CefHandlerCreate(CefPrintHandler);
 
 CefHandlerSetGetFunc(CefPrintHandler, OPSt);
 CefHandlerSetGetFunc(CefPrintHandler, OPSe);

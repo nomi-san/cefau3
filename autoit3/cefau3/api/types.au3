@@ -594,6 +594,7 @@ endfunc
 ; ==================================================
 
 global $tag_CefKeyEvent = ( _
+	'int type;' & _
 	'uint modifiers;' & _
 	'int windows_key_code;' & _
 	'int native_key_code;' & _
@@ -604,9 +605,10 @@ global $tag_CefKeyEvent = ( _
 )
 
 func CefKeyEvent_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefKeyEvent, 'CefKeyEvent', $ptr)
+	;local $struct = CefStruct_Create($tag_CefKeyEvent, 'CefKeyEvent', $ptr)
 
-	return $struct
+	;return $struct
+	return dllstructcreate($tag_CefKeyEvent, $ptr)
 endfunc
 
 ; CefPopupFeatures

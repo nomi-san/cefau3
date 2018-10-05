@@ -11,17 +11,7 @@ typedef struct CefRequestContextHandler {
 	const char *OBPL;
 } CefRequestContextHandler;
 
-CefCreation(CefRequestContextHandler);
+CefHandlerCreate(CefRequestContextHandler);
 
-CefHandlerSetGetFunc(CefRequestContextHandler, GCM);
-CefHandlerSetGetFunc(CefRequestContextHandler, OBPL);
-
-CEFAU3API void CefRequestContextHandler_GetCookieManager(CefRequestContextHandler *self, void *p)
-{
-	self->self.get_cookie_manager = p;
-}
-
-CEFAU3API void CefRequestContextHandler_OnBeforePluginLoad(CefRequestContextHandler *self, void *p)
-{
-	self->self.on_before_plugin_load = p;
-}
+CefHandlerFunc(CefRequestContextHandler, get_cookie_manager, GCM);
+CefHandlerFunc(CefRequestContextHandler, on_before_plugin_load, OBPL);

@@ -12,7 +12,7 @@ typedef struct CefResourceBundleHandler {
 	const char *GDRFS;
 } CefResourceBundleHandler;
 
-CefCreation(CefResourceBundleHandler);
+CefHandlerCreate(CefResourceBundleHandler);
 
 CefHandlerSetGetFunc(CefResourceBundleHandler, GLS);
 CefHandlerSetGetFunc(CefResourceBundleHandler, GDR);

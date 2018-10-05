@@ -13,29 +13,9 @@ typedef struct CefLifeSpanHandler {
 	const char *OBC;
 } CefLifeSpanHandler;
 
-CefCreation(CefLifeSpanHandler);
+CefHandlerCreate(CefLifeSpanHandler);
 
-CefHandlerSetGetFunc(CefLifeSpanHandler, OBP);
-CefHandlerSetGetFunc(CefLifeSpanHandler, OAC);
-CefHandlerSetGetFunc(CefLifeSpanHandler, DC);
-CefHandlerSetGetFunc(CefLifeSpanHandler, OBC);
-
-CEFAU3API void CefLifeSpanHandler_OnBeforePopup(CefLifeSpanHandler *self, void *ptr)
-{
-	self->self.on_before_popup = ptr;
-}
-
-CEFAU3API void CefLifeSpanHandler_OnAfterCreated(CefLifeSpanHandler *self, void *ptr)
-{
-	self->self.on_after_created = ptr;
-}
-
-CEFAU3API void CefLifeSpanHandler_DoClose(CefLifeSpanHandler *self, void *ptr)
-{
-	self->self.do_close = ptr;
-}
-
-CEFAU3API void CefLifeSpanHandler_OnBeforeClose(CefLifeSpanHandler *self, void *ptr)
-{
-	self->self.on_before_close = ptr;
-}
+CefHandlerFunc(CefLifeSpanHandler, on_before_popup, OBP);
+CefHandlerFunc(CefLifeSpanHandler, on_after_created, OAC);
+CefHandlerFunc(CefLifeSpanHandler, do_close, DC);
+CefHandlerFunc(CefLifeSpanHandler, on_before_close, OBC);

@@ -8,8 +8,6 @@
 ; CefClient
 ; ==================================================
 
-global $__CefClient_Ref
-
 global const $__CefClient__GCMH 	= Cef_CallbackRegister(__CefClient__GCMH, 	'ptr', 'ptr')
 global const $__CefClient__GDiaH  	= Cef_CallbackRegister(__CefClient__GDiaH,	'ptr', 'ptr')
 global const $__CefClient__GDisH 	= Cef_CallbackRegister(__CefClient__GDisH, 	'ptr', 'ptr')
@@ -54,105 +52,105 @@ func __CefClient_GCMH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GCMH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GCMH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetContextMenuHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GCMH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GCMH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GCMH : null)
 endfunc
 
 func __CefClient_GDiaH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDiaH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GDiaH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetDialogHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDiaH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GDiaH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDiaH : null)
 endfunc
 
 func __CefClient_GDisH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDisH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GDisH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetDisplayHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDisH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GDisH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDisH : null)
 endfunc
 
 func __CefClient_GDoH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDoH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GDoH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetDownloadHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDoH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GDoH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDoH : null)
 endfunc
 
 func __CefClient_GDrH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDrH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GDrH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetDragHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDrH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GDrH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GDrH : null)
 endfunc
 
 func __CefClient_GFiH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GFiH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GFiH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetFindHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GFiH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GFiH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GFiH : null)
 endfunc
 
 func __CefClient_GFoH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GFoH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GFoH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetFocusHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GFoH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GFoH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GFoH : null)
 endfunc
 
 func __CefClient_GGH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GGH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GGH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetGeolocationHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GGH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GGH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GGH : null)
 endfunc
 
 func __CefClient_GJH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GJH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GJH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetJSDialogHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GJH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GJH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GJH : null)
 endfunc
 
 func __CefClient_GKH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GKH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GKH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetKeyboardHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GKH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GKH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GKH : null)
 endfunc
 
 func __CefClient_GLSH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GLSH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GLSH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetLifeSpanHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GLSH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GLSH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GLSH : null)
 endfunc
 
 func __CefClient_GLH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GLH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GLH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetLoadHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GLH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GLH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GLH : null)
 endfunc
 
 func __CefClient_GRenH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GRenH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GRenH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetRenderHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GRenH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GRenH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GRenH : null)
 endfunc
 
 func __CefClient_GReqH($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GReqH', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_GReqH', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GetRequestHandler', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GReqH : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_GReqH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__GReqH : null)
 endfunc
 
 func __CefClient_OPMR($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_OPMR', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_Set_OPMR', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_OnProcessMessageReceived', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__OPMR : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefClient_OPMR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefClient__OPMR : null)
 endfunc
 
 ; ==================================================

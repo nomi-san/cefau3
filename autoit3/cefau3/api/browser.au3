@@ -16,27 +16,27 @@ global $tag_CefBrowser = ( _
 func CefBrowser_Create($ptr = null)
 	local $self = CefObject_Create('CefBrowser', $ptr)
 
-	CefObject_AddMethod($self, 'GetHost',             '__CefBrowser_GetHost')
-	CefObject_AddMethod($self, 'CanGoBack',           '__CefBrowser_CanGoBack')
-	CefObject_AddMethod($self, 'GoBack',              '__CefBrowser_GoBack')
-	CefObject_AddMethod($self, 'CanGoForward',        '__CefBrowser_CanGoForward')
-	CefObject_AddMethod($self, 'GoForward',           '__CefBrowser_GoForward')
-	CefObject_AddMethod($self, 'IsLoading',           '__CefBrowser_IsLoading')
-	CefObject_AddMethod($self, 'Reload',              '__CefBrowser_Reload')
-	CefObject_AddMethod($self, 'ReloadIgnoreCache',   '__CefBrowser_ReloadIgnoreCache')
-	CefObject_AddMethod($self, 'StopLoad',            '__CefBrowser_StopLoad')
-	CefObject_AddMethod($self, 'GetIdentifier',       '__CefBrowser_GetIdentifier')
-	CefObject_AddMethod($self, 'IsSame',              '__CefBrowser_IsSame')
-	CefObject_AddMethod($self, 'IsPopup',             '__CefBrowser_IsPopup')
-	CefObject_AddMethod($self, 'HasDocument',         '__CefBrowser_HasDocument')
-	CefObject_AddMethod($self, 'GetMainFrame',        '__CefBrowser_GetMainFrame')
-	CefObject_AddMethod($self, 'GetFocusedFrame',     '__CefBrowser_GetFocusedFrame')
-	CefObject_AddMethod($self, 'GetFrameByident',     '__CefBrowser_GetFrameByident')
-	CefObject_AddMethod($self, 'GetFrame',            '__CefBrowser_GetFrame')
-	CefObject_AddMethod($self, 'GetFrameCount',       '__CefBrowser_GetFrameCount')
+	CefObject_AddMethod($self, 'GetHost', '__CefBrowser_GetHost')
+	CefObject_AddMethod($self, 'CanGoBack', '__CefBrowser_CanGoBack')
+	CefObject_AddMethod($self, 'GoBack', '__CefBrowser_GoBack')
+	CefObject_AddMethod($self, 'CanGoForward', '__CefBrowser_CanGoForward')
+	CefObject_AddMethod($self, 'GoForward', '__CefBrowser_GoForward')
+	CefObject_AddMethod($self, 'IsLoading', '__CefBrowser_IsLoading')
+	CefObject_AddMethod($self, 'Reload', '__CefBrowser_Reload')
+	CefObject_AddMethod($self, 'ReloadIgnoreCache', '__CefBrowser_ReloadIgnoreCache')
+	CefObject_AddMethod($self, 'StopLoad', '__CefBrowser_StopLoad')
+	CefObject_AddMethod($self, 'GetIdentifier', '__CefBrowser_GetIdentifier')
+	CefObject_AddMethod($self, 'IsSame', '__CefBrowser_IsSame')
+	CefObject_AddMethod($self, 'IsPopup', '__CefBrowser_IsPopup')
+	CefObject_AddMethod($self, 'HasDocument', '__CefBrowser_HasDocument')
+	CefObject_AddMethod($self, 'GetMainFrame', '__CefBrowser_GetMainFrame')
+	CefObject_AddMethod($self, 'GetFocusedFrame', '__CefBrowser_GetFocusedFrame')
+	CefObject_AddMethod($self, 'GetFrameByident', '__CefBrowser_GetFrameByident')
+	CefObject_AddMethod($self, 'GetFrame', '__CefBrowser_GetFrame')
+	CefObject_AddMethod($self, 'GetFrameCount', '__CefBrowser_GetFrameCount')
 	CefObject_AddMethod($self, 'GetFrameIdentifiers', '__CefBrowser_GetFrameIdentifiers')
-	CefObject_AddMethod($self, 'GetFrameNames',       '__CefBrowser_GetFrameNames')
-	CefObject_AddMethod($self, 'SendProcessMessage',  '__CefBrowser_SendProcessMessage')
+	CefObject_AddMethod($self, 'GetFrameNames', '__CefBrowser_GetFrameNames')
+	CefObject_AddMethod($self, 'SendProcessMessage', '__CefBrowser_SendProcessMessage')
 
 	return $self
 endfunc
@@ -143,11 +143,6 @@ endfunc
 
 ; CefBrowserHost
 ; ==================================================
-
-global $tag_CefBrowserHost = ( _
-	$tag_CefBase & _
-	'ptr[52];' _
-)
 
 func CefBrowserHost_Create($ptr = null)
 	local $self = CefObject_Create('CefBrowserHost', $ptr)

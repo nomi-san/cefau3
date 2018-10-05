@@ -11,7 +11,7 @@ typedef struct CefDragHandler {
 	const char *ODRC;
 } CefDragHandler;
 
-CefCreation(CefDragHandler);
+CefHandlerCreate(CefDragHandler);
 
 CefHandlerSetGetFunc(CefDragHandler, ODE);
 CefHandlerSetGetFunc(CefDragHandler, ODRC);

@@ -21,16 +21,12 @@ global $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccessibilit
 ; ==================================================
 
 func CefAccessibilityHandler_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefAccessibilityHandler, 'CefAccessibilityHandler', $ptr)
-	$struct.size = $struct.__size__;
+	local $self = CefObject_Create('CefAccessibilityHandler', $ptr)
 
-	_AutoItObject_AddProperty($struct, '__ptr', $ELSCOPE_READONLY, $struct.__pointer__)
-	_AutoItObject_AddProperty($struct, '__type', $ELSCOPE_READONLY, 'CefAccessibilityHandler')
+	CefObject_AddMethod($self, 'OnAccessibilityTreeChange', 		'__CefAccessibilityHandler_OATC')
+	CefObject_AddMethod($self, 'OnAccessibilityLocationChange', 	'__CefAccessibilityHandler_OALC')
 
-	CefStruct_AddMethod($struct, 'OnAccessibilityTreeChange', 		'__CefAccessibilityHandler_OATC')
-	CefStruct_AddMethod($struct, 'OnAccessibilityLocationChange', 	'__CefAccessibilityHandler_OALC')
-
-	return $struct
+	return $self
 endfunc
 
 func __CefAccessibilityHandler_OATC($self, $func = null)

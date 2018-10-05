@@ -10,7 +10,7 @@ typedef struct CefFindHandler {
 	const char *OFR;
 } CefFindHandler;
 
-CefCreation(CefFindHandler);
+CefHandlerCreate(CefFindHandler);
 
 CefHandlerSetGetFunc(CefFindHandler, OFR);
 

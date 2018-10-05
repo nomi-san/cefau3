@@ -37,7 +37,7 @@ typedef struct CefDownloadHandler {
 	const char *ODU;
 } CefDownloadHandler;
 
-CefCreation(CefDownloadHandler);
+CefHandlerCreate(CefDownloadHandler);
 CefHandlerSetGetFunc(CefDownloadHandler, OBD);
 CefHandlerSetGetFunc(CefDownloadHandler, ODU);
 

@@ -20,7 +20,7 @@ typedef struct CefRenderProcessHandler {
 	const char *OPMR;
 } CefRenderProcessHandler;
 
-CefCreation(CefRenderProcessHandler);
+CefHandlerCreate(CefRenderProcessHandler);
 
 CefHandlerSetGetFunc(CefRenderProcessHandler, ORTC);
 CefHandlerSetGetFunc(CefRenderProcessHandler, OWKI);

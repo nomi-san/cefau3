@@ -14,7 +14,7 @@ typedef struct CefBrowserProcessHandler {
 	const char *OSMPW;
 } CefBrowserProcessHandler;
 
-CefCreation(CefBrowserProcessHandler);
+CefHandlerCreate(CefBrowserProcessHandler);
 
 CefHandlerSetGetFunc(CefBrowserProcessHandler, OCI);
 CefHandlerSetGetFunc(CefBrowserProcessHandler, OBCPL);

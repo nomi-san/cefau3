@@ -30,28 +30,28 @@ func __CefLifeSpanHandler_OBP($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OBP', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_Set_OBP', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OnBeforePopup', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OBP : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OBP', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OBP : null)
 endfunc
 
 func __CefLifeSpanHandler_OAC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OAC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_Set_OAC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OnAfterCreated', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OAC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OAC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OAC : null)
 endfunc
 
 func __CefLifeSpanHandler_DC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_DC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_Set_DC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_DoClose', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__DC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_DC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__DC : null)
 endfunc
 
 func __CefLifeSpanHandler_OBC($self, $func = null)
 	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OBC', 'ptr', $self.__ptr)[0]
 
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_Set_OBC', 'ptr', $self.__ptr, 'str', funcname($func))
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OnBeforeClose', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OBC : null)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefLifeSpanHandler_OBC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefLifeSpanHandler__OBC : null)
 endfunc
 
 ; ==================================================

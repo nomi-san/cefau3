@@ -51,11 +51,13 @@ $cef_wininfo.height = $CW_USEDEFAULT
 ; create Client, LifeSpanHandler & DisplayHandler; it's callback handler, implement property for control
 global $cef_client = $cef.new('Client'), _
 	$cef_lifespan = $cef.new('LifeSpanHandler'), _
-	$cef_display = $cef.new('DisplayHandler')
+	$cef_display = $cef.new('DisplayHandler'), _
+	$cef_keyboard = $cef.new('KeyboardHandler')
 
 ; implement callback functions
 $cef_client.GetLifeSpanHandler 	= __getLifeSpanHandler
 $cef_client.GetDisplayHandler 	= __getDisplayHandler
+$cef_client.GetKeyboardHandler 	= __getKeyboardHandler
 
 $cef_lifespan.OnAfterCreated 	= __onAfterCreated
 $cef_lifespan.OnBeforeClose 	= __onBeforeClose
@@ -63,6 +65,8 @@ $cef_lifespan.OnBeforeClose 	= __onBeforeClose
 $cef_display.OnTitleChange		= __onTitleChange
 $cef_display.OnAddressChange	= __onAddressChange
 $cef_display.OnFaviconUrlChange	= __onFaviconUrlChange
+
+$cef_keyboard.OnPreKeyEvent 	= __onPreKeyEvent
 
 global $url = 'https://www.google.com/'
 $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
@@ -82,6 +86,10 @@ endfunc
 
 func __getDisplayHandler()
 	return $cef_display.__ptr
+endfunc
+
+func __getKeyboardHandler()
+	return $cef_keyboard.__ptr
 endfunc
 
 func __onAfterCreated($browser)
@@ -105,4 +113,22 @@ endfunc
 
 func __onFaviconUrlChange($browser, $frame, $icon_urls)
 	Cef_Print('Favicon change: ' & $icon_urls.read() & '\n')
+endfunc
+
+func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
+	if ($event.type == 2) then
+		if $event.windows_key_code == 0xd then
+			Cef_Print('Enter key released\n')
+		elseif $event.windows_key_code == 0x1b then
+			Cef_Print('ESC key released\n')
+		elseif $event.windows_key_code == 0x70 then
+			Cef_MsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nCef simple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
+			return 1
+		endif
+	EndIf
+	return 0
+endfunc
+
+func __onMsgBoxClosed($ret)
+	Cef_Print('MsgBox closed with code: ' & $ret & '\n')
 endfunc

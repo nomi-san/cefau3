@@ -22,7 +22,7 @@ typedef struct CefRenderHandler {
 	const char *OICRC;
 } CefRenderHandler;
 
-CefCreation(CefRenderHandler);
+CefHandlerCreate(CefRenderHandler);
 
 CefHandlerSetGetFunc(CefRenderHandler, GAH);
 CefHandlerSetGetFunc(CefRenderHandler, GRSR);

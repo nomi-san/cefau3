@@ -11,7 +11,7 @@ typedef struct CefGeolocationHandler {
 	const char *OCGP;
 } CefGeolocationHandler;
 
-CefCreation(CefGeolocationHandler);
+CefHandlerCreate(CefGeolocationHandler);
 
 CefHandlerSetGetFunc(CefGeolocationHandler, ORGP);
 CefHandlerSetGetFunc(CefGeolocationHandler, OCGP);

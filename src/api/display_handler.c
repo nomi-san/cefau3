@@ -16,7 +16,7 @@ typedef struct CefDisplayHandler {
 	const char *OCM;
 } CefDisplayHandler;
 
-CefCreation(CefDisplayHandler);
+CefHandlerCreate(CefDisplayHandler);
 CefHandlerSetGetFunc(CefDisplayHandler, OAC);
 CefHandlerSetGetFunc(CefDisplayHandler, OTC);
 CefHandlerSetGetFunc(CefDisplayHandler, OFUC);

@@ -5,6 +5,12 @@
 /* CefBrowser
 --------------------------------------------------*/
 
+typedef struct CefBrowser {
+	cef_browser_t self;
+} CefBrowser;
+
+CefHandlerCreate(CefBrowser);
+
 CEFAU3API cef_browser_host_t*  CefBrowser_GetHost(
 	struct _cef_browser_t* self)
 {
@@ -129,6 +135,12 @@ CEFAU3API int  CefBrowser_SendProcessMessage(
 
 /* CefBrowserHost
 --------------------------------------------------*/
+
+typedef struct CefBrowserHost {
+	cef_browser_t self;
+} CefBrowserHost;
+
+CefHandlerCreate(CefBrowserHost);
 
 CEFAU3API struct _cef_browser_t*  CefBrowserHost_GetBrowser(
 	struct _cef_browser_host_t* self)

@@ -11,7 +11,7 @@ typedef struct CefAccessibility {
 	const char *OALC;
 } CefAccessibility;
 
-CefCreation(CefAccessibility);
+CefHandlerCreate(CefAccessibility);
 
 CefHandlerSetGetFunc(CefAccessibility, OATC);
 CefHandlerSetGetFunc(CefAccessibility, OALC);

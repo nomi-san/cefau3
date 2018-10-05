@@ -91,7 +91,7 @@ typedef struct CefV8Handler {
 	const char *E;
 } CefV8Handler;
 
-CefCreation(CefV8Handler);
+CefHandlerCreate(CefV8Handler);
 
 CefHandlerSetGetFunc(CefV8Handler, E);
 

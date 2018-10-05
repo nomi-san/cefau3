@@ -347,14 +347,23 @@ func CefMem_ReAlloc($ptr, $size)
 endfunc
 
 
-
-
-
-; CefAu3Obj
+; CefMisc
 ; ==================================================
 
-global const $__CefAu3Obj_Set = Cef_CallbackRegister(__CefAu3Obj_SetPtr, 'none', 'idispatch;ptr')
+global const $__Cef_MsgBox_Port = Cef_CallbackRegister(__Cef_MsgBox_Port, 'none', 'int;str')
 
-func __CefAu3Obj_SetPtr($obj, $ptr)
-	$obj.__ptr = ptr($ptr);
+func __Cef_MsgBox_Port($ret, $fn_name)
+	call($fn_name, $ret)
+endfunc
+
+func Cef_MsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
+	local $fn = funcname($OnMsgBoxClosed)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_MsgBox', _
+		'ptr', $__Cef_MsgBox_Port, _
+		'str', $fn ? fn : null, _
+		'uint', $flags, _
+		'wstr', stringformat($title), _
+		'wstr', stringformat($text), 	_
+		'hwnd', $parent _
+	)
 endfunc

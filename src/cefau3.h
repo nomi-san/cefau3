@@ -20,13 +20,26 @@ cef_string_t cefstring_wcs(const wchar_t *);
 	cef_string_userfree_free(_s_); \
 	return _wcs_;
 
-#define CefCreation(t)					\
+#define CefHandlerCreate(t)             \
 	CEFAU3API t * t ## _Create ()		\
 	{									\
 		t *p = calloc(1, sizeof(t));	\
 		p->self.base.size = sizeof(t);	\
 		return p;						\
 	}									\
+
+#define CefHandlerFunc(t, e, n)                                \
+	CEFAU3API void t ## _ ## n(t *self, void* p)               \
+	{                                                          \
+		self->self.e = p;                                      \
+	}                                                          \
+	CEFAU3API void t ## _Set_ ## n(t *self, const char *fn) {  \
+		self->n = _strdup(fn);                                 \
+	}                                                          \
+	CEFAU3API const char *t ## _Get_ ## n(t *self) {           \
+		return self->n;                                        \
+	}
+
 
 #define CefHandlerSetGetFunc(t, n)                             \
 	CEFAU3API void t ## _Set_ ## n(t *self, const char *fn) {  \

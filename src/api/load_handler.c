@@ -13,7 +13,7 @@ typedef struct CefLoadHandler {
 	const char *OLEr;
 } CefLoadHandler;
 
-CefCreation(CefLoadHandler);
+CefHandlerCreate(CefLoadHandler);
 
 CefHandlerSetGetFunc(CefLoadHandler, OLSC);
 CefHandlerSetGetFunc(CefLoadHandler, OLS);

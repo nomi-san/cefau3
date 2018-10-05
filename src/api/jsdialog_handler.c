@@ -13,7 +13,7 @@ typedef struct CefJSDialogHandler {
 	const char *ODC;
 } CefJSDialogHandler;
 
-CefCreation(CefJSDialogHandler);
+CefHandlerCreate(CefJSDialogHandler);
 
 CefHandlerSetGetFunc(CefJSDialogHandler, OJD);
 CefHandlerSetGetFunc(CefJSDialogHandler, OBUD);

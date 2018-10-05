@@ -28,7 +28,7 @@ typedef struct CefContextMenuHandler {
 	const char *OCMD;
 } CefContextMenuHandler;
 
-CefCreation(CefContextMenuHandler);
+CefHandlerCreate(CefContextMenuHandler);
 
 CefHandlerSetGetFunc(CefContextMenuHandler, OBCM);
 CefHandlerSetGetFunc(CefContextMenuHandler, RCM);

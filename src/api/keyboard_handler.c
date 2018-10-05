@@ -11,17 +11,7 @@ typedef struct CefKeyboardHandler {
 	const char *OKE;
 } CefKeyboardHandler;
 
-CefCreation(CefKeyboardHandler);
+CefHandlerCreate(CefKeyboardHandler);
 
-CefHandlerSetGetFunc(CefKeyboardHandler, OPKE);
-CefHandlerSetGetFunc(CefKeyboardHandler, OKE);
-
-CEFAU3API void CefKeyboardHandler_OnPreKeyEvent(CefKeyboardHandler *self, void* ptr)
-{
-	self->self.on_pre_key_event = ptr;
-}
-
-CEFAU3API void CefKeyboardHandler_OnKeyEvent(CefKeyboardHandler *self, void* ptr)
-{
-	self->self.on_key_event = ptr;
-}
+CefHandlerFunc(CefKeyboardHandler, on_pre_key_event, OPKE);
+CefHandlerFunc(CefKeyboardHandler, on_key_event, OKE);
