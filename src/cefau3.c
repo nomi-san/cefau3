@@ -3,9 +3,11 @@
 #include "include/cef_version.h"
 
 #define QUITAPPMESSAGE 0x696969
-static HWND __main_window_message = NULL;
+#define INVALID_HWND (HWND)INVALID_HANDLE_VALUE
+static HWND __main_window_message = INVALID_HWND;
 static MSG __main_message = { 0 };
-const wchar_t *__window_message_class = L"Cef.Message";
+static HINSTANCE __main_instance = NULL;
+const wchar_t *__window_message_class = L"MessageWindowClass";
 
 typedef void(__stdcall * au3_func)();
 
@@ -17,6 +19,12 @@ typedef void(__stdcall * au3_func)();
 //
 /*  Chromium Embedded Framework for AutoIt 3
 --------------------------------------------------*/
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+	__main_instance = hinstDLL;
+	return 1;
+}
 
 CEFAU3API void Cef_Release(void *p)
 {
@@ -50,51 +58,21 @@ CEFAU3API void Cef_PostQuitMessage(int code)
 	SendMessageW(__main_window_message, WM_COMMAND, QUITAPPMESSAGE, code);
 }
 
-CEFAU3API void Cef_Print(const char* s)
-{
-	printf(s);
-}
-
 LRESULT CALLBACK __cef_window_message_proc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-	switch (msg) {
-	case WM_COMMAND:
-		if (wp == QUITAPPMESSAGE) PostQuitMessage(lp);
-		break;
-
-	default: break;
-	}
 	return DefWindowProcW(hwnd, msg, wp, lp);
 }
 
-CEFAU3API HWND Cef_CreateWindowMessage()
+CEFAU3API void Cef_CreateWindowMessage()
 {
-	if (__main_window_message == NULL) {
-		WNDCLASSEXW wcex = { 0 };
-		wcex.cbSize = sizeof(WNDCLASSEXW);
-		wcex.lpfnWndProc = __cef_window_message_proc;
-		wcex.hInstance = NULL;
-		wcex.lpszClassName = __window_message_class;
-		RegisterClassExW(&wcex);
-		__main_window_message = CreateWindowExW(
-			0,
-			__window_message_class,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			(HWND)-3,
-			0,
-			NULL,
-			0
-		);
-	}
-	return __main_window_message;
+	WNDCLASSEX wcex = { 0 };
+	wcex.cbSize = sizeof(wcex);
+	wcex.lpfnWndProc = __cef_window_message_proc;
+	wcex.hInstance = __main_instance;
+	wcex.lpszClassName = __window_message_class;
+	RegisterClassEx(&wcex);
+	__main_window_message = CreateWindowExW(0, __window_message_class, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, __main_instance, 0);
 }
-
-
 
 CEFAU3API void *CefMem_Alloc(size_t sz)
 {

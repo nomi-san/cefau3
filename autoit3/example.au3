@@ -20,7 +20,7 @@ global $cef_app = $cef.new('App'), _
 	$cef_args = $cef.new('MainArgs')
 
 ; execute process
-if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
+;if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 ; if $cef_settings.single_process = 1 (true, in line 36),
 ; do not insert another codes above (e.g: MsgBox, GUICreate, user interface, etc)
@@ -31,6 +31,8 @@ Cef_Print('CEF: ' & $cef.Version  & '\n' & _
 
 global $cef_settings = $cef.new('Settings'), _
 	$cef_bs = $cef.new('BrowserSettings')
+
+$cef_bs.webgl = 1
 
 ; multiprocess for performance, not work while running script
 $cef_settings.single_process = @Compiled ? 0 : 1

@@ -8,11 +8,6 @@
 ; CefBrowser
 ; ==================================================
 
-global $tag_CefBrowser = ( _
-	$tag_CefBase & _
-	'ptr[21];' _
-)
-
 func CefBrowser_Create($ptr = null)
 	local $self = CefObject_Create('CefBrowser', $ptr)
 

@@ -35,3 +35,7 @@ endfunc
 func _GetWindowRect($hWnd, $lpRect)
 	dllcall($__user32, 'bool', 'GetWindowRect', 'hwnd', $hWnd, 'ptr', $lpRect)
 endfunc
+
+func _MoveWindow($hwnd, $x, $y, $w, $h, $repaint = 0)
+	dllcall('user32', 'bool', 'MoveWindow', 'hwnd', $hwnd, 'int', $x, 'int', $y, 'int', $w, 'int', $h, 'bool', $repaint)
+endfunc

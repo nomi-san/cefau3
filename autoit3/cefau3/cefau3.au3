@@ -28,9 +28,9 @@ program/
 
 #ce
 
-global $__Cefau3Dll__ 		= null;
-global $__Cefau3DllName__ 	= 'cefau3.dll';
-global $__CefObject__ 		= null;
+global static $__Cefau3Dll__ 		= null;
+global static $__Cefau3DllName__ 	= 'cefau3.dll';
+global static $__CefObject__ 		= null;
 
 #include-once
 
@@ -82,7 +82,6 @@ func CefStart($CefPath = default)
 	dllcall('kernel32.dll', 'int', 'SetCurrentDirectoryW', 'wstr', @ScriptDir)
 	if @error or ($ret == -1) then return 0
 	$__Cefau3Dll__ = $ret
-	Cef_CreateWindowMessage()
 	_AutoItObject_Startup()
 
 	if @error then return 0
@@ -90,6 +89,8 @@ func CefStart($CefPath = default)
 	__Cef_Init()
 
 	if @error then return 0
+
+	Cef_CreateWindowMessage()
 
 	return $__CefObject__
 endfunc
@@ -101,28 +102,27 @@ func CefEnd()
 endfunc
 
 func __Cef_Init()
-	local $obj = _AutoItObject_Create()
+	$__CefObject__ = _AutoItObject_Create()
 
-	CefObject_AddMethod($obj, 'new', '__Cef_New')
+	CefObject_AddMethod($__CefObject__, 'new', '__Cef_New')
 
-	CefObject_AddMethod($obj, 'Version', 			'__Cef_GetVersion')
-	CefObject_AddMethod($obj, 'ChromiumVersion', 	'__Cef_GetChromiumVersion')
+	CefObject_AddMethod($__CefObject__, 'Version', 			'__Cef_GetVersion')
+	CefObject_AddMethod($__CefObject__, 'ChromiumVersion', 	'__Cef_GetChromiumVersion')
 
-	CefObject_AddMethod($obj, 'ExecuteProcess', 	'__Cef_ExecuteProcess')
-	CefObject_AddMethod($obj, 'Initialize', 		'__Cef_Initialize')
-	CefObject_AddMethod($obj, 'Shutdown', 			'__Cef_Shutdown')
-	CefObject_AddMethod($obj, 'DoMessageLoopWork', 	'__Cef_DoMessageLoopWork')
-	CefObject_AddMethod($obj, 'RunMessageLoop', 	'__Cef_RunMessageLoop')
-	CefObject_AddMethod($obj, 'QuitMessageLoop', 	'__Cef_QuitMessageLoop')
-	CefObject_AddMethod($obj, 'EnableHighDPISupport', '__Cef_EnableHighDPISupport')
+	CefObject_AddMethod($__CefObject__, 'ExecuteProcess', 	'__Cef_ExecuteProcess')
+	CefObject_AddMethod($__CefObject__, 'Initialize', 		'__Cef_Initialize')
+	CefObject_AddMethod($__CefObject__, 'Shutdown', 			'__Cef_Shutdown')
+	CefObject_AddMethod($__CefObject__, 'DoMessageLoopWork', 	'__Cef_DoMessageLoopWork')
+	CefObject_AddMethod($__CefObject__, 'RunMessageLoop', 	'__Cef_RunMessageLoop')
+	CefObject_AddMethod($__CefObject__, 'QuitMessageLoop', 	'__Cef_QuitMessageLoop')
+	CefObject_AddMethod($__CefObject__, 'EnableHighDPISupport', '__Cef_EnableHighDPISupport')
 
-	CefObject_AddMethod($obj, 'CreateBrowser', 		'__CefBrowserHost_CreateBrowser')
-	CefObject_AddMethod($obj, 'CreateBrowserSync', 	'__CefBrowserHost_CreateBrowserSync')
+	CefObject_AddMethod($__CefObject__, 'CreateBrowser', 		'__CefBrowserHost_CreateBrowser')
+	CefObject_AddMethod($__CefObject__, 'CreateBrowserSync', 	'__CefBrowserHost_CreateBrowserSync')
 
-	CefObject_AddMethod($obj, 'RegisterExtension', 	'__Cef_RegisterExtension')
+	CefObject_AddMethod($__CefObject__, 'RegisterExtension', 	'__Cef_RegisterExtension')
 
-
-	$__CefObject__ = $obj;
+	CefObject_AddProperty($__CefObject__, '__type', 1, 'Cef')
 endfunc
 
 ; $Cef.new(<string> $name[, <pointer> $param])
@@ -236,8 +236,7 @@ endfunc
 ; static functions ----------------------------------------------------;
 
 func Cef_CreateWindowMessage()
-	local $ret = dllcall($__Cefau3Dll__, 'hwnd:cdecl', 'Cef_CreateWindowMessage')
-	return @error ? null : $ret[0]
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_CreateWindowMessage')
 endfunc
 
 func Cef_WindowMessage()

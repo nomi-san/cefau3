@@ -8,15 +8,8 @@
 ; CefAccessibilityHandler
 ; ==================================================
 
-global $tag_CefAccessibilityHandler = ( _
-    $tag_CefBase 		& _
-    'ptr[2];'			& _
-    'char __OATC[100];' & _
-    'char __OALC[100];' _
-)
-
-global $__CefAccessibilityHandler__OATC = Cef_CallbackRegister(__CefAccessibilityHandler__OATC, 'none', 'ptr;ptr')
-global $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccessibilityHandler__OALC, 'none', 'ptr;ptr')
+global const $__CefAccessibilityHandler__OATC = Cef_CallbackRegister(__CefAccessibilityHandler__OATC, 'none', 'ptr;ptr')
+global const $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccessibilityHandler__OALC, 'none', 'ptr;ptr')
 
 ; ==================================================
 
@@ -30,31 +23,31 @@ func CefAccessibilityHandler_Create($ptr = null)
 endfunc
 
 func __CefAccessibilityHandler_OATC($self, $func = null)
-	if @NumParams == 1 then return $self.__OATC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefAccessibilityHandler_Get_OATC', 'ptr', $self.__ptr)[0]
 
-	$self.__OATC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityTreeChange', 'ptr', $self.__pointer__, 'ptr', $__CefAccessibilityHandler__OATC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_Set_OATC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OATC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefAccessibilityHandler__OATC : null)
 endfunc
 
 func __CefAccessibilityHandler_OALC($self, $func = null)
-	if @NumParams == 1 then return $self.__OALC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefAccessibilityHandler_Get_OALC', 'ptr', $self.__ptr)[0]
 
-	$self.__OALC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OnAccessibilityLocationChange', 'ptr', $self.__pointer__, 'ptr', $__CefAccessibilityHandler__OALC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_Set_OALC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefAccessibilityHandler_OALC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefAccessibilityHandler__OALC : null)
 endfunc
 
 ; ==================================================
 
 func __CefAccessibilityHandler__OATC($self, $value)
-	$self = CefAccessibilityHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefAccessibilityHandler_Get_OATC', 'ptr', $self)[0]
 	;$value = CefValue_Create($value)
 
-	call($self.__OATC, $self, $value)
+	call($self, $value)
 endfunc
 
 func __CefAccessibilityHandler__OALC($self, $value)
-	$self = CefAccessibilityHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefAccessibilityHandler_Get_OALC', 'ptr', $self)[0]
 	;$value = CefValue_Create($value)
 
-	call($self.__OALC, $self, $value)
+	call($self, $value)
 endfunc
