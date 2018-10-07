@@ -64,15 +64,16 @@ global $cef_browser_hwnd = null, _
 ;OnAutoItExitRegister(CefEnd)
 GUIRegisterMsg(0x0005, __sizing)
 GUISetState()
+GUIGetMsg()
 
 global $rc = DllStructCreate('int[2];int w;int h')
 
 Cef_WindowMessage()
 
 func __exit()
+	GUIGetMsg()
 	GUISetState(@SW_HIDE)
 	Cef_PostQuitMessage()
-	CefEnd()
 	exit
 endfunc
 
