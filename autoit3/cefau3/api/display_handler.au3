@@ -8,6 +8,8 @@
 ; CefDisplayHandler
 ; ==================================================
 
+global $__CefDisplayHandler = null
+
 global $__CefDisplayHandler__OAC	= Cef_CallbackRegister(__CefDisplayHandler__OAC, 	'none', 'ptr;ptr;ptr;ptr')
 global $__CefDisplayHandler__OTC	= Cef_CallbackRegister(__CefDisplayHandler__OTC, 	'none', 'ptr;ptr;ptr')
 global $__CefDisplayHandler__OFUC	= Cef_CallbackRegister(__CefDisplayHandler__OFUC, 	'none', 'ptr;ptr;ptr')
@@ -19,16 +21,23 @@ global $__CefDisplayHandler__OCM	= Cef_CallbackRegister(__CefDisplayHandler__OCM
 ; ==================================================
 
 func CefDisplayHandler_Create($ptr = null)
-	local $self = CefObject_Create('CefDisplayHandler', $ptr)
-	
-	CefObject_AddMethod($self, 'OnAddressChange', 			'__CefDisplayHandler_OAC')
-	CefObject_AddMethod($self, 'OnTitleChange', 			'__CefDisplayHandler_OTC')
-	CefObject_AddMethod($self, 'OnFaviconUrlChange', 		'__CefDisplayHandler_OFUC')
-	CefObject_AddMethod($self, 'OnFullscreenModeChange', 	'__CefDisplayHandler_OFMC')
-	CefObject_AddMethod($self, 'OnTooltip', 				'__CefDisplayHandler_OT')
-	CefObject_AddMethod($self, 'OnStatusMessage', 			'__CefDisplayHandler_OSM')
-	CefObject_AddMethod($self, 'OnConsoleMessage', 			'__CefDisplayHandler_OCM')
+	if ($__CefDisplayHandler == null) then
+		$__CefDisplayHandler = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefDisplayHandler, '__ptr')
+		_AutoItObject_AddProperty($__CefDisplayHandler, '__type', 1, 'CefDisplayHandler')
+		
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnAddressChange', 		'__CefDisplayHandler_OAC')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnTitleChange', 			'__CefDisplayHandler_OTC')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnFaviconUrlChange', 	'__CefDisplayHandler_OFUC')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnFullscreenModeChange', '__CefDisplayHandler_OFMC')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnTooltip', 				'__CefDisplayHandler_OT')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnStatusMessage', 		'__CefDisplayHandler_OSM')
+		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnConsoleMessage', 		'__CefDisplayHandler_OCM')
+	endif
 
+	local $self = _AutoItObject_Create($__CefDisplayHandler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefDisplayHandler_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

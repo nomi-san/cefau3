@@ -123,15 +123,24 @@ endfunc
 ; CefV8Handler
 ; ==================================================
 
+global $__CefV8Handler = null
+
 global $__CefV8Handler__E = Cef_CallbackRegister(__CefV8Handler__E, 'int', 'ptr;ptr;ptr;uint;ptr;ptr;ptr')
 
 ; ==================================================
 
 func CefV8Handler_Create($ptr = null)
-	local $self = CefObject_Create('CefV8Handler', $ptr)
+	if ($__CefV8Handler == null) then
+		$__CefV8Handler = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefV8Handler, '__ptr')
+		_AutoItObject_AddProperty($__CefV8Handler, '__type', 1, 'CefV8Handler')
 
-	CefObject_AddMethod($self, 'Execute', '__CefV8Handler_E')
+		_AutoItObject_AddMethod($__CefV8Handler, 'Execute', '__CefV8Handler_E')
+	endif
 
+	local $self = _AutoItObject_Create($__CefV8Handler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Handler_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

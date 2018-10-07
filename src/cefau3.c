@@ -49,8 +49,9 @@ CEFAU3API void Cef_GetChromiumVersion(struct { int v[3]; } *ref)
 CEFAU3API void Cef_WindowMessage()
 {
 	GetMessageW(&__main_message, NULL, 0, 0);
-	DispatchMessageW(&__main_message);
 	TranslateMessage(&__main_message);
+	DispatchMessageW(&__main_message);
+	Sleep(10); // stacks
 }
 
 CEFAU3API void Cef_PostQuitMessage(int code)

@@ -24,6 +24,8 @@ global $tag_CefRenderProcessHandler = ( _
 	'char __OPMR[100];' _
 )
 
+global $__CefRenderProcessHandler = null
+
 global $__CefRenderProcessHandler__ORTC = Cef_CallbackRegister(__CefRenderProcessHandler__ORTC, 'none', 'ptr;ptr')
 global $__CefRenderProcessHandler__OWKI = Cef_CallbackRegister(__CefRenderProcessHandler__OWKI, 'none', 'ptr')
 global $__CefRenderProcessHandler__OBC 	= Cef_CallbackRegister(__CefRenderProcessHandler__OBC, 	'none', 'ptr;ptr')
@@ -39,22 +41,28 @@ global $__CefRenderProcessHandler__OPMR = Cef_CallbackRegister(__CefRenderProces
 ; ==================================================
 
 func CefRenderProcessHandler_Create($ptr = null)
-	local $struct = CefStruct_Create($tag_CefRenderProcessHandler, 'CefRenderProcessHandler', $ptr)
-	$struct.size = $struct.__size__;
+	if ($__CefRenderProcessHandler == null) then
+		$__CefRenderProcessHandler = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefRenderProcessHandler, '__ptr')
+		_AutoItObject_AddProperty($__CefRenderProcessHandler, '__type', 1, 'CefRenderProcessHandler')
 
-	CefStruct_AddMethod($struct, 'OnRenderThreadCreated', 		'__CefRenderProcessHandler__ORTC')
-	CefStruct_AddMethod($struct, 'OnWebKitInitialized', 		'__CefRenderProcessHandler__OWKI')
-	CefStruct_AddMethod($struct, 'OnBrowserCreated', 			'__CefRenderProcessHandler__OBC')
-	CefStruct_AddMethod($struct, 'OnBrowserDestroyed', 			'__CefRenderProcessHandler__OBD')
-	CefStruct_AddMethod($struct, 'GetLoadHandler', 				'__CefRenderProcessHandler__GLH')
-	CefStruct_AddMethod($struct, 'OnBeforeNavigation', 			'__CefRenderProcessHandler__OBN')
-	CefStruct_AddMethod($struct, 'OnContextCreated', 			'__CefRenderProcessHandler__OCC')
-	CefStruct_AddMethod($struct, 'OnContextReleased', 			'__CefRenderProcessHandler__OCR')
-	CefStruct_AddMethod($struct, 'OnUncaughtException', 		'__CefRenderProcessHandler__OUE')
-	CefStruct_AddMethod($struct, 'OnFocusedNodeChanged', 		'__CefRenderProcessHandler__OFNC')
-	CefStruct_AddMethod($struct, 'OnProcessMessageReceived', 	'__CefRenderProcessHandler__OPMR')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnRenderThreadCreated', '__CefRenderProcessHandler__ORTC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnWebKitInitialized', 	'__CefRenderProcessHandler__OWKI')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserCreated', 	'__CefRenderProcessHandler__OBC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserDestroyed', 	'__CefRenderProcessHandler__OBD')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'GetLoadHandler', 		'__CefRenderProcessHandler__GLH')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBeforeNavigation', 	'__CefRenderProcessHandler__OBN')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextCreated', 	'__CefRenderProcessHandler__OCC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextReleased', 	'__CefRenderProcessHandler__OCR')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnUncaughtException', 	'__CefRenderProcessHandler__OUE')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnFocusedNodeChanged', '__CefRenderProcessHandler__OFNC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnProcessMessageReceived', '__CefRenderProcessHandler__OPMR')
+	endif
 
-	return $struct
+	local $self = _AutoItObject_Create($__CefRenderProcessHandler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefRenderProcessHandler_Create')[0]
+	$self.__ptr = $ptr
+	return $self
 endfunc
 
 func __CefRenderProcessHandler_ORTC($self, $func = null)

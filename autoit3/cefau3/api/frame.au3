@@ -8,34 +8,45 @@
 ; CefFrame
 ; ==================================================
 
+global $__CefFrame = null
+
+; ==================================================
+
 func CefFrame_Create($ptr = null)
-	local $self = CefObject_Create('CefFrame', $ptr)
+	if ($__CefFrame == null) then
+		$__CefFrame = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefFrame, '__ptr')
+		_AutoItObject_AddProperty($__CefFrame, '__type', 1, 'CefFrame')
 
-	CefObject_AddMethod($self, 'IsValid',			 '__CefFrame_IsValid')
-	CefObject_AddMethod($self, 'Undo',				 '__CefFrame_Undo')
-	CefObject_AddMethod($self, 'Redo',				 '__CefFrame_Redo')
-	CefObject_AddMethod($self, 'Cut',				 '__CefFrame_Cut')
-	CefObject_AddMethod($self, 'Copy',				 '__CefFrame_Copy')
-	CefObject_AddMethod($self, 'Paste',				 '__CefFrame_Paste')
-	CefObject_AddMethod($self, 'Delete',			 '__CefFrame_Delete')
-	CefObject_AddMethod($self, 'SelectAll',			 '__CefFrame_SelectAll')
-	CefObject_AddMethod($self, 'ViewSource',		 '__CefFrame_ViewSource')
-	CefObject_AddMethod($self, 'GetSource',			 '__CefFrame_GetSource')
-	CefObject_AddMethod($self, 'GetText',			 '__CefFrame_GetText')
-	CefObject_AddMethod($self, 'LoadRequest',		 '__CefFrame_LoadRequest')
-	CefObject_AddMethod($self, 'LoadURL',			 '__CefFrame_LoadUrl')
-	CefObject_AddMethod($self, 'LoadString',		 '__CefFrame_LoadString')
-	CefObject_AddMethod($self, 'ExecuteJavaScript',	 '__CefFrame_ExecuteJavaScript')
-	CefObject_AddMethod($self, 'IsMain',			 '__CefFrame_IsMain')
-	CefObject_AddMethod($self, 'IsFocused',			 '__CefFrame_IsFocused')
-	CefObject_AddMethod($self, 'GetName',			 '__CefFrame_GetName')
-	CefObject_AddMethod($self, 'GetIdentifier',		 '__CefFrame_GetIdentifier')
-	CefObject_AddMethod($self, 'GetParent',			 '__CefFrame_GetParent')
-	CefObject_AddMethod($self, 'GetURL',			 '__CefFrame_GetUrl')
-	CefObject_AddMethod($self, 'GetBrowser',		 '__CefFrame_GetBrowser')
-	CefObject_AddMethod($self, 'GetV8Context',		 '__CefFrame_GetV8Context')
-	CefObject_AddMethod($self, 'VisitDOM',			 '__CefFrame_VisitDOM')
+		_AutoItObject_AddMethod($__CefFrame, 'IsValid',			 '__CefFrame_IsValid')
+		_AutoItObject_AddMethod($__CefFrame, 'Undo',				 '__CefFrame_Undo')
+		_AutoItObject_AddMethod($__CefFrame, 'Redo',				 '__CefFrame_Redo')
+		_AutoItObject_AddMethod($__CefFrame, 'Cut',				 '__CefFrame_Cut')
+		_AutoItObject_AddMethod($__CefFrame, 'Copy',				 '__CefFrame_Copy')
+		_AutoItObject_AddMethod($__CefFrame, 'Paste',				 '__CefFrame_Paste')
+		_AutoItObject_AddMethod($__CefFrame, 'Delete',			 '__CefFrame_Delete')
+		_AutoItObject_AddMethod($__CefFrame, 'SelectAll',			 '__CefFrame_SelectAll')
+		_AutoItObject_AddMethod($__CefFrame, 'ViewSource',		 '__CefFrame_ViewSource')
+		_AutoItObject_AddMethod($__CefFrame, 'GetSource',			 '__CefFrame_GetSource')
+		_AutoItObject_AddMethod($__CefFrame, 'GetText',			 '__CefFrame_GetText')
+		_AutoItObject_AddMethod($__CefFrame, 'LoadRequest',		 '__CefFrame_LoadRequest')
+		_AutoItObject_AddMethod($__CefFrame, 'LoadURL',			 '__CefFrame_LoadUrl')
+		_AutoItObject_AddMethod($__CefFrame, 'LoadString',		 '__CefFrame_LoadString')
+		_AutoItObject_AddMethod($__CefFrame, 'ExecuteJavaScript',	 '__CefFrame_ExecuteJavaScript')
+		_AutoItObject_AddMethod($__CefFrame, 'IsMain',			 '__CefFrame_IsMain')
+		_AutoItObject_AddMethod($__CefFrame, 'IsFocused',			 '__CefFrame_IsFocused')
+		_AutoItObject_AddMethod($__CefFrame, 'GetName',			 '__CefFrame_GetName')
+		_AutoItObject_AddMethod($__CefFrame, 'GetIdentifier',		 '__CefFrame_GetIdentifier')
+		_AutoItObject_AddMethod($__CefFrame, 'GetParent',			 '__CefFrame_GetParent')
+		_AutoItObject_AddMethod($__CefFrame, 'GetURL',			 '__CefFrame_GetUrl')
+		_AutoItObject_AddMethod($__CefFrame, 'GetBrowser',		 '__CefFrame_GetBrowser')
+		_AutoItObject_AddMethod($__CefFrame, 'GetV8Context',		 '__CefFrame_GetV8Context')
+		_AutoItObject_AddMethod($__CefFrame, 'VisitDOM',			 '__CefFrame_VisitDOM')
+	endif
 
+	local $self = _AutoItObject_Create($__CefFrame)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefFrame_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

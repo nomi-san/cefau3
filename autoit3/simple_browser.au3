@@ -7,7 +7,7 @@ $cef.EnableHighDPISupport()
 global $cef_app = $cef.new('App'), _
 	$cef_args = $cef.new('MainArgs')
 
-;if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
+if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
 	$url = 'https://google.com'
@@ -15,6 +15,7 @@ global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
 Opt('GUIOnEventMode', 1)
 
 global $hMainGUI = GUICreate($gui_title, $width, $height, -1, -1, 0x00CF0000)
+;dllcall('user32', 'hwnd', 'CreateWindowExW', 'uint', 0, 'wstr', '#32770', 'wstr', '', 'uint', 0x10CF0000, 'int', 0x80000000, 'int', 0x80000000, 'int', 0x80000000, 'int', 0x80000000, 'ptr', 0, 'ptr', 0, 'ptr', 0, 'ptr', 0)[0] ;
 GUISetBkColor(0xffffff)
 
 Global $input_url = GUICtrlCreateInput($url, 5, 5, $width - 55, 25)
@@ -25,7 +26,7 @@ GUICtrlSetFont(-1, 14)
 GUICtrlSetResizing(-1, 544)
 GUICtrlSetOnEvent(-1, '__go')
 
-GUISetOnEvent(-3, __exit, $hMainGUI)
+GUISetOnEvent(-3, __exit)
 
 global $cef_settings = $cef.new('Settings'), _
 	$cef_bs = $cef.new('BrowserSettings')
@@ -99,7 +100,8 @@ endfunc
 func __onAfterCreated($browser)
 	if (not $cef_browser_hwnd) then
 		;$cef_browser = $browser
-		;$cef_browser_hwnd = $browser.GetHost().GetWindowHandle()
+		$cef_browser_hwnd = $browser.GetHost().GetWindowHandle()
+		;_ShowWindow($cef_browser_hwnd, 5)
 		;$cef_frame = $browser.GetMainFrame()
 	endif
 endfunc

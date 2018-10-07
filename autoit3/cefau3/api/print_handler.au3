@@ -55,16 +55,7 @@ endfunc
 ; CefPrintHandler
 ; ==================================================
 
-global $tag_CefPrintHandler = ( _
-	$tag_CefBase 		& _
-	'ptr[6];'			& _
-	'char __OPSt[100]'	& _
-	'char __OPSe[100]'	& _
-	'char __OPD[100]'	& _
-	'char __OPJ[100]'	& _
-	'char __OPR[100]'	& _
-	'char __GPPS[100]'	_
-)
+global $__CefPrintHandler = null
 
 global $__CefPrintHandler__OPSt = Cef_CallbackRegister(__CefPrintHandler__OPSt, 'none', 'ptr;ptr')
 global $__CefPrintHandler__OPSe = Cef_CallbackRegister(__CefPrintHandler__OPSe, 'none', 'ptr;ptr;ptr;int')
@@ -76,15 +67,22 @@ global $__CefPrintHandler__GPPS = Cef_CallbackRegister(__CefPrintHandler__GPPS, 
 ; ==================================================
 
 func CefPrintHandler_Create($ptr = null)
-	local $self = CefObject_Create('CefPrintHandler', $ptr)
+	if ($__CefPrintHandler == null) then
+		$__CefPrintHandler = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefPrintHandler, '__ptr')
+		_AutoItObject_AddProperty($__CefPrintHandler, '__type', 1, 'CefPrintHandler')
 
-	CefObject_AddMethod($self, 'OnPrintStart', 		'__CefPrintHandler_OPSt')
-	CefObject_AddMethod($self, 'OnPrintSettings',	'__CefPrintHandler_OPSe')
-	CefObject_AddMethod($self, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
-	CefObject_AddMethod($self, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
-	CefObject_AddMethod($self, 'OnPrintReset', 		'__CefPrintHandler_OPR')
-	CefObject_AddMethod($self, 'GetPDFPaperSize', 	'__CefPrintHandler_GPPS')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintStart', 		'__CefPrintHandler_OPSt')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintSettings',	'__CefPrintHandler_OPSe')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintReset', 		'__CefPrintHandler_OPR')
+		_AutoItObject_AddMethod($__CefPrintHandler, 'GetPDFPaperSize', 	'__CefPrintHandler_GPPS')
+	endif
 
+	local $self = _AutoItObject_Create($__CefPrintHandler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefPrintHandler_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

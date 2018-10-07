@@ -11,14 +11,24 @@
 global $__CefKeyboardHandler__OPKE 	= Cef_CallbackRegister(__CefKeyboardHandler__OPKE, 	'int', 'ptr;ptr;ptr;ptr;ptr')
 global $__CefKeyboardHandler__OKE 	= Cef_CallbackRegister(__CefKeyboardHandler__OKE, 	'int', 'ptr;ptr;ptr;ptr')
 
+
+global $__CefKeyboardHandler = null
+
 ; ==================================================
 
 Func CefKeyboardHandler_Create($ptr = null)
-	local $self = CefObject_Create('CefKeyboardHandler', $ptr)
+	if ($__CefKeyboardHandler == null) then
+		$__CefKeyboardHandler = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefKeyboardHandler, '__ptr')
+		_AutoItObject_AddProperty($__CefKeyboardHandler, '__type', 1, 'CefKeyboardHandler')
+		
+		_AutoItObject_AddMethod($__CefKeyboardHandler, 'OnPreKeyEvent', '__CefKeyboardHandler_OPKE')
+		_AutoItObject_AddMethod($__CefKeyboardHandler, 'OnKeyEvent', 	'__CefKeyboardHandler_OKE')
+	endif
 
-	CefObject_AddMethod($self, 'OnPreKeyEvent', '__CefKeyboardHandler_OPKE')
-	CefObject_AddMethod($self, 'OnKeyEvent', 	'__CefKeyboardHandler_OKE')
-
+	local $self = _AutoItObject_Create($__CefKeyboardHandler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefKeyboardHandler_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 EndFunc
 
