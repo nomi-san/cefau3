@@ -236,7 +236,13 @@ endfunc
 ; static functions ----------------------------------------------------;
 
 func Cef_CreateWindowMessage()
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_CreateWindowMessage')
+	local $a = dllcallbackgetptr(DllCallbackRegister('__xyz', 'none', ''))
+
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_CreateWindowMessage', 'ptr', $a)
+endfunc
+
+func __xyz()
+	GUIGetMsg()
 endfunc
 
 func Cef_WindowMessage()

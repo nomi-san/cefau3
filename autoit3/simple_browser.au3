@@ -67,12 +67,11 @@ GUISetState()
 
 global $rc = DllStructCreate('int[2];int w;int h')
 
-while 1
-	Cef_WindowMessage()
-wend
+Cef_WindowMessage()
 
 func __exit()
-	GUIDelete($hMainGUI)
+	GUISetState(@SW_HIDE)
+	Cef_PostQuitMessage()
 	CefEnd()
 	exit
 endfunc
@@ -99,10 +98,10 @@ endfunc
 
 func __onAfterCreated($browser)
 	if (not $cef_browser_hwnd) then
-		;$cef_browser = $browser
+		$cef_browser = $browser
 		$cef_browser_hwnd = $browser.GetHost().GetWindowHandle()
-		;_ShowWindow($cef_browser_hwnd, 5)
-		;$cef_frame = $browser.GetMainFrame()
+		_ShowWindow($cef_browser_hwnd, 5)
+		$cef_frame = $browser.GetMainFrame()
 	endif
 endfunc
 

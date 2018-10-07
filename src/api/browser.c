@@ -607,10 +607,13 @@ CEFAU3API int  CefBrowserHost_CreateBrowser(
 	const struct _cef_browser_settings_t* settings,
 	struct _cef_request_context_t* request_context)
 {
+	cef_string_t s = { 0 };
+	cef_string_from_wide(cs_url, wcslen(cs_url), &s);
+
 	return cef_browser_host_create_browser(
 		windowInfo,
 		client,
-		cefstring_pwcs(cs_url),
+		&s,
 		settings,
 		request_context
 	);
@@ -623,10 +626,12 @@ CEFAU3API cef_browser_t *  CefBrowserHost_CreateBrowserSync(
 	const struct _cef_browser_settings_t* settings,
 	struct _cef_request_context_t* request_context)
 {
+	cef_string_t s = { 0 };
+	cef_string_from_wide(cs_url, wcslen(cs_url), &s);
 	return cef_browser_host_create_browser_sync(
 		windowInfo,
 		client,
-		cefstring_pwcs(cs_url),
+		&s,
 		settings,
 		request_context
 	);

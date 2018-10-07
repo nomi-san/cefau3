@@ -458,11 +458,11 @@ func __CefBrowserHost_CreateBrowserSync($self, $windowInfo, $client, $url, $sett
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowserHost_CreateBrowserSync', _
 		'ptr', $windowInfo, _
 		'ptr', $client, _
-		'ptr', $url, _
+		'wstr', $url, _
 		'ptr', $settings, _
 		'ptr', $request_context _
 	)
-	return @error ? 0 : $ret[0]
+	return @error ? 0 : CefBrowser_Create($ret[0])
 endfunc
 
 func CefBrowserHost_CreateBrowser($windowInfo, $client, $url, $settings, $request_context)
@@ -484,5 +484,5 @@ func CefBrowserHost_CreateBrowserSync($windowInfo, $client, $url, $settings, $re
 		'ptr', $settings, _
 		'ptr', $request_context _
 	)
-	return @error ? 0 : $ret[0]
+	return @error ? 0 : CefBrowser_Create($ret[0])
 endfunc
