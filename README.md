@@ -57,7 +57,7 @@
 - add more callback & event handler
 
 #### 2018.08.07 [20%]
-- update to Chromium v61.0.3, increate more performance
+- update to Chromium v61.0.3, increase more performance
 - added build for __x64/ARM__
 - added __Cef_Shutdown()__ for shutdown CEF & all browser window/child
 - added __Cef_Close()__ for close main browser in handler
