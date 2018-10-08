@@ -10,7 +10,7 @@
 	<h3 align="center">Chromium Embedded Framework for AutoIt 3</h3>
 	<p align="center">
 		<a href="#">
-			<img src="https://img.shields.io/badge/platform-win32/64/arm-lightgrey.svg">
+			<img src="https://img.shields.io/badge/platform-win32/x86/x64-lightgrey.svg">
 		</a>
 		<a href="http://opensource.spotify.com/cefbuilds/index.html">
 			<img src="https://img.shields.io/badge/cef-3.3163-blue.svg">
