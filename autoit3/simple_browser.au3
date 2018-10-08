@@ -68,12 +68,12 @@ GUIGetMsg()
 
 global $rc = DllStructCreate('int[2];int w;int h')
 
-Cef_WindowMessage()
+CefWndMsg_RunLoop()
 
 func __exit()
 	GUIGetMsg()
 	GUISetState(@SW_HIDE)
-	Cef_PostQuitMessage()
+	CefWndMsg_QuitLoop()
 	exit
 endfunc
 

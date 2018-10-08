@@ -75,7 +75,7 @@ global $cef_browser_hwnd
 
 OnAutoItExitRegister(CefEnd) ; register CefEnd for on exit
 
-Cef_WindowMessage()
+CefWndMsg_RunLoop()
 
 ; -- callback functions
 
@@ -98,7 +98,7 @@ endfunc
 
 func __onBeforeClose($browser)
 	Cef_Print('-- on before close --\n')
-	Cef_PostQuitMessage()
+	CefWndMsg_QuitLoop()
 	exit
 endfunc
 

@@ -90,7 +90,7 @@ func CefStart($CefPath = default)
 
 	if @error then return 0
 
-	Cef_CreateWindowMessage()
+	CefWndMsg_Create()
 
 	return $__CefObject__
 endfunc
@@ -235,27 +235,8 @@ endfunc
 
 ; static functions ----------------------------------------------------;
 
-func Cef_CreateWindowMessage()
-	local $a = dllcallbackgetptr(DllCallbackRegister('__xyz', 'none', ''))
-
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_CreateWindowMessage', 'ptr', $a)
-endfunc
-
-func __xyz()
-	GUIGetMsg()
-endfunc
-
-func Cef_WindowMessage()
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_WindowMessage')
-endfunc
-
-func Cef_PostQuitMessage($code = 0)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_PostQuitMessage', 'int', $code)
-endfunc
-
 func Cef_Print($str)
 	consolewrite(stringformat($str))
-	;dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_Print', 'str', $str)
 endfunc
 
 func Cef_CallbackRegister($func, $return_type, $params_type)
@@ -371,4 +352,25 @@ func Cef_MsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
 		'wstr', stringformat($text), 	_
 		'hwnd', $parent _
 	)
+endfunc
+
+; CefWndMsg
+; ==================================================
+
+func __CefWndMsg_GUIGetMsg()
+	GUIGetMsg()
+endfunc
+
+func CefWndMsg_Create()
+	local static $ptr = dllcallbackgetptr(DllCallbackRegister('__CefWndMsg_GUIGetMsg', 'none', ''))
+
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_Create', 'ptr', $ptr)
+endfunc
+
+func CefWndMsg_RunLoop()
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop')
+endfunc
+
+func CefWndMsg_QuitLoop($exit_code = 0)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_QuitLoop', 'int', $exit_code)
 endfunc
