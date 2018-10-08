@@ -4,11 +4,12 @@
 		<br>
 		Cefau3
 	</h1>
-	<p align="center"><a href="https://ci.appveyor.com/project/wy3/cefau3" target="_blank">
-		<img src="https://ci.appveyor.com/api/projects/status/github/wy3/cefau3?branch=master&svg=true">
-	</a></p>
 	<h3 align="center">Chromium Embedded Framework for AutoIt 3</h3>
 	<p align="center">
+		<a href="https://ci.appveyor.com/project/wy3/cefau3" target="_blank">
+			<img src="https://ci.appveyor.com/api/projects/status/github/wy3/cefau3?branch=master&svg=true">
+		</a>
+		<br><br>
 		<a href="#">
 			<img src="https://img.shields.io/badge/platform-win32/x86/x64-lightgrey.svg">
 		</a>
@@ -18,7 +19,6 @@
 		<a href="#">
 			<img src="https://img.shields.io/badge/chromium-61.0.3-red.svg">
 		</a>
-		<br>
 		<a href="https://github.com/wy3">
 			<img src="https://img.shields.io/badge/author-wuuyi123-orange.svg">
 		</a>
