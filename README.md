@@ -29,7 +29,11 @@
 </p>
 
 -------
-## Changelog
+## Changelogs
+
+#### 2018.10.08 [78%]
+- change window message loop method
+- fix some crashes
 
 #### 2018.10.04 [75% * rollback to previous]
 - change struct creation method to C side
