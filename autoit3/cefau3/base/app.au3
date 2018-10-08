@@ -68,7 +68,7 @@ endfunc
 func __CefApp__OBCLP($self, $process_type, $command_line)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_OBCLP', 'ptr', $self)[0]
 	$process_type = CefString_Create($process_type)
-	;$command_line = CefCommandLine_Create($command_line)
+	$command_line = CefCommandLine_Create($command_line)
 
 	call($self.__OBCLP, $self, $process_type, $command_line)
 endfunc

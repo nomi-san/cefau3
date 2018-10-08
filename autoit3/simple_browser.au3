@@ -61,17 +61,14 @@ $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, N
 global $cef_browser_hwnd = null, _
 	$cef_browser, $cef_browser_host, $cef_frame
 
-;OnAutoItExitRegister(CefEnd)
 GUIRegisterMsg(0x0005, __sizing)
 GUISetState()
-GUIGetMsg()
 
 global $rc = DllStructCreate('int[2];int w;int h')
 
 CefWndMsg_RunLoop()
 
 func __exit()
-	GUIGetMsg()
 	GUISetState(@SW_HIDE)
 	CefWndMsg_QuitLoop()
 	exit

@@ -62,14 +62,13 @@ global static $__CefObject__ 		= null;
 #include "api/geolocation_handler.au3"
 
 #include 'api/browser.au3'
+#include 'api/command_line.au3'
 #include 'api/frame.au3'
 #include 'api/types.au3'
 #include 'api/types_win.au3'
 #include 'api/task.au3'
 #include 'api/task.au3'
 #include 'api/v8.au3'
-
-;opt('MustDeclareVars', 0)
 
 ; startup & create CEF object
 func CefStart($CefPath = default)
@@ -333,19 +332,19 @@ func CefMem_ReAlloc($ptr, $size)
 endfunc
 
 
-; CefMisc
+; CefMsgBox
 ; ==================================================
 
-global const $__Cef_MsgBox_Port = Cef_CallbackRegister(__Cef_MsgBox_Port, 'none', 'int;str')
+global const $__CefMsgBox_Port = Cef_CallbackRegister(__CefMsgBox_Port, 'none', 'int;str')
 
-func __Cef_MsgBox_Port($ret, $fn_name)
+func __CefMsgBox_Port($ret, $fn_name)
 	call($fn_name, $ret)
 endfunc
 
-func Cef_MsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
+func CefMsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
 	local $fn = funcname($OnMsgBoxClosed)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_MsgBox', _
-		'ptr', $__Cef_MsgBox_Port, _
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefMsgBox', _
+		'ptr', $__CefMsgBox_Port, _
 		'str', $fn ? $fn : null, _
 		'uint', $flags, _
 		'wstr', stringformat($title), _

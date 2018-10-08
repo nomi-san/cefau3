@@ -38,22 +38,33 @@ CEFAU3API void CefCommandLine_Reset(struct _cef_command_line_t* self)
 	self->reset(self);
 }
 
-CEFAU3API void CefCommandLine_GetArgv(struct _cef_command_line_t* self,
+CEFAU3API cef_string_list_t CefCommandLine_GetArgv(struct _cef_command_line_t* self,
 	cef_string_list_t argv)
 {
-	self->get_argv(self, argv);
+	cef_string_list_t list = cef_string_list_alloc();
+	self->get_argv(self, list);
+
+	return list;
 }
 
 CEFAU3API const wchar_t * CefCommandLine_GetCommandLineString(
 	struct _cef_command_line_t* self)
 {
-	return self->get_command_line_string(self)->str;
+	cef_string_userfree_t uf = self->get_command_line_string(self);
+	const wchar_t *r = uf->str;
+	cef_string_userfree_free(uf);
+
+	return r;
 }
 
 CEFAU3API const wchar_t * CefCommandLine_GetProgram(
 	struct _cef_command_line_t* self)
 {
-	return self->get_program(self)->str;
+	cef_string_userfree_t uf = self->get_program(self);
+	const wchar_t *r = uf->str;
+	cef_string_userfree_free(uf);
+
+	return r;
 }
 
 CEFAU3API void CefCommandLine_SetProgram(struct _cef_command_line_t* self,
@@ -73,11 +84,15 @@ CEFAU3API int CefCommandLine_HasSwitch(struct _cef_command_line_t* self,
 	return self->has_switch(self, cefstring_pwcs(name));
 }
 
-CEFAU3API cef_string_userfree_t CefCommandLine_GetSwitchValue(
+CEFAU3API const wchar_t* CefCommandLine_GetSwitchValue(
 	struct _cef_command_line_t* self,
 	const wchar_t* name)
 {
-	return self->get_switch_value(self, cefstring_pwcs(name));
+	cef_string_userfree_t uf = self->get_switch_value(self, cefstring_pwcs(name));
+	const wchar_t *r = uf->str;
+	cef_string_userfree_free(uf);
+
+	return r;
 }
 
 CEFAU3API void CefCommandLine_GetSwitches(struct _cef_command_line_t* self,
@@ -104,10 +119,11 @@ CEFAU3API int CefCommandLine_HasArguments(struct _cef_command_line_t* self)
 	return self->has_arguments(self);
 }
 
-CEFAU3API void CefCommandLine_GetArguments(struct _cef_command_line_t* self,
-	cef_string_list_t arguments)
+CEFAU3API cef_string_list_t CefCommandLine_GetArguments(struct _cef_command_line_t* self)
 {
-	self->get_arguments(self, arguments);
+	cef_string_list_t list = cef_string_list_alloc();
+	self->get_arguments(self, list);
+	return list;
 }
 
 CEFAU3API void CefCommandLine_AppendArgument(struct _cef_command_line_t* self,

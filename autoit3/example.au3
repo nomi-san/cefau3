@@ -73,8 +73,6 @@ $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, N
 
 global $cef_browser_hwnd
 
-OnAutoItExitRegister(CefEnd) ; register CefEnd for on exit
-
 CefWndMsg_RunLoop()
 
 ; -- callback functions
@@ -122,7 +120,7 @@ func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 		elseif $event.windows_key_code == 0x1b then
 			Cef_Print('ESC key released\n')
 		elseif $event.windows_key_code == 0x70 then
-			Cef_MsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nSimple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
+			CefMsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nSimple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
 			return 1
 		endif
 	endif
