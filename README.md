@@ -1,9 +1,7 @@
-<p>
-	<h1 align="center">
-		<img src="https://raw.githubusercontent.com/wy3/cefau3/master/cefau3.png" width=180>
+<p align="center">
+	<img src="https://raw.githubusercontent.com/wy3/cefau3/master/cefau3.png" width=150>
 		<br>
-		Cefau3
-	</h1>
+	<h1 align="center">Cefau3</h1>
 	<h3 align="center">Chromium Embedded Framework for AutoIt 3</h3>
 	<p align="center">
 		<a href="https://ci.appveyor.com/project/wy3/cefau3" target="_blank">
