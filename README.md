@@ -30,7 +30,7 @@
 </p>
 
 -------
-## Changelogs
+## Changelog
 
 #### 2018.10.08 [78%]
 - change window message loop method
@@ -90,8 +90,8 @@ E.g: `$ build gcc`
 
 ### Configure
 
-After built, it need CEF resources for work correctly, download CEF binary distribution (for current version) : [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x86_x64](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
-Extract CEF binary distribution package, and copy all files in **release** and **esources** folders (exclude **.lib**) to **autoit3\cef\**
+After built, it need CEF resources for work correctly, download CEF binary distribution (for current version): [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x64_x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
+Extract CEF binary distribution package, and copy all files in **release** and **resources** folders (exclude **.lib**) to **autoit3\cef\**
 
 ### Cefau3 example project
 
