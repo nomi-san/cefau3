@@ -50,8 +50,10 @@ global static $__CefObject__ 		= null;
 
 #include 'api/accessibility_handler.au3'
 #include 'api/browser_process_handler.au3'
+#include 'api/context_menu_handler.au3'
 #include 'api/dialog_handler.au3'
 #include 'api/display_handler.au3'
+#include 'api/download_handler.au3'
 #include 'api/keyboard_handler.au3'
 #include 'api/life_span_handler.au3'
 #include 'api/load_handler.au3'
@@ -219,13 +221,13 @@ func __Cef_GetVersion($self)
 endfunc
 
 func __Cef_GetChromiumVersion($self)
-	local $t = dllstructcreate('int major;int mirror;int build')
+	local $t = dllstructcreate('int[3]')
 	local $ret = dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_GetChromiumVersion', 'ptr', dllstructgetptr($t, 1))
 	return (@error ? _
 		null : ( _
-			$t.major  & '.' & _
-			$t.mirror & '.' & _
-			$t.build  _
+			dllstructgetdata($t, 1, 1)  & '.' & _
+			dllstructgetdata($t, 1, 2)  & '.' & _
+			dllstructgetdata($t, 1, 3)   _
 		) _
 	)
 endfunc
@@ -359,7 +361,7 @@ global static $__CefWndMsg_FuncLoop = null
 
 func __CefWndMsg_GUIGetMsg()
 	GUIGetMsg()
-	if ($__CefWndMsg_FuncLoop) then call($__CefWndMsg_FuncLoop)
+	;if ($__CefWndMsg_FuncLoop) then call($__CefWndMsg_FuncLoop)
 endfunc
 
 func CefWndMsg_Create()
@@ -367,7 +369,7 @@ func CefWndMsg_Create()
 endfunc
 
 func CefWndMsg_RunLoop($func = null)
-	$__CefWndMsg_FuncLoop = funcname($func)
+	;$__CefWndMsg_FuncLoop = funcname($func)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop')
 endfunc
 

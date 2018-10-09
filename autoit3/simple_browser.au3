@@ -10,7 +10,7 @@ global $cef_app = $cef.new('App'), _
 if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
-	$url = 'https://google.com'
+	$url = 'https://www.google.com'
 
 Opt('GUIOnEventMode', 1)
 

@@ -37,12 +37,13 @@ CEFAU3API void Cef_GetChromiumVersion(int *ref)
 /* CefWndMsg
 --------------------------------------------------*/
 
-#define CEFQUITMESSAGE 0x96966969
+#define CEFQUITMESSAGE 0xDEAD969
 #define CEFMSGTIMERID 0x69
-MSG __CefWndMsg_MSG = { 0 };
-HWND __CefWndMsg_HWND = (HWND)INVALID_HANDLE_VALUE;
-const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
-void(__stdcall* __CefWndMsg_GUIGetMsg)();
+#define INVALIDHWND (HWND)INVALID_HANDLE_VALUE
+static MSG __CefWndMsg_MSG = { 0 };
+static HWND __CefWndMsg_HWND = INVALIDHWND;
+static const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
+static void(__stdcall* __CefWndMsg_GUIGetMsg)();
 
 CEFAU3API void CefWndMsg_RunLoop()
 {
@@ -59,20 +60,15 @@ CEFAU3API void CefWndMsg_QuitLoop(int code)
 
 LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-	LRESULT ret = 0;
 	switch (msg) {
 		case WM_COMMAND:
 			if (wp == CEFQUITMESSAGE) {
-				PostQuitMessage(lp);
 				KillTimer(hwnd, CEFMSGTIMERID);
+				PostQuitMessage(lp);
 			}
 			break;
-
-		default: 
-			ret = DefWindowProcW(hwnd, msg, wp, lp);
-			break;
 	}
-	return ret;
+	return DefWindowProcW(hwnd, msg, wp, lp);
 }
 
 void __stdcall __CefWndMsg_TimerProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
@@ -82,7 +78,7 @@ void __stdcall __CefWndMsg_TimerProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD tim
 
 CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
 {
-	if (__CefWndMsg_HWND != NULL) return;
+	if (__CefWndMsg_HWND != INVALIDHWND) return;
 
 	WNDCLASSEX wcex = { 0 };
 	wcex.cbSize = sizeof(wcex);
@@ -97,7 +93,7 @@ CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
 	);
 
 	__CefWndMsg_GUIGetMsg = fn_getmsg;
-	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 125, __CefWndMsg_TimerProc);
+	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 100, __CefWndMsg_TimerProc);
 }
 
 /* CefMem

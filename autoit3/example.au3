@@ -20,7 +20,7 @@ global $cef_app = $cef.new('App'), _
 	$cef_args = $cef.new('MainArgs')
 
 ; execute process
-if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
+;if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 ; if $cef_settings.single_process = 1 (true, in line 36),
 ; do not insert another codes above (e.g: MsgBox, GUICreate, user interface, etc)
@@ -64,14 +64,13 @@ $cef_lifespan.OnBeforeClose 	= __onBeforeClose
 
 $cef_display.OnTitleChange		= __onTitleChange
 $cef_display.OnAddressChange	= __onAddressChange
-$cef_display.OnFaviconUrlChange	= __onFaviconUrlChange
 
 $cef_keyboard.OnPreKeyEvent 	= __onPreKeyEvent
 
 global $url = 'https://www.google.com/'
 $cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
 
-global $cef_browser_hwnd
+global $cef_browser_hwnd = 0
 
 CefWndMsg_RunLoop()
 
@@ -91,7 +90,7 @@ endfunc
 
 func __onAfterCreated($browser)
 	CefPrint('-- on after created --\n')
-	if not $cef_browser_hwnd then $cef_browser_hwnd = hwnd($browser.GetHost().GetWindowHandle())
+	if (not $cef_browser_hwnd) then $cef_browser_hwnd = hwnd($browser.GetHost().GetWindowHandle())
 endfunc
 
 func __onBeforeClose($browser)
@@ -109,10 +108,6 @@ func __onAddressChange($browser, $frame, $url)
 	CefPrint('URL change: ' & $url.val & '\n')
 endfunc
 
-func __onFaviconUrlChange($browser, $frame, $icon_urls)
-	CefPrint('Favicon change: ' & $icon_urls.read() & '\n')
-endfunc
-
 func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 	if ($event.type == 2) then
 		if $event.windows_key_code == 0xd then
@@ -120,6 +115,8 @@ func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 		elseif $event.windows_key_code == 0x1b then
 			CefPrint('ESC key released\n')
 		elseif $event.windows_key_code == 0x70 then
+			CefPrint('Message box being show...\n')
+			; do not use MsgBox() function in callback event
 			CefMsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nSimple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
 			return 1
 		endif
