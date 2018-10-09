@@ -10,10 +10,10 @@
 
 global $__CefLifeSpanHandler = null
 
-global $__CefLifeSpanHandler__OBP 	= Cef_CallbackRegister(__CefLifeSpanHandler__OBP, 	'int', 	'ptr;ptr;ptr;ptr;ptr;int;ptr;ptr;ptr;ptr;ptr')
-global $__CefLifeSpanHandler__OAC 	= Cef_CallbackRegister(__CefLifeSpanHandler__OAC, 	'none', 'ptr;ptr')
-global $__CefLifeSpanHandler__DC 	= Cef_CallbackRegister(__CefLifeSpanHandler__DC, 	'int', 	'ptr;ptr')
-global $__CefLifeSpanHandler__OBC 	= Cef_CallbackRegister(__CefLifeSpanHandler__OBC, 	'none', 'ptr;ptr')
+global const $__CefLifeSpanHandler__OBP = Cef_CallbackRegister(__CefLifeSpanHandler__OBP, 	'int', 	'ptr;ptr;ptr;ptr;ptr;int;ptr;ptr;ptr;ptr;ptr')
+global const $__CefLifeSpanHandler__OAC = Cef_CallbackRegister(__CefLifeSpanHandler__OAC, 	'none', 'ptr;ptr')
+global const $__CefLifeSpanHandler__DC 	= Cef_CallbackRegister(__CefLifeSpanHandler__DC, 	'int', 	'ptr;ptr')
+global const $__CefLifeSpanHandler__OBC = Cef_CallbackRegister(__CefLifeSpanHandler__OBC, 	'none', 'ptr;ptr')
 
 ; ==================================================
 

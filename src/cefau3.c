@@ -27,11 +27,11 @@ CEFAU3API const char * Cef_GetVersion()
 	return CEF_VERSION;
 }
 
-CEFAU3API void Cef_GetChromiumVersion(struct { int v[3]; } *ref)
-{
-	ref->v[0] = CHROME_VERSION_MAJOR;
-	ref->v[1] = CHROME_VERSION_MINOR;
-	ref->v[2] = CHROME_VERSION_BUILD;
+CEFAU3API void Cef_GetChromiumVersion(int *ref)
+{	
+	ref[0] = CHROME_VERSION_MAJOR;
+	ref[1] = CHROME_VERSION_MINOR;
+	ref[2] = CHROME_VERSION_BUILD;
 }
 
 /* CefWndMsg
@@ -82,6 +82,8 @@ void __stdcall __CefWndMsg_TimerProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD tim
 
 CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
 {
+	if (__CefWndMsg_HWND != NULL) return;
+
 	WNDCLASSEX wcex = { 0 };
 	wcex.cbSize = sizeof(wcex);
 	wcex.lpfnWndProc = __CefWndMsg_WndProc;

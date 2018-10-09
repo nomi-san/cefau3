@@ -213,26 +213,20 @@ endfunc
 
 ; methods -------------------------------------------------------------;
 
-; $Cef.release(<struct|pointer> $value)
-func __Cef_Release($self, $param)
-	if (not $param) then return
-	local $pointer = isptr($param) ? $param : $param()
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_Release', 'ptr', $pointer)
-endfunc
-
 func __Cef_GetVersion($self)
 	local $ret = dllcall($__Cefau3Dll__, 'str:cdecl', 'Cef_GetVersion')
 	return (@error ? null : $ret[0])
 endfunc
 
 func __Cef_GetChromiumVersion($self)
-	local $t = dllstructcreate('int[3]')
+	local $t = dllstructcreate('int major;int mirror;int build')
 	local $ret = dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_GetChromiumVersion', 'ptr', dllstructgetptr($t, 1))
 	return (@error ? _
 		null : ( _
-		dllstructgetdata($t, 1, 1) & '.' & _
-		dllstructgetdata($t, 1, 2) & '.' & _
-		dllstructgetdata($t, 1, 3)) _
+			$t.major  & '.' & _
+			$t.mirror & '.' & _
+			$t.build  _
+		) _
 	)
 endfunc
 

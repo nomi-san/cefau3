@@ -102,7 +102,7 @@ endfunc
 
 func __onTitleChange($browser, $title)
 	CefPrint('Title change: ' & $title.val & '\n')
-	WinSetTitle($cef_browser_hwnd, '', 'Cefau3 :: ' & $title.val)
+	if $cef_browser_hwnd then WinSetTitle($cef_browser_hwnd, '', 'Cefau3 :: ' & $title.val)
 endfunc
 
 func __onAddressChange($browser, $frame, $url)
