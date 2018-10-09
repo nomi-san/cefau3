@@ -10,11 +10,11 @@
 
 global $__CefBrowserProcessHandler = null
 
-global $__CefBrowserProcessHandler__OCI 	= Cef_CallbackRegister(__CefBrowserProcessHandler__OCI, 	'none', 'ptr')
-global $__CefBrowserProcessHandler__OBCPL 	= Cef_CallbackRegister(__CefBrowserProcessHandler__OBCPL, 	'none', 'ptr;ptr')
-global $__CefBrowserProcessHandler__ORPTC 	= Cef_CallbackRegister(__CefBrowserProcessHandler__ORPTC, 	'none', 'ptr;ptr')
-global $__CefBrowserProcessHandler__GPH 	= Cef_CallbackRegister(__CefBrowserProcessHandler__GPH, 	'ptr', 	'ptr')
-global $__CefBrowserProcessHandler__OSMPW 	= Cef_CallbackRegister(__CefBrowserProcessHandler__OSMPW, 	'none', 'ptr;int64')
+global const $__CefBrowserProcessHandler__OCI 	= Cef_CallbackRegister(__CefBrowserProcessHandler__OCI, 	'none', 'ptr')
+global const $__CefBrowserProcessHandler__OBCPL = Cef_CallbackRegister(__CefBrowserProcessHandler__OBCPL, 	'none', 'ptr;ptr')
+global const $__CefBrowserProcessHandler__ORPTC = Cef_CallbackRegister(__CefBrowserProcessHandler__ORPTC, 	'none', 'ptr;ptr')
+global const $__CefBrowserProcessHandler__GPH 	= Cef_CallbackRegister(__CefBrowserProcessHandler__GPH, 	'ptr', 	'ptr')
+global const $__CefBrowserProcessHandler__OSMPW = Cef_CallbackRegister(__CefBrowserProcessHandler__OSMPW, 	'none', 'ptr;int64')
 
 ; ==================================================
 

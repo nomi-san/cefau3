@@ -26,7 +26,7 @@ if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 ; do not insert another codes above (e.g: MsgBox, GUICreate, user interface, etc)
 ; -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
 
-Cef_Print('CEF: ' & $cef.Version  & '\n' & _
+CefPrint('CEF: ' & $cef.Version  & '\n' & _
 	'Chromium: ' & $cef.ChromiumVersion & '\n')
 
 global $cef_settings = $cef.new('Settings'), _
@@ -90,35 +90,35 @@ func __getKeyboardHandler()
 endfunc
 
 func __onAfterCreated($browser)
-	Cef_Print('-- on after created --\n')
+	CefPrint('-- on after created --\n')
 	if not $cef_browser_hwnd then $cef_browser_hwnd = hwnd($browser.GetHost().GetWindowHandle())
 endfunc
 
 func __onBeforeClose($browser)
-	Cef_Print('-- on before close --\n')
+	CefPrint('-- on before close --\n')
 	CefWndMsg_QuitLoop()
 	exit
 endfunc
 
 func __onTitleChange($browser, $title)
-	Cef_Print('Title change: ' & $title.val & '\n')
+	CefPrint('Title change: ' & $title.val & '\n')
 	WinSetTitle($cef_browser_hwnd, '', 'Cefau3 :: ' & $title.val)
 endfunc
 
 func __onAddressChange($browser, $frame, $url)
-	Cef_Print('URL change: ' & $url.val & '\n')
+	CefPrint('URL change: ' & $url.val & '\n')
 endfunc
 
 func __onFaviconUrlChange($browser, $frame, $icon_urls)
-	Cef_Print('Favicon change: ' & $icon_urls.read() & '\n')
+	CefPrint('Favicon change: ' & $icon_urls.read() & '\n')
 endfunc
 
 func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 	if ($event.type == 2) then
 		if $event.windows_key_code == 0xd then
-			Cef_Print('Enter key released\n')
+			CefPrint('Enter key released\n')
 		elseif $event.windows_key_code == 0x1b then
-			Cef_Print('ESC key released\n')
+			CefPrint('ESC key released\n')
 		elseif $event.windows_key_code == 0x70 then
 			CefMsgBox(__onMsgBoxClosed, 0, 'Info', 'Cefau3 project,\nSimple example.\n\n\t© by wuuyi123', $cef_browser_hwnd)
 			return 1
@@ -128,5 +128,5 @@ func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 endfunc
 
 func __onMsgBoxClosed($ret)
-	Cef_Print('MsgBox closed with code: ' & $ret & '\n')
+	CefPrint('MsgBox closed with code: ' & $ret & '\n')
 endfunc

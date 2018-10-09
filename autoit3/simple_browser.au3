@@ -15,7 +15,6 @@ global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
 Opt('GUIOnEventMode', 1)
 
 global $hMainGUI = GUICreate($gui_title, $width, $height, -1, -1, 0x00CF0000)
-;dllcall('user32', 'hwnd', 'CreateWindowExW', 'uint', 0, 'wstr', '#32770', 'wstr', '', 'uint', 0x10CF0000, 'int', 0x80000000, 'int', 0x80000000, 'int', 0x80000000, 'int', 0x80000000, 'ptr', 0, 'ptr', 0, 'ptr', 0, 'ptr', 0)[0] ;
 GUISetBkColor(0xffffff)
 
 Global $input_url = GUICtrlCreateInput($url, 5, 5, $width - 55, 25)

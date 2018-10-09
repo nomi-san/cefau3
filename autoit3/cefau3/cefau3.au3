@@ -5,22 +5,22 @@ AutoIt version:...: v3.3.14.5
 Author:...........: wuuyi123
 Page:.............: https://github.com/wy3/cefau3
 
-program/
-	|---app/...
-	|	|---css/...			# style
-	|	|---js/...			# javascript
+program\
+	|---app\...
+	|	|---css\...			# style
+	|	|---js\...			# javascript
 	|	|---app.js			# app
 	|	|---index.html		# index
 	|
-	|---cef/...				# resources
-	|	|---locales/...
+	|---cef\...				# resources
+	|	|---locales\...
 	|	|---autoitx3.dll	# autoitx3
 	|	|---libcef.dll		# libcef
 	|	|---cefau3.dll		# cefau3
 	|
-	|---include/...			# your autoit header
-	|---cefau3/...			# cefau3 udf
-	|	|---base/...
+	|---include\...			# your autoit header
+	|---cefau3\...			# cefau3 udf
+	|	|---base\...
 	|	|---cefau3.au3
 	|
 	|---main.au3			# main script
@@ -50,6 +50,7 @@ global static $__CefObject__ 		= null;
 
 #include 'api/accessibility_handler.au3'
 #include 'api/browser_process_handler.au3'
+#include 'api/dialog_handler.au3'
 #include 'api/display_handler.au3'
 #include 'api/keyboard_handler.au3'
 #include 'api/life_span_handler.au3'
@@ -63,6 +64,7 @@ global static $__CefObject__ 		= null;
 
 #include 'api/browser.au3'
 #include 'api/command_line.au3'
+#include 'api/download_item.au3'
 #include 'api/frame.au3'
 #include 'api/types.au3'
 #include 'api/types_win.au3'
@@ -158,11 +160,13 @@ func __Cef_New($self, $name = null, $ptr = null)
 		case 'contextmenuhandler'
 
 		case 'dialoghandler'
+			return CefDialogHandler_Create($ptr)
 
 		case 'displayhandler'
 			return CefDisplayHandler_Create($ptr)
 
 		case 'downloadhandler'
+			return CefDownloadHandler_Create($ptr)
 
 		case 'draghandler'
 
@@ -234,7 +238,7 @@ endfunc
 
 ; static functions ----------------------------------------------------;
 
-func Cef_Print($str)
+func CefPrint($str)
 	consolewrite(stringformat($str))
 endfunc
 
@@ -356,17 +360,20 @@ endfunc
 ; CefWndMsg
 ; ==================================================
 
+global const $__CefWndMsg_GUIGetMsg = Cef_CallbackRegister(__CefWndMsg_GUIGetMsg, 'none', '')
+global static $__CefWndMsg_FuncLoop = null
+
 func __CefWndMsg_GUIGetMsg()
 	GUIGetMsg()
+	if ($__CefWndMsg_FuncLoop) then call($__CefWndMsg_FuncLoop)
 endfunc
 
 func CefWndMsg_Create()
-	local static $ptr = dllcallbackgetptr(DllCallbackRegister('__CefWndMsg_GUIGetMsg', 'none', ''))
-
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_Create', 'ptr', $ptr)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_Create', 'ptr', $__CefWndMsg_GUIGetMsg)
 endfunc
 
-func CefWndMsg_RunLoop()
+func CefWndMsg_RunLoop($func = null)
+	$__CefWndMsg_FuncLoop = funcname($func)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop')
 endfunc
 

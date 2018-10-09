@@ -42,13 +42,13 @@ CEFAU3API void Cef_GetChromiumVersion(struct { int v[3]; } *ref)
 MSG __CefWndMsg_MSG = { 0 };
 HWND __CefWndMsg_HWND = (HWND)INVALID_HANDLE_VALUE;
 const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
-void(__stdcall * __CefWndMsg_GUIGetMsg)();
+void(__stdcall* __CefWndMsg_GUIGetMsg)();
 
 CEFAU3API void CefWndMsg_RunLoop()
 {
 	while (GetMessageW(&__CefWndMsg_MSG, NULL, 0, 0)) {
-		DispatchMessageW(&__CefWndMsg_MSG);
 		TranslateMessage(&__CefWndMsg_MSG);
+		DispatchMessageW(&__CefWndMsg_MSG);
 	}
 }
 
@@ -75,7 +75,7 @@ LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	return ret;
 }
 
-void __stdcall __CefWndMsg_TimerProc(HWND Arg1, UINT Arg2, UINT_PTR Arg3, DWORD Arg4)
+void __stdcall __CefWndMsg_TimerProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
 {
 	__CefWndMsg_GUIGetMsg();
 }
@@ -95,7 +95,7 @@ CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
 	);
 
 	__CefWndMsg_GUIGetMsg = fn_getmsg;
-	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 150, __CefWndMsg_TimerProc);
+	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 125, __CefWndMsg_TimerProc);
 }
 
 /* CefMem

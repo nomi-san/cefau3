@@ -55,10 +55,14 @@ CEFAU3API cef_time_t CefDownloadItem_GetEndTime(cef_download_item_t* self)
 	return self->get_end_time(self);
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetFullPath(
+CEFAU3API const wchar_t * CefDownloadItem_GetFullPath(
 	cef_download_item_t* self)
 {
-	return self->get_full_path(self)->str;
+	cef_string_userfree_t s = self->get_full_path(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }
 
 CEFAU3API uint32 CefDownloadItem_GetId(cef_download_item_t* self)
@@ -66,32 +70,52 @@ CEFAU3API uint32 CefDownloadItem_GetId(cef_download_item_t* self)
 	return self->get_id(self);
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetUrl(
+CEFAU3API const wchar_t * CefDownloadItem_GetUrl(
 	cef_download_item_t* self)
 {
-	return self->get_url(self)->str;
+	cef_string_userfree_t s = self->get_url(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetOriginalUrl(
+CEFAU3API const wchar_t * CefDownloadItem_GetOriginalUrl(
 	cef_download_item_t* self)
 {
-	return self->get_original_url(self)->str;
+	cef_string_userfree_t s = self->get_original_url(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetSuggestedFileName(
+CEFAU3API const wchar_t * CefDownloadItem_GetSuggestedFileName(
 	cef_download_item_t* self)
 {
-	return self->get_suggested_file_name(self)->str;
+	cef_string_userfree_t s = self->get_suggested_file_name(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetContentDisposition(
+CEFAU3API const wchar_t * CefDownloadItem_GetContentDisposition(
 	cef_download_item_t* self)
 {
-	return self->get_content_disposition(self)->str;
+	cef_string_userfree_t s = self->get_content_disposition(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }
 
-CEFAU3API wchar_t * CefDownloadItem_GetMimeType(
+CEFAU3API const wchar_t * CefDownloadItem_GetMimeType(
 	cef_download_item_t* self)
 {
-	return self->get_mime_type(self)->str;
+	cef_string_userfree_t s = self->get_mime_type(self);
+	const wchar_t* r = s->str;
+	cef_string_userfree_free(s);
+
+	return r;
 }

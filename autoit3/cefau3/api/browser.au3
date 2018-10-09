@@ -5,12 +5,12 @@
 
 #include-once
 
-global $__CefBrowser = null
-
 ; CefBrowser
 ; ==================================================
 
-func CefBrowser_Create($ptr = null)
+global $__CefBrowser = null
+
+func CefBrowser_Create($ptr)
 	if $__CefBrowser == null then
 		$__CefBrowser = _AutoItObject_Create()
 		_AutoItObject_AddProperty($__CefBrowser, '__ptr')
@@ -40,7 +40,6 @@ func CefBrowser_Create($ptr = null)
 	endif
 
 	local $self = _AutoItObject_Create($__CefBrowser)
-	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowser_Create')[0]
 	$self.__ptr = $ptr
 	return $self
 endfunc
@@ -152,7 +151,7 @@ global $__CefBrowserHost = null
 
 ; ==================================================
 
-func CefBrowserHost_Create($ptr = null)
+func CefBrowserHost_Create($ptr)
 	if ($__CefBrowserHost == null) then
 		$__CefBrowserHost = _AutoItObject_Create()
 		_AutoItObject_AddProperty($__CefBrowserHost, '__ptr')
@@ -213,7 +212,6 @@ func CefBrowserHost_Create($ptr = null)
 	endif
 
 	local $self = _AutoItObject_Create($__CefBrowserHost)
-	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowserHost_Create')[0]
 	$self.__ptr = $ptr
 	return $self
 endfunc
