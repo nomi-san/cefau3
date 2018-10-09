@@ -30,7 +30,7 @@
 </p>
 
 -------
-## Changelogs
+## Changelog
 
 #### 2018.10.08 [78%]
 - change window message loop method
@@ -90,8 +90,8 @@ E.g: `$ build gcc`
 
 ### Configure
 
-After built, it need CEF resources for work correctly, download CEF binary distribution (for current version) : [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x86_x64](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
-Extract CEF binary distribution package, and copy all files in **release** and **esources** folders (exclude **.lib**) to **autoit3\cef\**
+After built, it need CEF resources for work correctly, download CEF binary distribution (for current version): [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x64_x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
+Extract CEF binary distribution package, and copy all files in **release** and **resources** folders (exclude **.lib**) to **autoit3\cef\**
 
 ### Cefau3 example project
 
@@ -120,106 +120,17 @@ program/
 
 ### updating...
 
-## Simple Example
+## Example
 
-```au3
-;~ // file: example_1.au3
-;~ // content: Cefau3 example
-;~ // author: wuuyi123
-
-#include 'cefau3/cefau3.au3'
-
-; start Cefau3
-global $cef = CefStart(default)
-
-; Windows constant
-global const $CW_USEDEFAULT = 0x80000000, _
-	$WS_VISIBLE 			= 0x10000000, _
-	$WS_OVERLAPPEDWINDOW 	= 0x00CF0000
-
-; enable high DPI, support on Windows 7 or later
-$cef.EnableHighDPISupport()
-
-; create new struct
-global $cef_app = $cef.new('App'), _
-	$cef_args = $cef.new('MainArgs')
-
-; execute process,
-if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
-
-; if $cef_settings.single_process = 1 (true, in line 35), do not insert code above
-; -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
-
-Cef_Print('CEF: ' & $cef.Version  & '\n' & _
-	'Chromium: ' & $cef.ChromiumVersion & '\n')
-
-global $cef_settings = $cef.new('Settings'), _
-	$cef_bs = $cef.new('BrowserSettings')
-
-; multiprocess for performance, not work while running script
-$cef_settings.single_process = @Compiled ? 0 : 1
-;~ $cef_settings.cache_path = @ScriptDir & '\cache'
-
-; initialize
-if ($cef.Initialize($cef_args.__ptr, $cef_settings.__ptr, $cef_app.__ptr) == 0) then exit
-
-; create WindowInfo & set attribute for Cef browser window
-global $cef_wininfo = $cef.new('WindowInfo')
-$cef_wininfo.window_name = 'Hello World!'
-$cef_wininfo.style 	= bitor($WS_VISIBLE, $WS_OVERLAPPEDWINDOW)
-$cef_wininfo.x 		= $CW_USEDEFAULT
-$cef_wininfo.y 		= $CW_USEDEFAULT
-$cef_wininfo.width 	= $CW_USEDEFAULT
-$cef_wininfo.height = $CW_USEDEFAULT
-
-; Client & LifeSpanHandler, it's callback handler, implement property for control
-global $cef_client = $cef.new('Client'), _
-	$cef_lifespan = $cef.new('LifeSpanHandler')
-
-; implement callback functions
-$cef_client.GetLifeSpanHandler 	= __getLifeSpanHandler
-$cef_lifespan.OnAfterCreated 	= __onAfterCreated
-$cef_lifespan.OnBeforeClose 	= __onBeforeClose
-
-global $url = 'https://google.com'
-$cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
-
-OnAutoItExitRegister(CefEnd) ; register CefEnd for on exit
-
-do ; message loop
-until Cef_WindowMessage()
-
-; -- callback function
-
-;                         $self.__ptr == $cef_client.__ptr
-func __getLifeSpanHandler($self)
-	return $cef_lifespan.__ptr
-endfunc
-
-; same
-func __onAfterCreated($self, $browser)
-	Cef_Print('-- on after created --\n')
-	Cef_Print('type of $self: ' & $self.__type & '\n')
-	Cef_Print('$self is $cef_lifespan: ' & ($self.__ptr == $cef_lifespan.__ptr) & '\n') ; -> true
-endfunc
-
-func __onBeforeClose($life_span, $browser)
-	Cef_Print('-- on before close --\n')
-	exit
-endfunc
-```
+See [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3) for simple example.
 
 <p align="center">
-	<img src="https://i.imgur.com/TOY8syh.png" width=800>
+	<img src="https://i.imgur.com/ySunmEr.png" width=800>
 </p>
 
 ```batch
 CEF: 3.3163.1671.g700dc25
 Chromium: 61.0.3163
--- on after created --
-type of $self: CefLifeSpanHandler
-$self is $cef_lifespan: True
--- on before close --
 ```
 
 <br>
