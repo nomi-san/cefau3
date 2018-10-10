@@ -40,16 +40,21 @@ CEFAU3API void Cef_GetChromiumVersion(int *ref)
 #define CEFQUITMESSAGE 0xDEAD969
 #define CEFMSGTIMERID 0x69
 #define INVALIDHWND (HWND)INVALID_HANDLE_VALUE
-static MSG __CefWndMsg_MSG = { 0 };
 static HWND __CefWndMsg_HWND = INVALIDHWND;
 static const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
 static void(__stdcall* __CefWndMsg_GUIGetMsg)();
 
 CEFAU3API void CefWndMsg_RunLoop()
 {
-	while (GetMessageW(&__CefWndMsg_MSG, NULL, 0, 0)) {
-		TranslateMessage(&__CefWndMsg_MSG);
-		DispatchMessageW(&__CefWndMsg_MSG);
+	static MSG msg;
+	static BOOL b;
+
+	while (1) {
+		if (GetMessageW(&msg, NULL, 0, 0) > 0) {
+			TranslateMessage(&msg);
+			DispatchMessageW(&msg);
+		}
+		else break;
 	}
 }
 
@@ -93,7 +98,7 @@ CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
 	);
 
 	__CefWndMsg_GUIGetMsg = fn_getmsg;
-	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 100, __CefWndMsg_TimerProc);
+	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 200, __CefWndMsg_TimerProc);
 }
 
 /* CefMem

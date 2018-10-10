@@ -14,7 +14,7 @@ global const $__CefDisplayHandler__OAC	= Cef_CallbackRegister(__CefDisplayHandle
 global const $__CefDisplayHandler__OTC	= Cef_CallbackRegister(__CefDisplayHandler__OTC, 	'none', 'ptr;ptr;ptr')
 global const $__CefDisplayHandler__OFUC	= Cef_CallbackRegister(__CefDisplayHandler__OFUC, 	'none', 'ptr;ptr;ptr')
 global const $__CefDisplayHandler__OFMC	= Cef_CallbackRegister(__CefDisplayHandler__OFMC, 	'none', 'ptr;ptr;int')
-global const $__CefDisplayHandler__OT		= Cef_CallbackRegister(__CefDisplayHandler__OT, 	'int', 	'ptr;ptr;ptr')
+global const $__CefDisplayHandler__OT	= Cef_CallbackRegister(__CefDisplayHandler__OT, 	'int', 	'ptr;ptr;ptr')
 global const $__CefDisplayHandler__OSM	= Cef_CallbackRegister(__CefDisplayHandler__OSM, 	'none', 'ptr;ptr;ptr')
 global const $__CefDisplayHandler__OCM	= Cef_CallbackRegister(__CefDisplayHandler__OCM, 	'int', 	'ptr;ptr;ptr;ptr;int')
 

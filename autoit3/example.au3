@@ -90,13 +90,12 @@ endfunc
 
 func __onAfterCreated($browser)
 	CefPrint('-- on after created --\n')
-	if (not $cef_browser_hwnd) then $cef_browser_hwnd = hwnd($browser.GetHost().GetWindowHandle())
+	if not $cef_browser_hwnd then $cef_browser_hwnd = hwnd($browser.GetHost().GetWindowHandle())
 endfunc
 
 func __onBeforeClose($browser)
 	CefPrint('-- on before close --\n')
 	CefWndMsg_QuitLoop()
-	exit
 endfunc
 
 func __onTitleChange($browser, $title)

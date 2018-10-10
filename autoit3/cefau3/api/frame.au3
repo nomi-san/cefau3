@@ -8,12 +8,12 @@
 ; CefFrame
 ; ==================================================
 
-global $__CefFrame = null
+global $__CefFrame = -1
 
 ; ==================================================
 
 func CefFrame_Create($ptr)
-	if ($__CefFrame == null) then
+	if ($__CefFrame == -1) then
 		$__CefFrame = _AutoItObject_Create()
 		_AutoItObject_AddProperty($__CefFrame, '__ptr')
 		_AutoItObject_AddProperty($__CefFrame, '__type', 1, 'CefFrame')

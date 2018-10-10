@@ -8,10 +8,10 @@
 ; CefBrowser
 ; ==================================================
 
-global $__CefBrowser = null
+global $__CefBrowser = -1
 
 func CefBrowser_Create($ptr)
-	if $__CefBrowser == null then
+	if $__CefBrowser == -1 then
 		$__CefBrowser = _AutoItObject_Create()
 		_AutoItObject_AddProperty($__CefBrowser, '__ptr')
 		_AutoItObject_AddProperty($__CefBrowser, '__type', 1, 'CefBrowser')
@@ -46,8 +46,7 @@ endfunc
 
 func __CefBrowser_GetHost($self)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowser_GetHost', 'ptr', $self.__ptr)
-	 $ret = $ret[0]
-	return CefBrowserHost_Create($ret)
+	return @error ? 0 : CefBrowserHost_Create(ptr($ret[0]))
 endfunc
 
 func __CefBrowser_CanGoBack($self)

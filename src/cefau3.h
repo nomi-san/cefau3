@@ -12,6 +12,19 @@
 cef_string_t cefstring_cs(const char *);
 cef_string_t cefstring_wcs(const wchar_t *);
 
+/*
+__inline cef_string_t *cefstring_pwcs(const wchar_t *wcs)
+{
+	cef_string_t s = { 0 };
+	cef_string_from_wide(
+		wcs,
+		wcslen(wcs),
+		&s
+	);
+	return &s;
+}
+*/
+
 #define cefstring_pwcs(wcs) \
 	( &(cef_string_t) { (wchar_t*)wcs, wcslen(wcs) } )
 
