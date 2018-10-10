@@ -2,22 +2,14 @@
 
 #include "include/cef_version.h"
 
-static HINSTANCE __main_instance = NULL;
-
 //                            
-//  _____     ___         ___ 
-// |     |___|  _|___ _ _|_  |
-// |   --| -_|  _| .'| | |_  |
-// |_____|___|_| |__,|___|___|
+//        _____     ___         ___ 
+//       |     |___|  _|___ _ _|_  |
+//       |   --| -_|  _| .'| | |_  |
+//       |_____|___|_| |__,|___|___|
 //
 /*  Chromium Embedded Framework for AutoIt 3
 --------------------------------------------------*/
-
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
-{
-	__main_instance = hinstDLL;
-	return 1;
-}
 
 /* CefVersion
 --------------------------------------------------*/
@@ -27,7 +19,7 @@ CEFAU3API const char * Cef_GetVersion()
 	return CEF_VERSION;
 }
 
-CEFAU3API void Cef_GetChromiumVersion(int *ref)
+CEFAU3API void Cef_GetChromiumVersion(int ref[3])
 {	
 	ref[0] = CHROME_VERSION_MAJOR;
 	ref[1] = CHROME_VERSION_MINOR;
@@ -37,67 +29,64 @@ CEFAU3API void Cef_GetChromiumVersion(int *ref)
 /* CefWndMsg
 --------------------------------------------------*/
 
-#define CEFQUITMESSAGE 0xDEAD969
-#define CEFMSGTIMERID 0x69
+#define CEFQUITMESSAGE 0xdeadu
+#define CEFMSGTIMERID 0x69u
 #define INVALIDHWND (HWND)INVALID_HANDLE_VALUE
-static HWND __CefWndMsg_HWND = INVALIDHWND;
-static const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
-static void(__stdcall* __CefWndMsg_GUIGetMsg)();
+HWND __CefWndMsg_HWND = INVALIDHWND;
+const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
 
-CEFAU3API void CefWndMsg_RunLoop()
+CEFAU3API void CefWndMsg_RunLoop(TIMERPROC timer_proc)
 {
-	static MSG msg;
-	
-	while (1) {
-		if (GetMessageW(&msg, NULL, 0, 0) > 0) {
-			TranslateMessage(&msg);
-			DispatchMessageW(&msg);
-		}
-		else break;
+	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 75, timer_proc);
+
+	MSG msg;
+	ZeroMemory(&msg, sizeof(MSG));
+
+	while (GetMessageW(&msg, NULL, 0, 0) > 0) 
+	{
+		DispatchMessageW(&msg);
+		TranslateMessage(&msg);
 	}
 }
 
 CEFAU3API void CefWndMsg_QuitLoop(int code)
 {
-	SendMessageW(__CefWndMsg_HWND, WM_COMMAND, CEFQUITMESSAGE, code);
+	SendMessageW(__CefWndMsg_HWND, CEFQUITMESSAGE, 0, code);
 }
 
 LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg) {
-		case WM_COMMAND:
-			if (wp == CEFQUITMESSAGE) {
-				KillTimer(hwnd, CEFMSGTIMERID);
-				PostQuitMessage(lp);
-			}
+		case CEFQUITMESSAGE:
+			KillTimer(hwnd, CEFMSGTIMERID);
+			PostQuitMessage(lp);
 			break;
 	}
 	return DefWindowProcW(hwnd, msg, wp, lp);
 }
 
-void __stdcall __CefWndMsg_TimerProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
+CEFAU3API HWND CefWndMsg_Create()
 {
-	__CefWndMsg_GUIGetMsg();
-}
+	if (__CefWndMsg_HWND != INVALIDHWND) return NULL;
 
-CEFAU3API void CefWndMsg_Create(void* fn_getmsg)
-{
-	if (__CefWndMsg_HWND != INVALIDHWND) return;
+	HINSTANCE ins = GetModuleHandleA((const char*)0);
 
-	WNDCLASSEX wcex = { 0 };
+	WNDCLASSEX wcex;
+	ZeroMemory(&wcex, sizeof(WNDCLASSEX));
+
 	wcex.cbSize = sizeof(wcex);
 	wcex.lpfnWndProc = __CefWndMsg_WndProc;
-	wcex.hInstance = __main_instance;
+	wcex.hInstance = ins;
 	wcex.lpszClassName = __CefWndMsg_Class;
 	RegisterClassEx(&wcex);
+
 	__CefWndMsg_HWND = CreateWindowExW(
 		0, __CefWndMsg_Class, NULL, 0, 
 		0, 0, 0, 0, 
-		HWND_MESSAGE, NULL, NULL, NULL
+		HWND_MESSAGE, NULL, ins, NULL
 	);
 
-	__CefWndMsg_GUIGetMsg = fn_getmsg;
-	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 200, __CefWndMsg_TimerProc);
+	return __CefWndMsg_HWND;
 }
 
 /* CefMem

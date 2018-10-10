@@ -28,11 +28,13 @@ program\
 
 #ce
 
+#include-once
+
+Opt('GUIOnEventMode', 1)
+
 global static $__Cefau3Dll__ 		= null;
 global static $__Cefau3DllName__ 	= 'cefau3.dll';
 global static $__CefObject__ 		= null;
-
-#include-once
 
 #include <WinAPISysWin.au3>
 #include <WinAPIMisc.au3>
@@ -126,6 +128,8 @@ func __Cef_Init()
 	CefObject_AddMethod($__CefObject__, 'RegisterExtension', 	'__Cef_RegisterExtension')
 
 	CefObject_AddProperty($__CefObject__, '__type', 1, 'Cef')
+
+	CefBrowser_Create(0)
 endfunc
 
 ; $Cef.new(<string> $name[, <pointer> $param])
@@ -233,6 +237,10 @@ func __Cef_GetChromiumVersion($self)
 endfunc
 
 ; static functions ----------------------------------------------------;
+
+func CefExit()
+	ProcessClose(@AutoItPID)
+endfunc
 
 func CefPrint($str)
 	consolewrite(stringformat($str))
@@ -356,21 +364,23 @@ endfunc
 ; CefWndMsg
 ; ==================================================
 
-global const $__CefWndMsg_GUIGetMsg = Cef_CallbackRegister(__CefWndMsg_GUIGetMsg, 'none', '')
+global const $__CefWndMsg_TimerProc = Cef_CallbackRegister(__CefWndMsg_TimerProc, 'none', 'hwnd;uint;uint_ptr;dword')
 global static $__CefWndMsg_FuncLoop = null
 
-func __CefWndMsg_GUIGetMsg()
+func __CefWndMsg_TimerProc($h, $m, $i, $t)
+	#forceref $h, $m, $i, $t
 	GUIGetMsg()
-	;if ($__CefWndMsg_FuncLoop) then call($__CefWndMsg_FuncLoop)
+	if ($__CefWndMsg_FuncLoop) then call($__CefWndMsg_FuncLoop)
 endfunc
 
 func CefWndMsg_Create()
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_Create', 'ptr', $__CefWndMsg_GUIGetMsg)
+	local $hwnd = dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_Create')
+	GUICreate('', 0, 0, 0, 0, 0, 0, @error ? null : $hwnd[0]) ; dummy
 endfunc
 
 func CefWndMsg_RunLoop($func = null)
-	;$__CefWndMsg_FuncLoop = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop')
+	$__CefWndMsg_FuncLoop = funcname($func)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop', 'ptr', $__CefWndMsg_TimerProc)
 endfunc
 
 func CefWndMsg_QuitLoop($exit_code = 0)

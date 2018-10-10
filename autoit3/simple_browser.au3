@@ -10,14 +10,14 @@ global $cef_app = $cef.new('App'), _
 if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
-	$url = 'https://www.google.com'
+	$url = 'https://www.google.com/'
 
 Opt('GUIOnEventMode', 1)
 
 global $hMainGUI = GUICreate($gui_title, $width, $height, -1, -1, 0x00CF0000)
 GUISetBkColor(0xffffff)
 
-Global $input_url = GUICtrlCreateInput($url, 5, 5, $width - 55, 25)
+Global $input_url = GUICtrlCreateInput('', 5, 5, $width - 55, 25)
 GUICtrlSetFont(-1, 14)
 GUICtrlSetResizing(-1, 544)
 Global $btn_go = GUICtrlCreateButton("Go", $width - 45, 5, 40, 25)
@@ -64,6 +64,8 @@ GUIRegisterMsg(0x0005, __sizing)
 GUISetState()
 
 global $rc = DllStructCreate('int[2];int w;int h')
+
+OnAutoItExitRegister('CefExit')
 
 CefWndMsg_RunLoop()
 

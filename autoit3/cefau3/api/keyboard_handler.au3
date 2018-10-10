@@ -12,12 +12,12 @@ global $__CefKeyboardHandler__OPKE 	= Cef_CallbackRegister(__CefKeyboardHandler_
 global $__CefKeyboardHandler__OKE 	= Cef_CallbackRegister(__CefKeyboardHandler__OKE, 	'int', 'ptr;ptr;ptr;ptr')
 
 
-global $__CefKeyboardHandler = null
+global $__CefKeyboardHandler = -1
 
 ; ==================================================
 
 Func CefKeyboardHandler_Create($ptr = null)
-	if ($__CefKeyboardHandler == null) then
+	if ($__CefKeyboardHandler == -1) then
 		$__CefKeyboardHandler = _AutoItObject_Create()
 		_AutoItObject_AddProperty($__CefKeyboardHandler, '__ptr')
 		_AutoItObject_AddProperty($__CefKeyboardHandler, '__type', 1, 'CefKeyboardHandler')
