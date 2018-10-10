@@ -32,6 +32,11 @@
 -------
 ## Changelog
 
+#### 2018.10.10 [79%]
+- fix window message loop
+- add force close process for quick exit
+- fix some crashes
+
 #### 2018.10.08 [78%]
 - change window message loop method
 - fix some crashes
