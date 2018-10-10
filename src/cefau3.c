@@ -47,8 +47,7 @@ static void(__stdcall* __CefWndMsg_GUIGetMsg)();
 CEFAU3API void CefWndMsg_RunLoop()
 {
 	static MSG msg;
-	static BOOL b;
-
+	
 	while (1) {
 		if (GetMessageW(&msg, NULL, 0, 0) > 0) {
 			TranslateMessage(&msg);
