@@ -33,11 +33,12 @@ CEFAU3API void Cef_GetChromiumVersion(int ref[3])
 #define CEFMSGTIMERID 0x69u
 #define INVALIDHWND (HWND)INVALID_HANDLE_VALUE
 HWND __CefWndMsg_HWND = INVALIDHWND;
-const wchar_t *__CefWndMsg_Class = TEXT("MessageWindowClass");
+const wchar_t *__CefWndMsg_Class = TEXT("CefWndMsg");
 
 CEFAU3API void CefWndMsg_RunLoop(TIMERPROC timer_proc)
 {
-	SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 75, timer_proc);
+	if (timer_proc != NULL)
+		SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 100, timer_proc);
 
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
@@ -56,13 +57,18 @@ CEFAU3API void CefWndMsg_QuitLoop(int code)
 
 LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-	switch (msg) {
+	LRESULT ret = 0;
+	switch (msg) 
+	{
 		case CEFQUITMESSAGE:
 			KillTimer(hwnd, CEFMSGTIMERID);
 			PostQuitMessage(lp);
 			break;
+		default:
+			ret = DefWindowProcW(hwnd, msg, wp, lp);
+			break;
 	}
-	return DefWindowProcW(hwnd, msg, wp, lp);
+	return ret;
 }
 
 CEFAU3API HWND CefWndMsg_Create()

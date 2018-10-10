@@ -364,7 +364,7 @@ endfunc
 ; CefWndMsg
 ; ==================================================
 
-global const $__CefWndMsg_TimerProc = Cef_CallbackRegister(__CefWndMsg_TimerProc, 'none', 'hwnd;uint;uint_ptr;dword')
+global const $__CefWndMsg_TimerProc = Cef_CallbackRegister('__CefWndMsg_TimerProc', 'none', 'hwnd;uint;uint_ptr;dword')
 global static $__CefWndMsg_FuncLoop = null
 
 func __CefWndMsg_TimerProc($h, $m, $i, $t)
@@ -378,9 +378,9 @@ func CefWndMsg_Create()
 	GUICreate('', 0, 0, 0, 0, 0, 0, @error ? null : $hwnd[0]) ; dummy
 endfunc
 
-func CefWndMsg_RunLoop($func = null)
+func CefWndMsg_RunLoop($haveGUI = true, $func = null)
 	$__CefWndMsg_FuncLoop = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop', 'ptr', $__CefWndMsg_TimerProc)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefWndMsg_RunLoop', 'ptr', $haveGUI ? $__CefWndMsg_TimerProc : null)
 endfunc
 
 func CefWndMsg_QuitLoop($exit_code = 0)

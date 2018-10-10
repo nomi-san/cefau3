@@ -74,7 +74,7 @@ global $cef_browser_hwnd = 0
 
 OnAutoItExitRegister('CefExit')
 
-CefWndMsg_RunLoop()
+CefWndMsg_RunLoop(0)
 
 ; -- callback functions
 
@@ -97,18 +97,17 @@ endfunc
 
 func __onBeforeClose($browser)
 	CefPrint('-- on before close --\n')
-	;CefExit()
 	CefWndMsg_QuitLoop()
 	exit
 endfunc
 
 func __onTitleChange($browser, $title)
-	CefPrint('Title change: ' & ($title.val) & '\n')
+	CefPrint('Title change: ' & string($title.val) & '\n')
 	if $cef_browser_hwnd then WinSetTitle($cef_browser_hwnd, '', 'Cefau3 :: ' & $title.val)
 endfunc
 
 func __onAddressChange($browser, $frame, $url)
-	CefPrint('URL change: ' & ($url.val) & '\n')
+	CefPrint('URL change: ' & string($url.val) & '\n')
 endfunc
 
 func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
@@ -128,5 +127,5 @@ func __onPreKeyEvent($browser, $event, $os_event, $is_keyboard_shortcut)
 endfunc
 
 func __onMsgBoxClosed($ret)
-	CefPrint('MsgBox closed with code: ' & ($ret) & '\n')
+	CefPrint('MsgBox closed with code: ' & string($ret) & '\n')
 endfunc
