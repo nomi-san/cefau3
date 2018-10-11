@@ -127,10 +127,10 @@ program/
 
 ## Example
 
-See [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3) for simple example.
+Please see [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3) for simple example.
 
 <p align="center">
-	<img src="https://i.imgur.com/ySunmEr.png" width=800>
+	<img src="https://i.imgur.com/iTzhK0s.png" width=800>
 </p>
 
 ```batch
