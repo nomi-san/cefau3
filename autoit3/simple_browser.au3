@@ -32,7 +32,7 @@ global $cef_settings = $cef.new('Settings'), _
 
 $cef_settings.single_process = @Compiled ? 0 : 1
 $cef_settings.multi_threaded_message_loop = 1
-$cef_settings.cache_path = @scriptdir & '\cache'
+;$cef_settings.cache_path = @scriptdir & '\cache'
 
 if ($cef.Initialize($cef_args.__ptr, $cef_settings.__ptr, $cef_app.__ptr) == 0) then exit
 
