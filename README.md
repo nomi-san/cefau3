@@ -82,8 +82,8 @@
 ## Build
 
 ### Visual Studio method:
-Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
-Set to **Release** mode and **Build**
+- Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
+- Set to **Release** mode and **Build**
 
 ### Commandline method:
 Run **build.bat** with arguments below for option compiler:
