@@ -32,13 +32,6 @@ global $cef_settings = $cef.new('Settings'), _
 $cef_settings.single_process = @Compiled ? 0 : 1
 $cef_settings.multi_threaded_message_loop = 1
 
-$cef_bs.plugins = 1 
-$cef_bs.image_loading  = 1 
-$cef_bs.file_access_from_file_urls  = 1 
-$cef_bs.databases   = 1 
-$cef_bs.application_cache    = 1 
-$cef_bs.webgl = 1 
-
 ; initialize
 if ($cef.Initialize($cef_args.__ptr, $cef_settings.__ptr, $cef_app.__ptr) == 0) then exit
 
