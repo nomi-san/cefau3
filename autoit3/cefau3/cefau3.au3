@@ -35,6 +35,7 @@ Opt('GUIOnEventMode', 1)
 global static $__Cefau3Dll__ 		= null;
 global static $__Cefau3DllName__ 	= 'cefau3.dll';
 global static $__CefObject__ 		= null;
+global const $__sizeof_ptr = dllstructgetsize(dllstructcreate('ptr')); // (@autoitx64 ? 8 : 4)
 
 #include <WinAPISysWin.au3>
 #include <WinAPIMisc.au3>

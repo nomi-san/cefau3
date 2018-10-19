@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <style>
+            body { margin: 0; padding: 0; }
+            .toolbar { background: repeat-x url('toolbar-bg.png'); height: 30px; padding-left:4px; padding-right:2px }
+            a.button { float: left; display: block; height: 29px; width: 29px; }
+            a.button-right { float: right; display: block; height: 29px; width: 29px; }
+            
+            #home               { background: no-repeat url('buttons.png') 0px 0px; overflow:hidden; }
+            #home:hover         { background: no-repeat url('buttons.png') -29px 0px; overflow:hidden; }
+            #home:active        { background: no-repeat url('buttons.png') -58px 0px; overflow:hidden; }
+
+            #back               { background: no-repeat url('buttons.png') 0px -29px; overflow:hidden; }
+            #back:hover         { background: no-repeat url('buttons.png') -29px -29px; overflow:hidden; }
+            #back:active        { background: no-repeat url('buttons.png') -58px -29px; overflow:hidden; }
+
+            #forward            { background: no-repeat url('buttons.png') 0px -58px; overflow:hidden; }
+            #forward:hover      { background: no-repeat url('buttons.png') -29px -58px; overflow:hidden; }
+            #forward:active     { background: no-repeat url('buttons.png') -58px -58px; overflow:hidden; }
+
+            #reload             { background: no-repeat url('buttons.png') 0px -87px; overflow:hidden; }
+            #reload:hover       { background: no-repeat url('buttons.png') -29px -87px; overflow:hidden; }
+            #reload:active      { background: no-repeat url('buttons.png') -58px -87px; overflow:hidden; }
+            
+            #time               { background: no-repeat url('buttons.png') 0px -145px; overflow:hidden; }
+            #time:hover         { background: no-repeat url('buttons.png') -29px -145px; overflow:hidden; }
+            #time:active        { background: no-repeat url('buttons.png') -58px -145px; overflow:hidden; }
+
+            #settings           { background: no-repeat url('buttons.png') 0px -174px; overflow:hidden; }
+            #settings:hover     { background: no-repeat url('buttons.png') -29px -174px; overflow:hidden; }
+            #settings:active    { background: no-repeat url('buttons.png') -58px -174px; overflow:hidden; }
+
+            #bookmarks          { background: no-repeat url('buttons.png') 0px -203px; overflow:hidden; }
+            #bookmarks:hover    { background: no-repeat url('buttons.png') -29px -203px; overflow:hidden; }
+            #bookmarks:active   { background: no-repeat url('buttons.png') -58px -203px; overflow:hidden; }
+            #bookmarks .stared  { background: no-repeat url('buttons.png') -87px -203px; overflow:hidden; }
+
+            .url-box {
+                height: 29px;
+                position: relative;
+                margin-left: 120px;
+                margin-right: 60px;
+            }
+            #urlbox {
+                transition: all 350ms;
+                width: 98%;
+                padding: 5px;
+                cursor: text;
+                font-family: Tahoma;
+                font-size: 0.9em;
+                position: absolute;
+                border-radius: 5px;
+                border: 1px solid rgba(80, 80, 80, .5);
+                outline: none;
+                top: 2px;
+                left: 6px;
+                right: 6px;
+                height: 27px;
+            }
+            #urlbox:focus, #urlbox:hover {
+                border: 1px solid rgba(0, 128, 255, 0.7);
+                border-left-width: 3px;
+                border-right-width: 3px;
+            }
+        </style>
+    </head>
+    <body spellcheck="false">
+        <div class="toolbar">
+            <a class="button" id="back"></a>
+            <a class="button" id="forward"></a>
+            <a class="button" id="reload"></a>
+            <a class="button" id="home"></a>
+            <a class="button-right" id="settings"></a>
+            <a class="button-right" id="bookmarks"></a>
+            <div class="url-box">
+                <input type="text" id="urlbox"/>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var back    = document.getElementById('back'),
+                forward = document.getElementById('forward'),
+                reload  = document.getElementById('reload'),
+                home    = document.getElementById('home'),
+                urlbox = document.getElementById('urlbox');
+
+            back.onclick = function() {
+                app.back();
+            };
+
+            forward.onclick = function() {
+                app.forward();
+            };
+
+            reload.onclick = function() {
+                app.reload();
+            };
+
+            home.onclick = function() {
+                app.home();
+            };
+
+            urlbox.onkeyup = function(e) {
+                if (e.which === 13)
+                    app.load(urlbox.value);
+            };
+
+            var links = []
+            var bookmarks = document.getElementById('bookmarks');
+
+            bookmarks.onclick = function() {
+                links.push(urlbox.value);
+                bookmarks.style.backgroundPosition = '-87px -203px';
+            }
+
+            function set(link) {
+                urlbox.value = link;
+                if (links.indexOf(link) > -1) 
+                    bookmarks.style.backgroundPosition = '-87px -203px';
+                else
+                    bookmarks.style.backgroundPosition = '0px -203px';
+            }
+        </script>
+    </body>
+</html>

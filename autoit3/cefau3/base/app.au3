@@ -8,6 +8,8 @@
 ; CefApp
 ; ==================================================
 
+global $__CefApp = null
+
 global $__CefApp__OBCLP	= Cef_CallbackRegister(__CefApp__OBCLP, 'none', 'ptr;ptr;ptr')
 global $__CefApp__ORCS	= Cef_CallbackRegister(__CefApp__ORCS, 	'none', 'ptr;ptr')
 global $__CefApp__GRBH	= Cef_CallbackRegister(__CefApp__GRBH, 	'ptr', 	'ptr')

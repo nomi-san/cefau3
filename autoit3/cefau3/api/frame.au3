@@ -32,7 +32,7 @@ func CefFrame_Create($ptr)
 		_AutoItObject_AddMethod($__CefFrame, 'LoadRequest',	'__CefFrame_LoadRequest')
 		_AutoItObject_AddMethod($__CefFrame, 'LoadURL',		'__CefFrame_LoadUrl')
 		_AutoItObject_AddMethod($__CefFrame, 'LoadString',	'__CefFrame_LoadString')
-		_AutoItObject_AddMethod($__CefFrame, 'ExecuteJavaScript', '__CefFrame_ExecuteJavaScript')
+		_AutoItObject_AddMethod($__CefFrame, 'ExecuteJS', '__CefFrame_ExecuteJavaScript')
 		_AutoItObject_AddMethod($__CefFrame, 'IsMain',		'__CefFrame_IsMain')
 		_AutoItObject_AddMethod($__CefFrame, 'IsFocused',	'__CefFrame_IsFocused')
 		_AutoItObject_AddMethod($__CefFrame, 'GetName',		'__CefFrame_GetName')
@@ -106,7 +106,7 @@ func __CefFrame_LoadString($self, $string_val = null, $url = null)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefFrame_LoadString', 'ptr', $self.__ptr, 'wstr', $string_val, 'wstr', $url)
 endfunc
 
-func __CefFrame_ExecuteJavaScript($self, $code = null, $script_url = null, $start_line = 0)
+func __CefFrame_ExecuteJavaScript($self, $code = null, $script_url = '', $start_line = 0)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefFrame_ExecuteJavaScript', 'ptr', $self.__ptr, 'wstr', $code, 'wstr', $script_url, 'int', $start_line)
 endfunc
 

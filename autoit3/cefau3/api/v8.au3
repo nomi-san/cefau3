@@ -151,27 +151,56 @@ func __CefV8Handler_E($self, $func = null)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Handler_E', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefV8Handler__E : null)
 endfunc
 
-
 ; ==================================================
 
 func __CefV8Handler__E($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefV8Handler_Get_E', 'ptr', $self)[0]
 	$name = CefString_Create($name)
 	;$object = CefV8Value_Create($object)
+	;$argumentsCount = int($argumentsCount)
 
-	;$arguments
+	local $args[1] = [$argumentsCount]
+
+	if ($argumentsCount > 0) then
+
+		redim $args[$argumentsCount+1]
+
+		local $st = dllstructcreate('ptr[1]', $arguments)
+		local $addr = dllstructgetdata($st, 1, 1)
+		$args[1] = CefV8Value_Create($addr)
+
+		if ($argumentsCount > 1) then
+			for $i=2 to $argumentsCount+1
+				$args[$i] = CefV8Value_Create($addr + $__sizeof_ptr * $i)
+			next
+		endif
+	endif
+
+	;$arguments = CefV8Value_Create()
 	;$retval
 	;$exception
 
-	return call($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
+	return call($self, $name, $object, $args, $retval, $exception)
 endfunc
 
-
-
-;/////////////////////////////////
+; CefV8Value
 ; ==================================================
 
+global $__CefV8Value = null
 
+func CefV8Value_Create($ptr)
+	if ($__CefV8Value == null) then
+		$__CefV8Value = _AutoItObject_Create()
+		_AutoItObject_AddProperty($__CefV8Value, '__ptr')
+		_AutoItObject_AddProperty($__CefV8Value, '__type', 1, 'CefV8Value')
+
+		_AutoItObject_AddMethod($__CefV8Value, 'GetStringValue', '__CefV8Value_GetStringValue')
+	endif
+
+	local $self = _AutoItObject_Create($__CefV8Value)
+	$self.__ptr = $ptr
+	return $self
+endfunc
 
 ; //////////////////////////////////////
 
@@ -266,6 +295,11 @@ func CefV8Value_GetDateValue($self)
 	return @error ? 0 : $ret[0]
 endfunc
 #ce
+
+func __CefV8Value_GetStringValue($self)
+	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8Value_GetStringValue', 'ptr', ptr($self.__ptr))
+	return @error ? '' : $ret[0]
+endfunc
 
 func CefV8Value_GetStringValue($self)
 	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8Value_GetStringValue', 'ptr', $self)
@@ -410,7 +444,7 @@ func __Cef_RegisterExtension($self, $extension_name = null, $javascript_code = n
 	return @error ? 0 : $ret[0]
 endfunc
 
-func Cef_RegisterExtension($extension_name, $javascript_code, $v8handler)
+func CefRegisterExtension($extension_name, $javascript_code, $v8handler)
 	if (not $extension_name) then $extension_name = 'v8/app' ; default
 	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefRegisterExtension', _
 		'wstr', $extension_name, _

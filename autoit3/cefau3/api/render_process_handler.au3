@@ -8,35 +8,19 @@
 ; CefRenderProcessHandler
 ; ==================================================
 
-global $tag_CefRenderProcessHandler = ( _
-	$tag_CefBase 		& _
-	'ptr[11];' 			& _
-	'char __ORTC[100];' & _
-	'char __OWKI[100];' & _
-	'char __OBC[100];' 	& _
-	'char __OBD[100];' 	& _
-	'char __GLH[100];' 	& _
-	'char __OBN[100];' 	& _
-	'char __OCC[100];' 	& _
-	'char __OCR[100];'	& _
-	'char __OUE[100];' 	& _
-	'char __OFNC[100];' & _
-	'char __OPMR[100];' _
-)
-
 global $__CefRenderProcessHandler = null
 
-global $__CefRenderProcessHandler__ORTC = Cef_CallbackRegister(__CefRenderProcessHandler__ORTC, 'none', 'ptr;ptr')
-global $__CefRenderProcessHandler__OWKI = Cef_CallbackRegister(__CefRenderProcessHandler__OWKI, 'none', 'ptr')
-global $__CefRenderProcessHandler__OBC 	= Cef_CallbackRegister(__CefRenderProcessHandler__OBC, 	'none', 'ptr;ptr')
-global $__CefRenderProcessHandler__OBD 	= Cef_CallbackRegister(__CefRenderProcessHandler__OBD, 	'none', 'ptr;ptr')
-global $__CefRenderProcessHandler__GLH 	= Cef_CallbackRegister(__CefRenderProcessHandler__GLH, 	'ptr', 	'ptr')
-global $__CefRenderProcessHandler__OBN 	= Cef_CallbackRegister(__CefRenderProcessHandler__OBN, 	'int', 	'ptr;ptr;ptr;ptr;int;int')
-global $__CefRenderProcessHandler__OCC	= Cef_CallbackRegister(__CefRenderProcessHandler__OCC, 	'none', 'ptr;ptr;ptr;ptr')
-global $__CefRenderProcessHandler__OCR 	= Cef_CallbackRegister(__CefRenderProcessHandler__OCR, 	'none', 'ptr;ptr;ptr;ptr')
-global $__CefRenderProcessHandler__OUE 	= Cef_CallbackRegister(__CefRenderProcessHandler__OUE, 	'none', 'ptr;ptr;ptr;ptr;ptr;ptr')
-global $__CefRenderProcessHandler__OFNC = Cef_CallbackRegister(__CefRenderProcessHandler__OFNC, 'none', 'ptr;ptr;ptr;ptr')
-global $__CefRenderProcessHandler__OPMR = Cef_CallbackRegister(__CefRenderProcessHandler__OPMR, 'int', 	'ptr;ptr;int;ptr')
+global const $__CefRenderProcessHandler__ORTC = Cef_CallbackRegister(__CefRenderProcessHandler__ORTC, 'none', 'ptr;ptr')
+global const $__CefRenderProcessHandler__OWKI = Cef_CallbackRegister(__CefRenderProcessHandler__OWKI, 'none', 'ptr')
+global const $__CefRenderProcessHandler__OBC  = Cef_CallbackRegister(__CefRenderProcessHandler__OBC,  'none', 'ptr;ptr')
+global const $__CefRenderProcessHandler__OBD  = Cef_CallbackRegister(__CefRenderProcessHandler__OBD,  'none', 'ptr;ptr')
+global const $__CefRenderProcessHandler__GLH  = Cef_CallbackRegister(__CefRenderProcessHandler__GLH,  'ptr',  'ptr')
+global const $__CefRenderProcessHandler__OBN  = Cef_CallbackRegister(__CefRenderProcessHandler__OBN,  'int',  'ptr;ptr;ptr;ptr;int;int')
+global const $__CefRenderProcessHandler__OCC  = Cef_CallbackRegister(__CefRenderProcessHandler__OCC,  'none', 'ptr;ptr;ptr;ptr')
+global const $__CefRenderProcessHandler__OCR  = Cef_CallbackRegister(__CefRenderProcessHandler__OCR,  'none', 'ptr;ptr;ptr;ptr')
+global const $__CefRenderProcessHandler__OUE  = Cef_CallbackRegister(__CefRenderProcessHandler__OUE,  'none', 'ptr;ptr;ptr;ptr;ptr;ptr')
+global const $__CefRenderProcessHandler__OFNC = Cef_CallbackRegister(__CefRenderProcessHandler__OFNC, 'none', 'ptr;ptr;ptr;ptr')
+global const $__CefRenderProcessHandler__OPMR = Cef_CallbackRegister(__CefRenderProcessHandler__OPMR, 'int',  'ptr;ptr;int;ptr')
 
 ; ==================================================
 
@@ -46,17 +30,17 @@ func CefRenderProcessHandler_Create($ptr = null)
 		_AutoItObject_AddProperty($__CefRenderProcessHandler, '__ptr')
 		_AutoItObject_AddProperty($__CefRenderProcessHandler, '__type', 1, 'CefRenderProcessHandler')
 
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnRenderThreadCreated', '__CefRenderProcessHandler__ORTC')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnWebKitInitialized', 	'__CefRenderProcessHandler__OWKI')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserCreated', 	'__CefRenderProcessHandler__OBC')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserDestroyed', 	'__CefRenderProcessHandler__OBD')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'GetLoadHandler', 		'__CefRenderProcessHandler__GLH')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBeforeNavigation', 	'__CefRenderProcessHandler__OBN')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextCreated', 	'__CefRenderProcessHandler__OCC')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextReleased', 	'__CefRenderProcessHandler__OCR')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnUncaughtException', 	'__CefRenderProcessHandler__OUE')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnFocusedNodeChanged', '__CefRenderProcessHandler__OFNC')
-		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnProcessMessageReceived', '__CefRenderProcessHandler__OPMR')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnRenderThreadCreated', '__CefRenderProcessHandler_ORTC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnWebKitInitialized', 	'__CefRenderProcessHandler_OWKI')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserCreated', 	'__CefRenderProcessHandler_OBC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBrowserDestroyed', 	'__CefRenderProcessHandler_OBD')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'GetLoadHandler', 		'__CefRenderProcessHandler_GLH')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnBeforeNavigation', 	'__CefRenderProcessHandler_OBN')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextCreated', 	'__CefRenderProcessHandler_OCC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnContextReleased', 	'__CefRenderProcessHandler_OCR')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnUncaughtException', 	'__CefRenderProcessHandler_OUE')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnFocusedNodeChanged', '__CefRenderProcessHandler_OFNC')
+		_AutoItObject_AddMethod($__CefRenderProcessHandler, 'OnProcessMessageReceived', '__CefRenderProcessHandler_OPMR')
 	endif
 
 	local $self = _AutoItObject_Create($__CefRenderProcessHandler)
@@ -66,169 +50,169 @@ func CefRenderProcessHandler_Create($ptr = null)
 endfunc
 
 func __CefRenderProcessHandler_ORTC($self, $func = null)
-	if @NumParams == 1 then return $self.__ORTC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_ORTC', 'ptr', $self.__ptr)[0]
 
-	$self.__ORTC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnRenderThreadCreated', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__ORTC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_ORTC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_ORTC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__ORTC : null)
 endfunc
 
 func __CefRenderProcessHandler_OWKI($self, $func = null)
-	if @NumParams == 1 then return $self.__OWKI
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OWKI', 'ptr', $self.__ptr)[0]
 
-	$self.__OWKI = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnWebKitInitialized', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OWKI)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OWKI', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OWKI', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OWKI : null)
 endfunc
 
 func __CefRenderProcessHandler_OBC($self, $func = null)
-	if @NumParams == 1 then return $self.__OBC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBC', 'ptr', $self.__ptr)[0]
 
-	$self.__OBC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnBrowserCreated', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OBC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OBC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OBC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OBC : null)
 endfunc
 
 func __CefRenderProcessHandler_OBD($self, $func = null)
-	if @NumParams == 1 then return $self.__OBD
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBD', 'ptr', $self.__ptr)[0]
 
-	$self.__OBD = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnBrowserDestroyed', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OBD)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OBD', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OBD', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OBD : null)
 endfunc
 
 func __CefRenderProcessHandler_GLH($self, $func = null)
-	if @NumParams == 1 then return $self.__GLH
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_GLH', 'ptr', $self.__ptr)[0]
 
-	$self.__GLH = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_GetLoadHandler', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__GLH)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_GLH', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_GLH', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__GLH : null)
 endfunc
 
 func __CefRenderProcessHandler_OBN($self, $func = null)
-	if @NumParams == 1 then return $self.__OBN
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBN', 'ptr', $self.__ptr)[0]
 
-	$self.__OBN = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnBeforeNavigation', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OBN)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OBN', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OBN', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OBN : null)
 endfunc
 
 func __CefRenderProcessHandler_OCC($self, $func = null)
-	if @NumParams == 1 then return $self.__OCC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OCC', 'ptr', $self.__ptr)[0]
 
-	$self.__OCC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnContextCreated', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OCC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OCC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OCC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OCC : null)
 endfunc
 
 func __CefRenderProcessHandler_OCR($self, $func = null)
-	if @NumParams == 1 then return $self.__OCR
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OCR', 'ptr', $self.__ptr)[0]
 
-	$self.__OCR = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnContextReleased', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OCR)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OCR', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OCR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OCR : null)
 endfunc
 
 func __CefRenderProcessHandler_OUE($self, $func = null)
-	if @NumParams == 1 then return $self.__OUE
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OUE', 'ptr', $self.__ptr)[0]
 
-	$self.__OUE = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnUncaughtException', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OUE)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OUE', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OUE', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OUE : null)
 endfunc
 
 func __CefRenderProcessHandler_OFNC($self, $func = null)
-	if @NumParams == 1 then return $self.__OFNC
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OFNC', 'ptr', $self.__ptr)[0]
 
-	$self.__OFNC = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnFocusedNodeChanged', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OFNC)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OFNC', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OFNC', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OFNC : null)
 endfunc
 
 func __CefRenderProcessHandler_OPMR($self, $func = null)
-	if @NumParams == 1 then return $self.__OPMR
+	if @numparams == 1 then return dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OPMR', 'ptr', $self.__ptr)[0]
 
-	$self.__OPMR = funcname($func)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OnProcessMessageReceived', 'ptr', $self.__pointer__, 'ptr', $__CefRenderProcessHandler__OPMR)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_Set_OPMR', 'ptr', $self.__ptr, 'str', funcname($func))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRenderProcessHandler_OPMR', 'ptr', $self.__ptr, 'ptr', funcname($func) ? $__CefRenderProcessHandler__OPMR : null)
 endfunc
 
 ; ==================================================
 
 func __CefRenderProcessHandler__ORTC($self, $extra_info)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_ORTC', 'ptr', $self)[0]
 	;$extra_info = CefListValue_Create($extra_info)
 
-	call($self.__ORTC, $self, $extra_info)
+	call($self, $extra_info)
 endfunc
 
 func __CefRenderProcessHandler__OWKI($self)
-	$self = CefRenderProcessHandler_Create($self)
+	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OWKI', 'ptr', $self)[0]
 
-	call($self.__OWKI, $self)
+	call($self)
 endfunc
 
 func __CefRenderProcessHandler__OBC($self, $browser)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__OBC, $self, $browser)
+	call($self, $browser)
 endfunc
 
 func __CefRenderProcessHandler__OBD($self, $browser)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBD', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 
-	call($self.__OBC, $self, $browser)
+	call($self, $browser)
 endfunc
 
 func __CefRenderProcessHandler__GLH($self)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_GLH', 'ptr', $self)[0]
 
-	return call($self.__GLH, $self)
+	return call($self)
 endfunc
 
 func __CefRenderProcessHandler__OBN($self, $browser, $frame, $request, $navigation_type, $is_redirect)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OBN', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 	;$request 	= CefRequest_Create($request)
 
-	return call($self.__OBN, $self, $browser, $frame, $request, $navigation_type, $is_redirect)
+	return call($self, $browser, $frame, $request, $navigation_type, $is_redirect)
 endfunc
 
 func __CefRenderProcessHandler__OCC($self, $browser, $frame, $context)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OCC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 	;$context 	= CefV8Context_Create($context)
 
-	call($self.__OCC, $self, $browser, $frame, $context)
+	call($self, $browser, $frame, $context)
 endfunc
 
 func __CefRenderProcessHandler__OCR($self, $browser, $frame, $context)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OCR', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 	;$context 	= CefV8Context_Create($context)
 
-	call($self.__OCR, $self, $browser, $frame, $context)
+	call($self, $browser, $frame, $context)
 endfunc
 
 func __CefRenderProcessHandler__OUE($self, $browser, $frame, $context, $exception, $stackTrace)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OUE', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 	;$context 	= CefV8Context_Create($context)
 	;$exception 	= CefV8Exception_Create($exception)
 	;$stackTrace	= CefV8StackTrace_Create($stackTrace)
 
-	call($self.__OUE, $self, $browser, $frame, $context, $exception, $stackTrace)
+	call($self, $browser, $frame, $context, $exception, $stackTrace)
 endfunc
 
 func __CefRenderProcessHandler__OFNC($self, $browser, $frame, $node)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OFNC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame 		= CefFrame_Create($frame)
 	;$node 		= CefDOMNode_Create($node)
 
-	call($self.__OFNC, $self, $browser, $frame, $node)
+	call($self, $browser, $frame, $node)
 endfunc
 
 func __CefRenderProcessHandler__OPMR($self, $browser, $source_process, $message)
-	$self 		= CefRenderProcessHandler_Create($self)
+	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefRenderProcessHandler_Get_OPMR', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 	;$message 	= CefProcessMessage_Create($message)
 
-	return call($self.__OPMR, $self, $browser, $source_process, $message)
+	return call($self, $browser, $source_process, $message)
 endfunc

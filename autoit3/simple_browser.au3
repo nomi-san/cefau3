@@ -1,5 +1,7 @@
 #include 'cefau3/cefau3.au3'
 
+; startup =========================
+
 global $cef = CefStart(default)
 
 $cef.EnableHighDPISupport()
@@ -12,63 +14,78 @@ if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 global $width = 1000, $height = 600, $gui_title = 'Simple Browser'
 	$url = 'https://www.google.com/'
 
+global $html_dir = @scriptdir & '\html'
+
+; gui =========================
+
 Opt('GUIOnEventMode', 1)
 
 global $hMainGUI = GUICreate($gui_title, $width, $height, -1, -1, 0x00CF0000)
 GUISetBkColor(0xffffff)
 
-Global $input_url = GUICtrlCreateInput('', 5, 5, $width - 55, 25)
-GUICtrlSetFont(-1, 14)
-GUICtrlSetResizing(-1, 544)
-Global $btn_go = GUICtrlCreateButton("Go", $width - 45, 5, 40, 25)
-GUICtrlSetFont(-1, 14)
-GUICtrlSetResizing(-1, 544)
-GUICtrlSetOnEvent(-1, '__go')
-
-GUISetOnEvent(-3, __exit)
+; cef components =========================
 
 global $cef_settings = $cef.new('Settings'), _
 	$cef_bs = $cef.new('BrowserSettings')
 
-$cef_settings.single_process = @Compiled ? 0 : 1
+$cef_settings.single_process = 1 ;/ cannot multiple process!
 $cef_settings.multi_threaded_message_loop = 1
-;$cef_settings.cache_path = @scriptdir & '\cache'
 
 if ($cef.Initialize($cef_args.__ptr, $cef_settings.__ptr, $cef_app.__ptr) == 0) then exit
 
-global $cef_wininfo = $cef.new('WindowInfo')
-$cef_wininfo.parent_window = $hMainGUI
-$cef_wininfo.style 	= 0x50000000
-$cef_wininfo.x 		= 0
-$cef_wininfo.y 		= 35
-$cef_wininfo.width 	= $width
-$cef_wininfo.height = $height - 35
+global $cef_winfo = $cef.new('WindowInfo')
+$cef_winfo.parent_window = $hMainGUI
+$cef_winfo.style = 0x40000000 ; ws_child
 
-global $cef_client = $cef.new('Client'), _
-	$cef_lifespan = $cef.new('LifeSpanHandler'), _
-	$cef_display = $cef.new('DisplayHandler')
+global $toolbar_client = $cef.new('Client')
+global $toolbar_lifespan = $cef.new('LifeSpanHandler')
 
-$cef_client.GetLifeSpanHandler 	= __getLifeSpanHandler
-$cef_client.GetDisplayHandler 	= __getDisplayHandler
+$toolbar_client.GetLifeSpanHandler = toolbar_getLifeSpanHandler
+$toolbar_lifespan.OnAfterCreated = toolbar_onAfterCreated
 
-$cef_lifespan.OnAfterCreated 	= __onAfterCreated
+; =========================
 
-$cef_display.OnTitleChange		= __onTitleChange
-$cef_display.OnAddressChange	= __onAddressChange
+global $browser_client = $cef.new('Client'), _
+	$browser_lifespan = $cef.new('LifeSpanHandler'), _
+	$browser_display = $cef.new('DisplayHandler')
 
-$cef.CreateBrowser($cef_wininfo.__ptr, $cef_client.__ptr, $url, $cef_bs.__ptr, Null)
+$browser_client.GetLifeSpanHandler = browser_getLifeSpanHandler
+$browser_client.GetDisplayHandler = browser_getDisplayHandler
 
-global $cef_browser_hwnd = null, _
-	$cef_browser, $cef_browser_host, $cef_frame
+$browser_lifespan.OnAfterCreated = browser_onAfterCreated
 
-GUIRegisterMsg(0x0005, __sizing)
-GUISetState()
+$browser_display.OnTitleChange = browser_onTitleChange
+$browser_display.OnAddressChange = browser_onAddressChange
 
-global $rc = DllStructCreate('int[2];int w;int h')
+; =========================
+global $app_renderprocess = $cef.new('RenderProcessHandler')
+global $app_v8 = $cef.new('V8Handler')
 
+$app_v8.Execute = app_execute
+$cef_app.GetRenderProcessHandler = app_getRenderProcessHandler
+$app_renderprocess.OnWebKitInitialized = app_onWebKitInitialized
+
+; =========================
+
+global $toolbar_hwnd, $browser_hwnd
+global $main_frame, $main_browser, $toolbar_frame
+global $rcGUI = DllStructCreate('int[2];int w;int h')
+
+$cef.CreateBrowser($cef_winfo.__ptr, $toolbar_client.__ptr, _
+	'file:///' & $html_dir & '\toolbar.html', $cef_bs.__ptr, null)
+$cef.CreateBrowser($cef_winfo.__ptr, $browser_client.__ptr, $url, $cef_bs.__ptr, null)
+
+; add gui event =========================
+
+GUISetOnEvent(-3, '__exit')
+GUIRegisterMsg(0x0005, '__sizing')
 OnAutoItExitRegister('CefExit')
 
+; main windows loop =========================
+
 CefWndMsg_RunLoop()
+
+; callback/handler event =========================
 
 func __exit()
 	GUISetState(@SW_HIDE)
@@ -76,39 +93,91 @@ func __exit()
 	exit
 endfunc
 
-func __go()
-	$url = GUICtrlRead($input_url)
-	$cef_frame.LoadURL($url)
-endfunc
-
-func __sizing($hwnd, $msg, $wp, $lp)
-	if ($cef_browser_hwnd) then
-		dllcall('user32', 'bool', 'GetClientRect', 'hwnd', $hMainGUI, 'struct*', $rc)
-		_MoveWindow($cef_browser_hwnd, 0, 35, $rc.w, $rc.h - 35, 1)
+func __sizing($h, $m, $w, $l)
+	if ($toolbar_hwnd and $browser_hwnd) then
+		dllcall('user32', 'bool', 'GetClientRect', 'hwnd', $hMainGUI, 'struct*', $rcGUI)
+		_MoveWindow($toolbar_hwnd, 0, 0, $rcGUI.w, 30, 1)
+		_MoveWindow($browser_hwnd, 0, 30, $rcGUI.w, $rcGUI.h - 30, 1)
 	endif
 endfunc
 
-func __getLifeSpanHandler()
-	return $cef_lifespan.__ptr
+; toolbar =========================
+
+func toolbar_getLifeSpanHandler()
+	return $toolbar_lifespan.__ptr
 endfunc
 
-func __getDisplayHandler()
-	return $cef_display.__ptr
-endfunc
+func toolbar_onAfterCreated($browser)
+	if (not $toolbar_hwnd) then
+		$toolbar_hwnd = $browser.GetHost().GetWindowHandle()
+		_MoveWindow($toolbar_hwnd, 0, 0, $width, 30, 1)
+		_ShowWindow($toolbar_hwnd)
 
-func __onAfterCreated($browser)
-	if (not $cef_browser_hwnd) then
-		$cef_browser = $browser
-		$cef_browser_hwnd = $browser.GetHost().GetWindowHandle()
-		_ShowWindow($cef_browser_hwnd, 5)
-		$cef_frame = $browser.GetMainFrame()
+		GUISetState(@SW_SHOW)
+
+		$toolbar_frame = $browser.GetMainFrame()
 	endif
 endfunc
 
-func __onTitleChange($browser, $title)
-	WinSetTitle($hMainGUI, '', $gui_title & ' :: ' & $title.val)
+; browser =========================
+
+func browser_getLifeSpanHandler()
+	return $browser_lifespan.__ptr
 endfunc
 
-func __onAddressChange($browser, $frame, $url)
-	GUICtrlSetData($input_url, $url.val)
+func browser_getDisplayHandler()
+	return $browser_display.__ptr
+endfunc
+
+func browser_onAfterCreated($browser)
+	if (not $browser_hwnd) then
+		$browser_hwnd = $browser.GetHost().GetWindowHandle()
+		_MoveWindow($browser_hwnd, 0, 30, $width, $height - 30, 1)
+		_ShowWindow($browser_hwnd)
+
+		$main_browser = $browser
+		$main_frame = $browser.GetMainFrame()
+	endif
+endfunc
+
+func browser_onTitleChange($browser, $title)
+	if ($browser_hwnd) then WinSetTitle($hMainGUI, '', $gui_title & ' :: ' & $title.val)
+endfunc
+
+func browser_onAddressChange($browser, $frame, $url)
+	local $code = 'set("' & $url.val & '")'  ;'urlbox.value = "' & $url.val & '"'
+	$toolbar_frame.ExecuteJS($code)
+endfunc
+
+; app/v8 =========================
+
+func app_getRenderProcessHandler()
+	return $app_renderprocess.__ptr
+endfunc
+
+func app_onWebKitInitialized()
+	local $code = stringformat(fileread($html_dir & '\ext.js'))
+	CefRegisterExtension('v8/app', $code, $app_v8.__ptr)
+endfunc
+
+;              fn name |  this  | a[n] | <ret>  |   err     // a[0] = count; a[N] = param N (count > 0)
+func app_execute($name, $object, $args, $retval, $exception)
+
+	switch ($name.val)
+		case 'back'
+			$main_browser.GoBack()
+		case 'forward'
+			$main_browser.GoForward()
+		case 'reload'
+			$main_browser.Reload()
+		case 'home'
+			$main_frame.LoadURL($url)
+		case 'load'
+			if ($args[0] > 0) then ; check
+				local $new_url = $args[1].GetStringValue()
+				$main_frame.LoadURL($new_url)
+			endif
+	endswitch
+
+	return 0 ; 1 for change retval
 endfunc
