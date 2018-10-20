@@ -129,20 +129,25 @@ program/
 
 ## Example
 
-Please see [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3) and [**simple_browser.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/simple_browser.au3) for example.
+Please see [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3).
 
 <p align="center">
 	<img src="https://i.imgur.com/iTzhK0s.png" width=800>
-</p>
-<br>
-<p align="center">
-	<img src="https://i.imgur.com/W0Y10e6.png" width=800>
 </p>
 
 ```batch
 CEF: 3.3163.1671.g700dc25
 Chromium: 61.0.3163
 ```
+### Mini Browser
+
+Visit here: [https://github.com/wy3/mb](https://github.com/wy3/mb).
+
+<p align="center">
+	<img src="https://i.imgur.com/3IzYuLv.png" width=800>
+</p>
+
+
 
 <br>
 
