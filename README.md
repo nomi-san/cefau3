@@ -41,7 +41,7 @@
 - change window message loop method
 - fix some crashes
 
-#### 2018.10.04 [75% * rollback to previous]
+#### 2018.10.04 [75% - rollback to previous]
 - change struct creation method to C side
 - struct is implemented
 
@@ -57,17 +57,17 @@
 - add more type, callback & event handler
 - fixed some bugs
 
-#### 2018.08.11 [15% * in new project]
+#### 2018.08.11 [15% - in new project]
 - Cefau3 was rewritten in C99, use native-code-like (syntax, struct, type, method, prop... like C++ & base on C)
 - use only functionally for code
 - add more callback & event handler
 
 #### 2018.08.07 [20%]
 - update to Chromium v61.0.3, increase more performance
-- added build for __x64/ARM__
-- added __Cef_Shutdown()__ for shutdown CEF & all browser window/child
-- added __Cef_Close()__ for close main browser in handler
-- can save cache & cookie to path; __Cef_Init()__, second arg is path to store cache (default is .\cache) can delete it when browser closed
+- added build for **x64/ARM**
+- added **Cef_Shutdown()** for shutdown CEF & all browser window/child
+- added **Cef_Close()** for close main browser in handler
+- can save cache & cookie to path; **Cef_Init()**, second arg is path to store cache (default is .\cache) can delete it when browser closed
 - fixed Youtube rendering error
 - fixed crash when exit (may crash on x64)
 - add more callback & event handler
@@ -95,8 +95,11 @@ E.g: `$ build gcc`
 
 ### Configure
 
-After built, it need CEF resources for work correctly, download CEF binary distribution (for current version): [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) / [x64_x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
-Extract CEF binary distribution package, and copy all files in **release** and **resources** folders (exclude **.lib**) to **autoit3\cef\**
+After built, it need CEF resources for work correctly, download CEF binary distribution (for current version): [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) | [x64_x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
+
+Extract CEF binary distribution package, and copy all files in **release** and **resources** folders (exclude **.lib**) to <b>autoit3/cef/</b>
+
+
 
 ### Cefau3 example project
 
