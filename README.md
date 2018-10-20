@@ -113,7 +113,6 @@ program/
 	|	|---libcef.dll		# libcef
 	|	|---cefau3.dll		# cefau3
 	|
-	|---include/...			# your autoit header
 	|---cefau3/...			# cefau3 udf
 	|	|---base/...
 	|	|---cefau3.au3
