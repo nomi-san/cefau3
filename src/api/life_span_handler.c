@@ -13,7 +13,7 @@ typedef struct CefLifeSpanHandler {
 	const char *OBC;
 } CefLifeSpanHandler;
 
-CefHandlerCreate(CefLifeSpanHandler);
+CefHandlerObjCreate(CefLifeSpanHandler);
 
 CefHandlerFunc(CefLifeSpanHandler, on_before_popup, OBP);
 CefHandlerFunc(CefLifeSpanHandler, on_after_created, OAC);

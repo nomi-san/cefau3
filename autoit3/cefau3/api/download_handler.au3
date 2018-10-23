@@ -5,22 +5,22 @@
 
 #include-once
 
-; CefBeforeDownloadCallback
+; ==================================================
+; // CefBeforeDownloadCallback
 ; ==================================================
 
 global $__CefBeforeDownloadCallback = null
 
+$__CefBeforeDownloadCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefBeforeDownloadCallback, '__ptr')
+_AutoItObject_AddProperty($__CefBeforeDownloadCallback, '__type', 1, 'CefBeforeDownloadCallback')
+
+_AutoItObject_AddMethod($__CefBeforeDownloadCallback, 'Continue', '__CefBeforeDownloadCallback_Continue')
+
 ; ==================================================
 
 func CefBeforeDownloadCallback_Create($ptr)
-	if $__CefBeforeDownloadCallback == null then
-		$__CefBeforeDownloadCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefBeforeDownloadCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefBeforeDownloadCallback, '__type', 1, 'CefBeforeDownloadCallback')
-		
-		_AutoItObject_AddMethod($__CefBeforeDownloadCallback, 'Continue', '__CefBeforeDownloadCallback_Continue')
-	endif
-
 	local $self = _AutoItObject_Create($__CefBeforeDownloadCallback)
 	$self.__ptr = $ptr
 	return $self
@@ -33,24 +33,24 @@ func __CefBeforeDownloadCallback_Continue($self, $download_path = null, $show_di
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefBeforeDownloadCallback_Continue', 'ptr', $self.__ptr, 'wstr', $download_path, 'int', $show_dialog)
 endfunc
 
-; CefDownloadItemCallback
+; ==================================================
+; // CefDownloadItemCallback
 ; ==================================================
 
 global $__CefDownloadItemCallback = null
 
+$__CefDownloadItemCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefDownloadItemCallback, '__ptr')
+_AutoItObject_AddProperty($__CefDownloadItemCallback, '__type', 1, 'CefDownloadItemCallback')
+
+_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Cancel', '__CefDownloadItemCallback_Cancel')
+_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Pause', '__CefDownloadItemCallback_Pause')
+_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Resume', '__CefDownloadItemCallback_Resume')
+
 ; ==================================================
 
 func CefDownloadItemCallback_Create($ptr)
-	if $__CefDownloadItemCallback == null then
-		$__CefDownloadItemCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefDownloadItemCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefDownloadItemCallback, '__type', 1, 'CefDownloadItemCallback')
-		
-		_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Cancel', '__CefDownloadItemCallback_Cancel')
-		_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Pause', '__CefDownloadItemCallback_Pause')
-		_AutoItObject_AddMethod($__CefDownloadItemCallback, 'Resume', '__CefDownloadItemCallback_Resume')
-	endif
-
 	local $self = _AutoItObject_Create($__CefDownloadItemCallback)
 	$self.__ptr = $ptr
 	return $self
@@ -70,10 +70,19 @@ func __CefDownloadItemCallback_Resume($self)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDownloadItemCallback_Resume', 'ptr', $self.__ptr)
 endfunc
 
-; CefDownloadHandler
+; ==================================================
+; // CefDownloadHandler
 ; ==================================================
 
 global $__CefDownloadHandler = null
+
+$__CefDownloadHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefDownloadHandler, '__ptr')
+_AutoItObject_AddProperty($__CefDownloadHandler, '__type', 1, 'CefDownloadHandler')
+
+_AutoItObject_AddMethod($__CefDownloadHandler, 'OnBeforeDownload', '__CefDownloadHandler_OBD')
+_AutoItObject_AddMethod($__CefDownloadHandler, 'OnDownloadUpdated', '__CefDownloadHandler_ODU')
 
 global $__CefDownloadHandler__OBD	= Cef_CallbackRegister(__CefDownloadHandler__OBD, 'none', 'ptr;ptr;ptr;ptr;ptr')
 global $__CefDownloadHandler__ODU	= Cef_CallbackRegister(__CefDownloadHandler__ODU, 'none', 'ptr;ptr;ptr;ptr')
@@ -81,15 +90,6 @@ global $__CefDownloadHandler__ODU	= Cef_CallbackRegister(__CefDownloadHandler__O
 ; ==================================================
 
 func CefDownloadHandler_Create($ptr = null)
-	if $__CefDownloadHandler == null then
-		$__CefDownloadHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefDownloadHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefDownloadHandler, '__type', 1, 'CefDownloadHandler')
-		
-		_AutoItObject_AddMethod($__CefDownloadHandler, 'OnBeforeDownload', '__CefDownloadHandler_OBD')
-		_AutoItObject_AddMethod($__CefDownloadHandler, 'OnDownloadUpdated', '__CefDownloadHandler_ODU')
-	endif
-
 	local $self = _AutoItObject_Create($__CefDownloadHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefDownloadHandler_Create')[0]
 	$self.__ptr = $ptr

@@ -14,7 +14,7 @@ typedef struct CefApp {
 	const char *GRPH;
 } CefApp;
 
-CefHandlerCreate(CefApp);
+CefHandlerObjCreate(CefApp);
 
 CefHandlerFunc(CefApp, on_before_command_line_processing, OBCLP);
 CefHandlerFunc(CefApp, on_register_custom_schemes, ORCS);

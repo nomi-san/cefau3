@@ -24,11 +24,11 @@ func CefPrintDialogCallback_Create($ptr = null)
 endfunc
 
 func __CefPrintDialogCallback_Continue($self, $settings)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintDialogCallback_Continue', 'ptr', $self, 'ptr', $settings)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintDialogCallback_Continue', 'ptr', $self.__ptr, 'ptr', $settings)
 endfunc
 
 func __CefPrintDialogCallback_Cancel($self, $settings)
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintDialogCallback_Cancel', 'ptr', $self, 'ptr', $settings)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintDialogCallback_Cancel', 'ptr', $self.__ptr, 'ptr', $settings)
 endfunc
 
 ; CefPrintJobCallback
@@ -52,10 +52,23 @@ func __CefPrintJobCallback_Continue($self, $settings)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefPrintJobCallback_Continue', 'ptr', $self, 'ptr', $settings)
 endfunc
 
-; CefPrintHandler
+; ==================================================
+; // CefPrintHandler
 ; ==================================================
 
 global $__CefPrintHandler = null
+
+$__CefPrintHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefPrintHandler, '__ptr')
+_AutoItObject_AddProperty($__CefPrintHandler, '__type', 1, 'CefPrintHandler')
+
+_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintStart', 	'__CefPrintHandler_OPSt')
+_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintSettings',	'__CefPrintHandler_OPSe')
+_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
+_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
+_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintReset', 	'__CefPrintHandler_OPR')
+_AutoItObject_AddMethod($__CefPrintHandler, 'GetPDFPaperSize', 	'__CefPrintHandler_GPPS')
 
 global $__CefPrintHandler__OPSt = Cef_CallbackRegister(__CefPrintHandler__OPSt, 'none', 'ptr;ptr')
 global $__CefPrintHandler__OPSe = Cef_CallbackRegister(__CefPrintHandler__OPSe, 'none', 'ptr;ptr;ptr;int')
@@ -67,19 +80,6 @@ global $__CefPrintHandler__GPPS = Cef_CallbackRegister(__CefPrintHandler__GPPS, 
 ; ==================================================
 
 func CefPrintHandler_Create($ptr = null)
-	if ($__CefPrintHandler == null) then
-		$__CefPrintHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefPrintHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefPrintHandler, '__type', 1, 'CefPrintHandler')
-
-		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintStart', 		'__CefPrintHandler_OPSt')
-		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintSettings',	'__CefPrintHandler_OPSe')
-		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintDialog', 	'__CefPrintHandler_OPD')
-		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintJob', 		'__CefPrintHandler_OPJ')
-		_AutoItObject_AddMethod($__CefPrintHandler, 'OnPrintReset', 		'__CefPrintHandler_OPR')
-		_AutoItObject_AddMethod($__CefPrintHandler, 'GetPDFPaperSize', 	'__CefPrintHandler_GPPS')
-	endif
-
 	local $self = _AutoItObject_Create($__CefPrintHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefPrintHandler_Create')[0]
 	$self.__ptr = $ptr

@@ -3,41 +3,40 @@
 	author: wuuyi123
 #ce
 
-; CefCommandLine
+; ==================================================
+; // CefCommandLine
 ; ==================================================
 
 global $__CefCommandLine = null
+$__CefCommandLine = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefCommandLine, '__ptr')
+_AutoItObject_AddProperty($__CefCommandLine, '__type', 1, 'CefCommandLine')
+
+_AutoItObject_AddMethod($__CefCommandLine, 'IsValid', '__CefCommandLine_IsValid')
+_AutoItObject_AddMethod($__CefCommandLine, 'IsReadOnly', '__CefCommandLine_IsReadOnly')
+_AutoItObject_AddMethod($__CefCommandLine, 'Copy', '__CefCommandLine_Copy')
+;_AutoItObject_AddMethod($__CefCommandLine, 'InitFromArgv', '__CefCommandLine_InitFromArgv')
+_AutoItObject_AddMethod($__CefCommandLine, 'InitFromString', '__CefCommandLine_InitFromString')
+_AutoItObject_AddMethod($__CefCommandLine, 'Reset', '__CefCommandLine_Reset')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetArgv', '__CefCommandLine_GetArgv')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetCommandLineString', '__CefCommandLine_GetCommandLineString')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetProgram', '__CefCommandLine_GetProgram')
+_AutoItObject_AddMethod($__CefCommandLine, 'SetProgram', '__CefCommandLine_SetProgram')
+_AutoItObject_AddMethod($__CefCommandLine, 'HasSwitches', '__CefCommandLine_HasSwitches')
+_AutoItObject_AddMethod($__CefCommandLine, 'HasSwitch', '__CefCommandLine_HasSwitch')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetSwitchValue', '__CefCommandLine_GetSwitchValue')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetSwitches', '__CefCommandLine_GetSwitches')
+_AutoItObject_AddMethod($__CefCommandLine, 'AppendSwitch', '__CefCommandLine_AppendSwitch')
+_AutoItObject_AddMethod($__CefCommandLine, 'AppendSwitchWithValue', '__CefCommandLine_AppendSwitchWithValue')
+_AutoItObject_AddMethod($__CefCommandLine, 'HasArguments', '__CefCommandLine_HasArguments')
+_AutoItObject_AddMethod($__CefCommandLine, 'GetArguments', '__CefCommandLine_GetArguments')
+_AutoItObject_AddMethod($__CefCommandLine, 'AppendArgument', '__CefCommandLine_AppendArgument')
+_AutoItObject_AddMethod($__CefCommandLine, 'PrependWrapper', '__CefCommandLine_PrependWrapper')
 
 ; ==================================================
 
 func CefCommandLine_Create($ptr = null)
-	if $__CefCommandLine == null then
-		$__CefCommandLine = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefCommandLine, '__ptr')
-		_AutoItObject_AddProperty($__CefCommandLine, '__type', 1, 'CefCommandLine')
-		
-		_AutoItObject_AddMethod($__CefCommandLine, 'IsValid', '__CefCommandLine_IsValid')
-		_AutoItObject_AddMethod($__CefCommandLine, 'IsReadOnly', '__CefCommandLine_IsReadOnly')
-		_AutoItObject_AddMethod($__CefCommandLine, 'Copy', '__CefCommandLine_Copy')
-		_AutoItObject_AddMethod($__CefCommandLine, 'InitFromArgv', '__CefCommandLine_InitFromArgv')
-		_AutoItObject_AddMethod($__CefCommandLine, 'InitFromString', '__CefCommandLine_InitFromString')
-		_AutoItObject_AddMethod($__CefCommandLine, 'Reset', '__CefCommandLine_Reset')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetArgv', '__CefCommandLine_GetArgv')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetCommandLineString', '__CefCommandLine_GetCommandLineString')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetProgram', '__CefCommandLine_GetProgram')
-		_AutoItObject_AddMethod($__CefCommandLine, 'SetProgram', '__CefCommandLine_SetProgram')
-		_AutoItObject_AddMethod($__CefCommandLine, 'HasSwitches', '__CefCommandLine_HasSwitches')
-		_AutoItObject_AddMethod($__CefCommandLine, 'HasSwitch', '__CefCommandLine_HasSwitch')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetSwitchValue', '__CefCommandLine_GetSwitchValue')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetSwitches', '__CefCommandLine_GetSwitches')
-		_AutoItObject_AddMethod($__CefCommandLine, 'AppendSwitch', '__CefCommandLine_AppendSwitch')
-		_AutoItObject_AddMethod($__CefCommandLine, 'AppendSwitchWithValue', '__CefCommandLine_AppendSwitchWithValue')
-		_AutoItObject_AddMethod($__CefCommandLine, 'HasArguments', '__CefCommandLine_HasArguments')
-		_AutoItObject_AddMethod($__CefCommandLine, 'GetArguments', '__CefCommandLine_GetArguments')
-		_AutoItObject_AddMethod($__CefCommandLine, 'AppendArgument', '__CefCommandLine_AppendArgument')
-		_AutoItObject_AddMethod($__CefCommandLine, 'PrependWrapper', '__CefCommandLine_PrependWrapper')
-	endif
-
 	local $self = _AutoItObject_Create($__CefCommandLine)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefCommandLine_Create')[0]
 	$self.__ptr = $ptr

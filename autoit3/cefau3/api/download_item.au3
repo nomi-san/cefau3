@@ -5,36 +5,36 @@
 
 #include-once
 
-; CefDownloadItem
+; ==================================================
+; // CefDownloadItem
 ; ==================================================
 
 global $__CefDownloadItem = null
 
-func CefDownloadItem_Create($ptr)
-	if $__CefDownloadItem == null then
-		$__CefDownloadItem = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefDownloadItem, '__ptr')
-		_AutoItObject_AddProperty($__CefDownloadItem, '__type', 1, 'CefDownloadItem')
-		
-		_AutoItObject_AddMethod($__CefDownloadItem, 'IsValid', '__CefDownloadItem_IsValid')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'IsInProgress', '__CefDownloadItem_IsInProgress')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'IsComplete', '__CefDownloadItem_IsComplete')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'IsCanceled', '__CefDownloadItem_IsCanceled')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetCurrentSpeed', '__CefDownloadItem_GetCurrentSpeed')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetPercentComplete', '__CefDownloadItem_GetPercentComplete')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetTotalBytes', '__CefDownloadItem_GetTotalBytes')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetReceivedBytes', '__CefDownloadItem_GetReceivedBytes')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetStartTime', '__CefDownloadItem_GetStartTime')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetEndTime', '__CefDownloadItem_GetEndTime')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetFullPath', '__CefDownloadItem_GetFullPath')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetId', '__CefDownloadItem_GetId')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetUrl', '__CefDownloadItem_GetUrl')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetOriginalUrl', '__CefDownloadItem_GetOriginalUrl')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetSuggestedFileName', '__CefDownloadItem_GetSuggestedFileName')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetContentDisposition', '__CefDownloadItem_GetContentDisposition')
-		_AutoItObject_AddMethod($__CefDownloadItem, 'GetMimeType', '__CefDownloadItem_GetMimeType')
-	endif
+$__CefDownloadItem = _AutoItObject_Create()
 
+_AutoItObject_AddProperty($__CefDownloadItem, '__ptr')
+_AutoItObject_AddProperty($__CefDownloadItem, '__type', 1, 'CefDownloadItem')
+
+_AutoItObject_AddMethod($__CefDownloadItem, 'IsValid', '__CefDownloadItem_IsValid')
+_AutoItObject_AddMethod($__CefDownloadItem, 'IsInProgress', '__CefDownloadItem_IsInProgress')
+_AutoItObject_AddMethod($__CefDownloadItem, 'IsComplete', '__CefDownloadItem_IsComplete')
+_AutoItObject_AddMethod($__CefDownloadItem, 'IsCanceled', '__CefDownloadItem_IsCanceled')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetCurrentSpeed', '__CefDownloadItem_GetCurrentSpeed')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetPercentComplete', '__CefDownloadItem_GetPercentComplete')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetTotalBytes', '__CefDownloadItem_GetTotalBytes')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetReceivedBytes', '__CefDownloadItem_GetReceivedBytes')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetStartTime', '__CefDownloadItem_GetStartTime')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetEndTime', '__CefDownloadItem_GetEndTime')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetFullPath', '__CefDownloadItem_GetFullPath')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetId', '__CefDownloadItem_GetId')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetUrl', '__CefDownloadItem_GetUrl')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetOriginalUrl', '__CefDownloadItem_GetOriginalUrl')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetSuggestedFileName', '__CefDownloadItem_GetSuggestedFileName')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetContentDisposition', '__CefDownloadItem_GetContentDisposition')
+_AutoItObject_AddMethod($__CefDownloadItem, 'GetMimeType', '__CefDownloadItem_GetMimeType')
+
+func CefDownloadItem_Create($ptr)
 	local $self = _AutoItObject_Create($__CefDownloadItem)
 	$self.__ptr = $ptr
 	return $self

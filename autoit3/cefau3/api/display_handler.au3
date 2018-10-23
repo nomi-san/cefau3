@@ -5,10 +5,26 @@
 
 #include-once
 
-; CefDisplayHandler
+; ==================================================
+; // CefDisplayHandler
 ; ==================================================
 
-global $__CefDisplayHandler = null
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefDisplayHandler')
+
+	.AddMethod('OnAddressChange', '__CefDisplayHandler_OAC')
+	.AddMethod('OnTitleChange', '__CefDisplayHandler_OTC')
+	.AddMethod('OnFaviconUrlChange', '__CefDisplayHandler_OFUC')
+	.AddMethod('OnFullscreenModeChange', '__CefDisplayHandler_OFMC')
+	.AddMethod('OnTooltip', '__CefDisplayHandler_OT')
+	.AddMethod('OnStatusMessage', '__CefDisplayHandler_OSM')
+	.AddMethod('OnConsoleMessage', '__CefDisplayHandler_OCM')
+
+	global $__CefDisplayHandler = .Object
+
+endwith
 
 global const $__CefDisplayHandler__OAC	= Cef_CallbackRegister(__CefDisplayHandler__OAC, 	'none', 'ptr;ptr;ptr;ptr')
 global const $__CefDisplayHandler__OTC	= Cef_CallbackRegister(__CefDisplayHandler__OTC, 	'none', 'ptr;ptr;ptr')
@@ -20,25 +36,8 @@ global const $__CefDisplayHandler__OCM	= Cef_CallbackRegister(__CefDisplayHandle
 
 ; ==================================================
 
-func CefDisplayHandler_Create($ptr = null)
-	if ($__CefDisplayHandler == null) then
-		$__CefDisplayHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefDisplayHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefDisplayHandler, '__type', 1, 'CefDisplayHandler')
-		
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnAddressChange', 		'__CefDisplayHandler_OAC')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnTitleChange', 			'__CefDisplayHandler_OTC')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnFaviconUrlChange', 	'__CefDisplayHandler_OFUC')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnFullscreenModeChange', '__CefDisplayHandler_OFMC')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnTooltip', 				'__CefDisplayHandler_OT')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnStatusMessage', 		'__CefDisplayHandler_OSM')
-		_AutoItObject_AddMethod($__CefDisplayHandler, 'OnConsoleMessage', 		'__CefDisplayHandler_OCM')
-	endif
-
-	local $self = _AutoItObject_Create($__CefDisplayHandler)
-	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefDisplayHandler_Create')[0]
-	$self.__ptr = $ptr
-	return $self
+func CefDisplayHandler_Create($ptr = 0)
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefDisplayHandler_Create', 'idispatch', $__CefDisplayHandler, 'ptr', $ptr)[0]
 endfunc
 
 func __CefDisplayHandler_OAC($self, $func = null)
@@ -92,7 +91,7 @@ endfunc
 
 ; ==================================================
 
-func __CefDisplayHandler__OAC($self, $browser, $frame, $url)
+volatile func __CefDisplayHandler__OAC($self, $browser, $frame, $url)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OAC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$frame		= CefFrame_Create($frame)
@@ -101,7 +100,7 @@ func __CefDisplayHandler__OAC($self, $browser, $frame, $url)
 	call($self, $browser, $frame, $url)
 endfunc
 
-func __CefDisplayHandler__OTC($self, $browser, $title)
+volatile func __CefDisplayHandler__OTC($self, $browser, $title)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OTC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$title		= CefString_Create($title)
@@ -109,7 +108,7 @@ func __CefDisplayHandler__OTC($self, $browser, $title)
 	call($self, $browser, $title)
 endfunc
 
-func __CefDisplayHandler__OFUC($self, $browser, $icon_urls)
+volatile func __CefDisplayHandler__OFUC($self, $browser, $icon_urls)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OFUC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$icon_urls 	= CefStringList_Create($icon_urls)
@@ -117,14 +116,14 @@ func __CefDisplayHandler__OFUC($self, $browser, $icon_urls)
 	call($self, $browser, $icon_urls)
 endfunc
 
-func __CefDisplayHandler__OFMC($self, $browser, $fullscreen)
+volatile func __CefDisplayHandler__OFMC($self, $browser, $fullscreen)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OFMC', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 
 	call($self, $browser, $fullscreen)
 endfunc
 
-func __CefDisplayHandler__OT($self, $browser, $text)
+volatile func __CefDisplayHandler__OT($self, $browser, $text)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OT', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$text 		= CefString_Create($text)
@@ -132,7 +131,7 @@ func __CefDisplayHandler__OT($self, $browser, $text)
 	return call($self, $browser, $text)
 endfunc
 
-func __CefDisplayHandler__OSM($self, $browser, $value)
+volatile func __CefDisplayHandler__OSM($self, $browser, $value)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OSM', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$value 		= CefString_Create($value)
@@ -140,7 +139,7 @@ func __CefDisplayHandler__OSM($self, $browser, $value)
 	call($self, $browser, $value)
 endfunc
 
-func __CefDisplayHandler__OCM($self, $browser, $message, $source, $line)
+volatile func __CefDisplayHandler__OCM($self, $browser, $message, $source, $line)
 	$self 		= dllcall($__Cefau3Dll__, 'str:cdecl', 'CefDisplayHandler_Get_OCM', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($browser)
 	$message 	= CefString_Create($message)

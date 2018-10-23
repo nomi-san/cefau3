@@ -21,7 +21,7 @@ typedef struct CefClient {
 	const char *OPMR;
 } CefClient;
 
-CefHandlerCreate(CefClient);
+CefHandlerObjCreate(CefClient);
 
 CefHandlerFunc(CefClient, get_context_menu_handler, GCMH);
 CefHandlerFunc(CefClient, get_dialog_handler, GDiaH);

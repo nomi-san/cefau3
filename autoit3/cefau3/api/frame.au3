@@ -5,45 +5,45 @@
 
 #include-once
 
-; CefFrame
+; ==================================================
+; // CefFrame
 ; ==================================================
 
-global $__CefFrame = -1
+global $__CefFrame = null
+
+$__CefFrame = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefFrame, '__ptr')
+_AutoItObject_AddProperty($__CefFrame, '__type', 1, 'CefFrame')
+
+_AutoItObject_AddMethod($__CefFrame, 'IsValid',	'__CefFrame_IsValid')
+_AutoItObject_AddMethod($__CefFrame, 'Undo', 	'__CefFrame_Undo')
+_AutoItObject_AddMethod($__CefFrame, 'Redo',	'__CefFrame_Redo')
+_AutoItObject_AddMethod($__CefFrame, 'Cut',		'__CefFrame_Cut')
+_AutoItObject_AddMethod($__CefFrame, 'Copy',	'__CefFrame_Copy')
+_AutoItObject_AddMethod($__CefFrame, 'Paste',	'__CefFrame_Paste')
+_AutoItObject_AddMethod($__CefFrame, 'Delete',	'__CefFrame_Delete')
+_AutoItObject_AddMethod($__CefFrame, 'SelectAll',	'__CefFrame_SelectAll')
+_AutoItObject_AddMethod($__CefFrame, 'ViewSource',	'__CefFrame_ViewSource')
+_AutoItObject_AddMethod($__CefFrame, 'GetSource',	'__CefFrame_GetSource')
+_AutoItObject_AddMethod($__CefFrame, 'GetText',		'__CefFrame_GetText')
+_AutoItObject_AddMethod($__CefFrame, 'LoadRequest',	'__CefFrame_LoadRequest')
+_AutoItObject_AddMethod($__CefFrame, 'LoadURL',		'__CefFrame_LoadUrl')
+_AutoItObject_AddMethod($__CefFrame, 'LoadString',	'__CefFrame_LoadString')
+_AutoItObject_AddMethod($__CefFrame, 'ExecuteJS', '__CefFrame_ExecuteJavaScript')
+_AutoItObject_AddMethod($__CefFrame, 'IsMain',		'__CefFrame_IsMain')
+_AutoItObject_AddMethod($__CefFrame, 'IsFocused',	'__CefFrame_IsFocused')
+_AutoItObject_AddMethod($__CefFrame, 'GetName',		'__CefFrame_GetName')
+_AutoItObject_AddMethod($__CefFrame, 'GetIdentifier', '__CefFrame_GetIdentifier')
+_AutoItObject_AddMethod($__CefFrame, 'GetParent',	'__CefFrame_GetParent')
+_AutoItObject_AddMethod($__CefFrame, 'GetURL',		'__CefFrame_GetUrl')
+_AutoItObject_AddMethod($__CefFrame, 'GetBrowser',	'__CefFrame_GetBrowser')
+_AutoItObject_AddMethod($__CefFrame, 'GetV8Context', '__CefFrame_GetV8Context')
+_AutoItObject_AddMethod($__CefFrame, 'VisitDOM',	'__CefFrame_VisitDOM')
 
 ; ==================================================
 
 func CefFrame_Create($ptr)
-	if ($__CefFrame == -1) then
-		$__CefFrame = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefFrame, '__ptr')
-		_AutoItObject_AddProperty($__CefFrame, '__type', 1, 'CefFrame')
-
-		_AutoItObject_AddMethod($__CefFrame, 'IsValid',	'__CefFrame_IsValid')
-		_AutoItObject_AddMethod($__CefFrame, 'Undo', 	'__CefFrame_Undo')
-		_AutoItObject_AddMethod($__CefFrame, 'Redo',	'__CefFrame_Redo')
-		_AutoItObject_AddMethod($__CefFrame, 'Cut',		'__CefFrame_Cut')
-		_AutoItObject_AddMethod($__CefFrame, 'Copy',	'__CefFrame_Copy')
-		_AutoItObject_AddMethod($__CefFrame, 'Paste',	'__CefFrame_Paste')
-		_AutoItObject_AddMethod($__CefFrame, 'Delete',	'__CefFrame_Delete')
-		_AutoItObject_AddMethod($__CefFrame, 'SelectAll',	'__CefFrame_SelectAll')
-		_AutoItObject_AddMethod($__CefFrame, 'ViewSource',	'__CefFrame_ViewSource')
-		_AutoItObject_AddMethod($__CefFrame, 'GetSource',	'__CefFrame_GetSource')
-		_AutoItObject_AddMethod($__CefFrame, 'GetText',		'__CefFrame_GetText')
-		_AutoItObject_AddMethod($__CefFrame, 'LoadRequest',	'__CefFrame_LoadRequest')
-		_AutoItObject_AddMethod($__CefFrame, 'LoadURL',		'__CefFrame_LoadUrl')
-		_AutoItObject_AddMethod($__CefFrame, 'LoadString',	'__CefFrame_LoadString')
-		_AutoItObject_AddMethod($__CefFrame, 'ExecuteJS', '__CefFrame_ExecuteJavaScript')
-		_AutoItObject_AddMethod($__CefFrame, 'IsMain',		'__CefFrame_IsMain')
-		_AutoItObject_AddMethod($__CefFrame, 'IsFocused',	'__CefFrame_IsFocused')
-		_AutoItObject_AddMethod($__CefFrame, 'GetName',		'__CefFrame_GetName')
-		_AutoItObject_AddMethod($__CefFrame, 'GetIdentifier', '__CefFrame_GetIdentifier')
-		_AutoItObject_AddMethod($__CefFrame, 'GetParent',	'__CefFrame_GetParent')
-		_AutoItObject_AddMethod($__CefFrame, 'GetURL',		'__CefFrame_GetUrl')
-		_AutoItObject_AddMethod($__CefFrame, 'GetBrowser',	'__CefFrame_GetBrowser')
-		_AutoItObject_AddMethod($__CefFrame, 'GetV8Context', '__CefFrame_GetV8Context')
-		_AutoItObject_AddMethod($__CefFrame, 'VisitDOM',	'__CefFrame_VisitDOM')
-	endif
-
 	local $self = _AutoItObject_Create($__CefFrame)
 	$self.__ptr = $ptr
 	return $self

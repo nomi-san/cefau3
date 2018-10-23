@@ -1,3 +1,4 @@
+#NoTrayIcon
 #include 'cefau3/cefau3.au3'
 
 ; start Cefau3
@@ -16,7 +17,7 @@ global $cef_app = $cef.new('App'), _
 	$cef_args = $cef.new('MainArgs')
 
 ; execute process
-;if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
+if ($cef.ExecuteProcess($cef_args.__ptr, $cef_app.__ptr) >= 0) then exit
 
 ; if $cef_settings.single_process = 1 (true, in line 36),
 ; do not insert another codes above (e.g: MsgBox, GUICreate, user interface, etc)

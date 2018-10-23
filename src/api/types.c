@@ -9,11 +9,13 @@
 
 CEFAU3API cef_settings_t * CefSettings_Create()
 {
-	u16 sz = sizeof(cef_settings_t);
+	size_t sz = sizeof(cef_settings_t);
 	cef_settings_t *p = calloc(1, sz);
 	p->size = sz;
+	p->single_process = 1;
 	p->log_severity = 99;
 	p->no_sandbox = 1;
+	p->multi_threaded_message_loop = 1;
 
 	return p;
 }
@@ -298,7 +300,7 @@ CEFAU3API int CefSettings_Get_background_color(cef_settings_t *self)
 	return self->background_color;
 }
 
-/* Cef RequestContextSettings
+/* CefRequestContextSettings
 --------------------------------------------------*/
 
 CEFAU3API void CefRequestContextSettings_Set_size(cef_request_context_settings_t *self, int value)
@@ -376,9 +378,18 @@ CEFAU3API const wchar_t* CefRequestContextSettings_Get_accept_language_list(cef_
 
 CEFAU3API cef_browser_settings_t * CefBrowserSettings_Create()
 {
-	u16 sz = sizeof(cef_browser_settings_t);
+	size_t sz = sizeof(cef_browser_settings_t);
 	cef_browser_settings_t *p = calloc(1, sz);
 	p->size = sz;
+
+	/*
+	p->webgl = STATE_ENABLED;
+	p->web_security = STATE_ENABLED;
+	p->plugins = STATE_ENABLED;
+	p->image_loading = STATE_ENABLED;
+	p->javascript = STATE_ENABLED;
+	*/
+
 	return p;
 }
 

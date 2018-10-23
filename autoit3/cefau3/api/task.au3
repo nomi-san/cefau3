@@ -9,11 +9,11 @@
 ; ==================================================
 
 func CefTask_Create($ptr = null)
-	local $self = CefObject_Create('CefTask', $ptr)
+	;local $self = CefObject_Create('CefTask', $ptr)
 
-	CefObject_AddMethod($self, 'Execute',  '__CefTask_Execute')
+	;CefObject_AddMethod($self, 'Execute',  '__CefTask_Execute')
 
-	return $self
+	;return $self
 endfunc
 
 func __CefTask_Execute($self)
@@ -24,15 +24,15 @@ endfunc
 ; ==================================================
 
 func CefTaskRunner_Create($ptr = null)
-	local $self = CefObject_Create('CefTaskRunner', $ptr)
+	;local $self = CefObject_Create('CefTaskRunner', $ptr)
 
-	CefObject_AddMethod($self, 'IsSame',					'__CefTaskRunner_IsSame')
-	CefObject_AddMethod($self, 'BelongsToCurrentThread',   '__CefTaskRunner_BelongsToCurrentThread')
-	CefObject_AddMethod($self, 'BelongsToThread',			'__CefTaskRunner_BelongsToThread')
-	CefObject_AddMethod($self, 'PostTask',					'__CefTaskRunner_PostTask')
-	CefObject_AddMethod($self, 'PostDelayedTask',			'__CefTaskRunner_PostDelayedTask')
+	;CefObject_AddMethod($self, 'IsSame',					'__CefTaskRunner_IsSame')
+	;CefObject_AddMethod($self, 'BelongsToCurrentThread',   '__CefTaskRunner_BelongsToCurrentThread')
+	;CefObject_AddMethod($self, 'BelongsToThread',			'__CefTaskRunner_BelongsToThread')
+	;CefObject_AddMethod($self, 'PostTask',					'__CefTaskRunner_PostTask')
+	;CefObject_AddMethod($self, 'PostDelayedTask',			'__CefTaskRunner_PostDelayedTask')
 
-	return $self
+	;return $self
 endfunc
 
 func __CefTaskRunner_IsSame($self, $that)

@@ -8,6 +8,31 @@
 ; CefClient
 ; ==================================================
 
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefClient')
+
+	.AddMethod('GetContextMenuHandler', '__CefClient_GCMH')
+	.AddMethod('GetDialogHandler', '__CefClient_GDiaH')
+	.AddMethod('GetDisplayHandler', '__CefClient_GDisH')
+	.AddMethod('GetDownloadHandler', '__CefClient_GDoH')
+	.AddMethod('GetDragHandler', '__CefClient_GDrH')
+	.AddMethod('GetFindHandler', '__CefClient_GFiH')
+	.AddMethod('GetFocusHandler', '__CefClient_GFoH')
+	.AddMethod('GetGeolocationHandler', '__CefClient_GGH')
+	.AddMethod('GetJSDialogHandler', '__CefClient_GJH')
+	.AddMethod('GetKeyboardHandler', '__CefClient_GKH')
+	.AddMethod('GetLifeSpanHandler', '__CefClient_GLSH')
+	.AddMethod('GetLoadHandler', '__CefClient_GLH')
+	.AddMethod('GetRenderHandler', '__CefClient_GRenH')
+	.AddMethod('GetRequestHandler', '__CefClient_GReqH')
+	.AddMethod('OnProcessMessageReceived', '__CefClient_OPMR')
+
+	global $__CefClient = .Object
+
+endwith
+
 global const $__CefClient__GCMH 	= Cef_CallbackRegister(__CefClient__GCMH, 	'ptr', 'ptr')
 global const $__CefClient__GDiaH  	= Cef_CallbackRegister(__CefClient__GDiaH,	'ptr', 'ptr')
 global const $__CefClient__GDisH 	= Cef_CallbackRegister(__CefClient__GDisH, 	'ptr', 'ptr')
@@ -27,25 +52,7 @@ global const $__CefClient__OPMR 	= Cef_CallbackRegister(__CefClient__OPMR, 	'int
 ; ==================================================
 
 func CefClient_Create($ptr = null)
-	local $self = CefObject_Create('CefClient', $ptr)
-
-	CefObject_AddMethod($self, 'GetContextMenuHandler', 	'__CefClient_GCMH')
-	CefObject_AddMethod($self, 'GetDialogHandler', 			'__CefClient_GDiaH')
-	CefObject_AddMethod($self, 'GetDisplayHandler', 		'__CefClient_GDisH')
-	CefObject_AddMethod($self, 'GetDownloadHandler', 		'__CefClient_GDoH')
-	CefObject_AddMethod($self, 'GetDragHandler', 			'__CefClient_GDrH')
-	CefObject_AddMethod($self, 'GetFindHandler', 			'__CefClient_GFiH')
-	CefObject_AddMethod($self, 'GetFocusHandler', 			'__CefClient_GFoH')
-	CefObject_AddMethod($self, 'GetGeolocationHandler', 	'__CefClient_GGH')
-	CefObject_AddMethod($self, 'GetJSDialogHandler', 		'__CefClient_GJH')
-	CefObject_AddMethod($self, 'GetKeyboardHandler', 		'__CefClient_GKH')
-	CefObject_AddMethod($self, 'GetLifeSpanHandler', 		'__CefClient_GLSH')
-	CefObject_AddMethod($self, 'GetLoadHandler', 			'__CefClient_GLH')
-	CefObject_AddMethod($self, 'GetRenderHandler', 			'__CefClient_GRenH')
-	CefObject_AddMethod($self, 'GetRequestHandler', 		'__CefClient_GReqH')
-	CefObject_AddMethod($self, 'OnProcessMessageReceived', 	'__CefClient_OPMR')
-
-	return $self
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefClient_Create', 'idispatch', $__CefClient, 'ptr', $ptr)[0]
 endfunc
 
 func __CefClient_GCMH($self, $func = null)
@@ -155,91 +162,91 @@ endfunc
 
 ; ==================================================
 
-func __CefClient__GCMH($self)
+volatile func __CefClient__GCMH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GCMH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GDiaH($self)
+volatile func __CefClient__GDiaH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDiaH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GDisH($self)
+volatile func __CefClient__GDisH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDisH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GDoH($self)
+volatile func __CefClient__GDoH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDoH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GDrH($self)
+volatile func __CefClient__GDrH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GDrH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GFiH($self)
+volatile func __CefClient__GFiH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GFiH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GFoH($self)
+volatile func __CefClient__GFoH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GFoH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GGH($self)
+volatile func __CefClient__GGH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GGH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GJH($self)
+volatile func __CefClient__GJH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GJH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GKH($self)
+volatile func __CefClient__GKH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GKH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GLSH($self)
+volatile func __CefClient__GLSH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GLSH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GLH($self)
+volatile func __CefClient__GLH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GLH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GRenH($self)
+volatile func __CefClient__GRenH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GRenH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__GReqH($self)
+volatile func __CefClient__GReqH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_GReqH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefClient__OPMR($self, $browser, $source_process, $message)
+volatile func __CefClient__OPMR($self, $browser, $source_process, $message)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefClient_Get_OPMR', 'ptr', $self)[0]
 	$browser 	= CefBrowser_Create($self)
 

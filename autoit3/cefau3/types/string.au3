@@ -5,20 +5,38 @@
 
 #include-once
 
-; CefString
+; ==================================================
+; // CefString
 ; ==================================================
 
 global $tag_CefString = 'ptr str;uint len;ptr dior;'
 
+global $__CefString = null
+
+$__CefString = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefString, '__ptr')
+_AutoItObject_AddProperty($__CefString, '__isCreated')
+_AutoItObject_AddProperty($__CefString, '__type', 1, 'CefString')
+
+_AutoItObject_AddMethod($__CefString, 'val', 	'__CefString_val')
+_AutoItObject_AddMethod($__CefString, 'len', 	'__CefString_len')
+_AutoItObject_AddMethod($__CefString, 'clear', 	'__CefString_clear')
+_AutoItObject_AddMethod($__CefString, 'free', 	'__CefString_free')
+
+; ==================================================
+
 func CefString_Create($ptr = null)
-	local $self = CefObject_Create('CefString', $ptr)
-
-	CefObject_AddMethod($self, 'val', '__CefString_val')
-	CefObject_AddMethod($self, 'len', '__CefString_len')
-	CefObject_AddMethod($self, 'clear', '__CefString_clear')
-
+	local $self = _AutoItObject_Create($__CefString)
+	if ($ptr == null) then 
+		$ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefString_Create', 'wstr', '')[0]
+		$self.__isCreated = 1
+	endif
+	$self.__ptr = $ptr
 	return $self
 endfunc
+
+; ==================================================
 
 func __CefString_val($self, $val = null)
 	if @numparams == 1 then 
@@ -40,8 +58,13 @@ func __CefString_clear($self)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Clear', 'ptr', $self.__ptr)
 endfunc
 
+func __CefString_free($self)
+	if ($self.__isCreated) then _
+		dllcall($__Cefau3Dll__, 'none:cdecl', 'CefString_Free', 'ptr', $self.__ptr)
+endfunc
 
-
+; ==================================================
+; ==================================================
 
 func CefString_Create_($string)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefString_Create', 'wstr', $string)

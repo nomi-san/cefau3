@@ -5,10 +5,21 @@
 
 #include-once
 
-; CefLoadHandler
+; ==================================================
+; // CefLoadHandler
 ; ==================================================
 
 global $__CefLoadHandler = null
+
+$__CefLoadHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefLoadHandler, '__ptr')
+_AutoItObject_AddProperty($__CefLoadHandler, '__type', 1, 'CefLoadHandler')
+
+_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadingStateChange', 	'__CefLoadHandler_OLSC')
+_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadStart', 			'__CefLoadHandler_OLS')
+_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadEnd', 			'__CefLoadHandler_OLEn')
+_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadError', 			'__CefLoadHandler_OLEr')
 
 global $__CefLoadHandler__OLSC 	= Cef_CallbackRegister(__CefLoadHandler__OLSC, 	'none', 'ptr;ptr;int;int;int')
 global $__CefLoadHandler__OLS 	= Cef_CallbackRegister(__CefLoadHandler__OLS, 	'none', 'ptr;ptr;ptr;int')
@@ -18,17 +29,6 @@ global $__CefLoadHandler__OLEr 	= Cef_CallbackRegister(__CefLoadHandler__OLEr, 	
 ; ==================================================
 
 func CefLoadHandler_Create($ptr = null)
-	if ($__CefLoadHandler == null) then
-		$__CefLoadHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefLoadHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefLoadHandler, '__type', 1, 'CefLoadHandler')
-
-		_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadingStateChange', 	'__CefLoadHandler_OLSC')
-		_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadStart', 			'__CefLoadHandler_OLS')
-		_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadEnd', 			'__CefLoadHandler_OLEn')
-		_AutoItObject_AddMethod($__CefLoadHandler, 'OnLoadError', 			'__CefLoadHandler_OLEr')
-	endif
-
 	local $self = _AutoItObject_Create($__CefLoadHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefLoadHandler_Create')[0]
 	$self.__ptr = $ptr

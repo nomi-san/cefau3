@@ -3,23 +3,23 @@
 	author: wuuyi123
 #ce
 
-; CefFileDialogCallback
+; ==================================================
+; // CefFileDialogCallback
 ; ==================================================
 
 global $__CefFileDialogCallback = null
 
+$__CefFileDialogCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefFileDialogCallback, '__ptr')
+_AutoItObject_AddProperty($__CefFileDialogCallback, '__type', 1, 'CefFileDialogCallback')
+
+_AutoItObject_AddMethod($__CefFileDialogCallback, 'Continue', '__CefFileDialogCallback_Continue')
+_AutoItObject_AddMethod($__CefFileDialogCallback, 'Cancel', '__CefFileDialogCallback_Cancel')
+
 ; ==================================================
 
 func CefFileDialogCallback_Create($ptr)
-		if ($__CefFileDialogCallback == null) then
-		$__CefFileDialogCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefFileDialogCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefFileDialogCallback, '__type', 1, 'CefFileDialogCallback')
-		
-		_AutoItObject_AddMethod($__CefFileDialogCallback, 'Continue', '__CefFileDialogCallback_Continue')
-		_AutoItObject_AddMethod($__CefFileDialogCallback, 'Cancel', '__CefFileDialogCallback_Cancel')
-	endif
-
 	local $self = _AutoItObject_Create($__CefFileDialogCallback)
 	$self.__ptr = $ptr
 	return $self
@@ -35,24 +35,24 @@ func __CefFileDialogCallback_Cancel($self)
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefFileDialogCallback_Cancel', 'ptr', $self.__ptr)
 endfunc
 
-; CefDialogHandler
+; ==================================================
+; // CefDialogHandler
 ; ==================================================
 
 global $__CefDialogHandler = null
+
+$__CefDialogHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefDialogHandler, '__ptr')
+_AutoItObject_AddProperty($__CefDialogHandler, '__type', 1, 'CefDialogHandler')
+
+_AutoItObject_AddMethod($__CefDialogHandler, 'OnFileDialog', '__CefDialogHandler_OFD')
 
 global const $__CefDialogHandler__OFD	= Cef_CallbackRegister(__CefDialogHandler__OFD, 'int', 'ptr;ptr;int;ptr;ptr;ptr;int;ptr')
 
 ; ==================================================
 
 func CefDialogHandler_Create($ptr = null)
-	if $__CefDialogHandler == null then
-		$__CefDialogHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefDialogHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefDialogHandler, '__type', 1, 'CefDialogHandler')
-		
-		_AutoItObject_AddMethod($__CefDialogHandler, 'OnFileDialog', '__CefDialogHandler_OFD')
-	endif
-
 	local $self = _AutoItObject_Create($__CefDialogHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefDialogHandler_Create')[0]
 	$self.__ptr = $ptr

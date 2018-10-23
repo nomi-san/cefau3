@@ -8,18 +8,17 @@
 
 global $__CefRunContextMenuCallback = null
 
+$__CefRunContextMenuCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefRunContextMenuCallback, '__ptr')
+_AutoItObject_AddProperty($__CefRunContextMenuCallback, '__type', 1, 'CefRunContextMenuCallback')
+
+_AutoItObject_AddMethod($__CefRunContextMenuCallback, 'Continue', 	'__CefRunContextMenuCallback_Continue')
+_AutoItObject_AddMethod($__CefRunContextMenuCallback, 'Cancel', '__CefRunContextMenuCallback_Cancel')
+
 ; ==================================================
 
 func CefRunContextMenuCallback_Create($ptr)
-	if ($__CefRunContextMenuCallback == null) then
-		$__CefRunContextMenuCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefRunContextMenuCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefRunContextMenuCallback, '__type', 1, 'CefRunContextMenuCallback')
-
-		_AutoItObject_AddMethod($__CefRunContextMenuCallback, 'Continue', 	'__CefRunContextMenuCallback_Continue')
-		_AutoItObject_AddMethod($__CefRunContextMenuCallback, 'Cancel', '__CefRunContextMenuCallback_Cancel')
-	endif
-
 	local $self = _AutoItObject_Create($__CefRunContextMenuCallback)
 	$self.__ptr = $ptr
 	return $self
@@ -40,6 +39,16 @@ endfunc
 
 global $__CefContextMenuHandler = null
 
+$__CefContextMenuHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefContextMenuHandler, '__ptr')
+_AutoItObject_AddProperty($__CefContextMenuHandler, '__type', 1, 'CefContextMenuHandler')
+
+_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnBeforeContextMenu', 	'__CefContextMenuHandler_OBCM')
+_AutoItObject_AddMethod($__CefContextMenuHandler, 'RunContextMenu', '__CefContextMenuHandler_RCM')
+_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnContextMenuCommand', '__CefContextMenuHandler_OCMC')
+_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnContextMenuDismissed', '__CefContextMenuHandler_OCMD')
+
 global const $__CefContextMenuHandler__OBCM = Cef_CallbackRegister(__CefContextMenuHandler__OBCM, 'none', 'ptr;ptr;ptr;ptr;ptr')
 global const $__CefContextMenuHandler__RCM = Cef_CallbackRegister(__CefContextMenuHandler__RCM, 'int', 'ptr;ptr;ptr;ptr;ptr;ptr')
 global const $__CefContextMenuHandler__OCMC = Cef_CallbackRegister(__CefContextMenuHandler__OCMC, 'int', 'ptr;ptr;ptr;ptr;int;int')
@@ -48,17 +57,6 @@ global const $__CefContextMenuHandler__OCMD = Cef_CallbackRegister(__CefContextM
 ; ==================================================
 
 func CefContextMenuHandler_Create($ptr = null)
-	if ($__CefContextMenuHandler == null) then
-		$__CefContextMenuHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefContextMenuHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefContextMenuHandler, '__type', 1, 'CefContextMenuHandler')
-
-		_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnBeforeContextMenu', 	'__CefContextMenuHandler_OBCM')
-		_AutoItObject_AddMethod($__CefContextMenuHandler, 'RunContextMenu', '__CefContextMenuHandler_RCM')
-		_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnContextMenuCommand', '__CefContextMenuHandler_OCMC')
-		_AutoItObject_AddMethod($__CefContextMenuHandler, 'OnContextMenuDismissed', '__CefContextMenuHandler_OCMD')
-	endif
-
 	local $self = _AutoItObject_Create($__CefContextMenuHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefContextMenuHandler_Create')[0]
 	$self.__ptr = $ptr
@@ -142,37 +140,36 @@ endfunc
 
 global $__CefContextMenuParams = null
 
+$__CefContextMenuParams = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefContextMenuParams, '__ptr')
+_AutoItObject_AddProperty($__CefContextMenuParams, '__type', 1, 'CefContextMenuParams')
+
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetXCoord', '__CefContextMenuParams_GetXCoord')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetYCoord', '__CefContextMenuParams_GetYCoord')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetTypeFlags', '__CefContextMenuParams_GetTypeFlags')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetLinkUrl', '__CefContextMenuParams_GetLinkUrl')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetUnfilteredLinkUrl', '__CefContextMenuParams_GetUnfilteredLinkUrl')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetSourceUrl', '__CefContextMenuParams_GetSourceUrl')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'HasImageContents', '__CefContextMenuParams_HasImageContents')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetTitleText', '__CefContextMenuParams_GetTitleText')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetPageUrl', '__CefContextMenuParams_GetPageUrl')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetFrameUrl', '__CefContextMenuParams_GetFrameUrl')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetFrameCharset', '__CefContextMenuParams_GetFrameCharset')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMediaType', '__CefContextMenuParams_GetMediaType')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMediaStateFlags', '__CefContextMenuParams_GetMediaStateFlags')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetSelectionText', '__CefContextMenuParams_GetSelectionText')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMisspelledWord', '__CefContextMenuParams_GetMisspelledWord')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetDictionarySuggestions', '__CefContextMenuParams_GetDictionarySuggestions')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'IsEditable', '__CefContextMenuParams_IsEditable')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'IsSpellCheckEnabled', '__CefContextMenuParams_IsSpellCheckEnabled')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'GetEditStateFlags', '__CefContextMenuParams_GetEditStateFlags')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'IsCustomMenu', '__CefContextMenuParams_IsCustomMenu')
+_AutoItObject_AddMethod($__CefContextMenuParams, 'IsPepperMenu', '__CefContextMenuParams_IsPepperMenu')
+
 ; ==================================================
 
 func CefContextMenuParams_Create($ptr)
-	if ($__CefContextMenuParams == null) then
-		$__CefContextMenuParams = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefContextMenuParams, '__ptr')
-		_AutoItObject_AddProperty($__CefContextMenuParams, '__type', 1, 'CefContextMenuParams')
-
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetXCoord', '__CefContextMenuParams_GetXCoord')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetYCoord', '__CefContextMenuParams_GetYCoord')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetTypeFlags', '__CefContextMenuParams_GetTypeFlags')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetLinkUrl', '__CefContextMenuParams_GetLinkUrl')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetUnfilteredLinkUrl', '__CefContextMenuParams_GetUnfilteredLinkUrl')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetSourceUrl', '__CefContextMenuParams_GetSourceUrl')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'HasImageContents', '__CefContextMenuParams_HasImageContents')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetTitleText', '__CefContextMenuParams_GetTitleText')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetPageUrl', '__CefContextMenuParams_GetPageUrl')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetFrameUrl', '__CefContextMenuParams_GetFrameUrl')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetFrameCharset', '__CefContextMenuParams_GetFrameCharset')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMediaType', '__CefContextMenuParams_GetMediaType')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMediaStateFlags', '__CefContextMenuParams_GetMediaStateFlags')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetSelectionText', '__CefContextMenuParams_GetSelectionText')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetMisspelledWord', '__CefContextMenuParams_GetMisspelledWord')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetDictionarySuggestions', '__CefContextMenuParams_GetDictionarySuggestions')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'IsEditable', '__CefContextMenuParams_IsEditable')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'IsSpellCheckEnabled', '__CefContextMenuParams_IsSpellCheckEnabled')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'GetEditStateFlags', '__CefContextMenuParams_GetEditStateFlags')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'IsCustomMenu', '__CefContextMenuParams_IsCustomMenu')
-		_AutoItObject_AddMethod($__CefContextMenuParams, 'IsPepperMenu', '__CefContextMenuParams_IsPepperMenu')
-	endif
-
 	local $self = _AutoItObject_Create($__CefContextMenuParams)
 	$self.__ptr = $ptr
 	return $self

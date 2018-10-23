@@ -5,8 +5,19 @@
 
 #include-once
 
-; CefGeolocationHandler
 ; ==================================================
+; // CefGeolocationHandler
+; ==================================================
+
+global $__CefGeolocationHandler = null
+
+$__CefGeolocationHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefGeolocationHandler, '__ptr')
+_AutoItObject_AddProperty($__CefGeolocationHandler, '__type', 1, 'CefGeolocationHandler')
+
+_AutoItObject_AddMethod($__CefGeolocationHandler, 'OnRequestGeolocationPermission', 	'__CefGeolocationHandler_ORGP')
+_AutoItObject_AddMethod($__CefGeolocationHandler, 'OnCancelGeolocationPermission', 	'__CefGeolocationHandler_OCGP')
 
 global $__CefGeolocationHandler__ORGP = Cef_CallbackRegister(__CefGeolocationHandler__ORGP, 'int', 	'ptr;ptr;ptr;int;ptr')
 global $__CefGeolocationHandler__OCGP = Cef_CallbackRegister(__CefGeolocationHandler__OCGP, 'none', 'ptr;ptr;int')
@@ -14,11 +25,9 @@ global $__CefGeolocationHandler__OCGP = Cef_CallbackRegister(__CefGeolocationHan
 ; ==================================================
 
 func CefGeolocationHandler_Create($ptr = null)
-	local $self = CefObject_Create('CefGeolocationHandler', $ptr)
-
-	CefObject_AddMethod($self, 'OnRequestGeolocationPermission', 	'__CefGeolocationHandler_ORGP')
-	CefObject_AddMethod($self, 'OnCancelGeolocationPermission', 	'__CefGeolocationHandler_OCGP')
-
+	local $self = _AutoItObject_Create($__CefGeolocationHandler)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefGeolocationHandler_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

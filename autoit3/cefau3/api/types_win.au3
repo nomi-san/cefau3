@@ -5,14 +5,25 @@
 
 #include-once
 
-; CefMainArgs
+; ==================================================
+; // CefMainArgs
+; ==================================================
+
+global $__CefMainArgs = null
+
+$__CefMainArgs = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefMainArgs, '__ptr')
+_AutoItObject_AddProperty($__CefMainArgs, '__type', 1, 'CefMainArgs')
+
+_AutoItObject_AddMethod($__CefMainArgs, 'instance', '__CefMainArgs_instance')
+
 ; ==================================================
 
 func CefMainArgs_Create($ptr = null)
-	local $self = CefObject_Create('CefMainArgs', $ptr)
-
-	CefObject_AddMethod($self, 'instance', '__CefMainArgs_instance')
-
+	local $self = _AutoItObject_Create($__CefMainArgs)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefMainArgs_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 
@@ -25,22 +36,29 @@ endfunc
 ; CefWindowInfo
 ; ==================================================
 
+global $__CefCefWindowInfo = null
+
+$__CefCefWindowInfo = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefCefWindowInfo, '__ptr')
+_AutoItObject_AddProperty($__CefCefWindowInfo, '__type', 1, 'CefWindowInfo')
+
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'window_name', '__CefWindowInfo_wn')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'ex_style', '__CefWindowInfo_ex_style')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'style', '__CefWindowInfo_style')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'x', '__CefWindowInfo_x')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'y', '__CefWindowInfo_y')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'width', '__CefWindowInfo_width')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'height', '__CefWindowInfo_height')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'parent_window', '__CefWindowInfo_parent_window')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'menu', '__CefWindowInfo_menu')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'windowless_rendering_enabled', '__CefWindowInfo_windowless_rendering_enabled')
+_AutoItObject_AddMethod($__CefCefWindowInfo, 'window', '__CefWindowInfo_window')
+
 func CefWindowInfo_Create($ptr = null)
-	local $self = CefObject_Create('CefWindowInfo', $ptr)
-
-	CefObject_AddMethod($self, 'window_name', '__CefWindowInfo_wn')
-
-	CefObject_AddMethod($self, 'ex_style', '__CefWindowInfo_ex_style')
-	CefObject_AddMethod($self, 'style', '__CefWindowInfo_style')
-	CefObject_AddMethod($self, 'x', '__CefWindowInfo_x')
-	CefObject_AddMethod($self, 'y', '__CefWindowInfo_y')
-	CefObject_AddMethod($self, 'width', '__CefWindowInfo_width')
-	CefObject_AddMethod($self, 'height', '__CefWindowInfo_height')
-	CefObject_AddMethod($self, 'parent_window', '__CefWindowInfo_parent_window')
-	CefObject_AddMethod($self, 'menu', '__CefWindowInfo_menu')
-	CefObject_AddMethod($self, 'windowless_rendering_enabled', '__CefWindowInfo_windowless_rendering_enabled')
-	CefObject_AddMethod($self, 'window', '__CefWindowInfo_window')
-
+	local $self = _AutoItObject_Create($__CefCefWindowInfo)
+	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefWindowInfo_Create')[0]
+	$self.__ptr = $ptr
 	return $self
 endfunc
 

@@ -9,7 +9,7 @@ typedef struct CefBrowser {
 	cef_browser_t self;
 } CefBrowser;
 
-CefHandlerCreate(CefBrowser);
+CefHandlerObjCreate(CefBrowser);
 
 CEFAU3API cef_browser_host_t*  CefBrowser_GetHost(
 	struct _cef_browser_t* self)
@@ -140,7 +140,7 @@ typedef struct CefBrowserHost {
 	cef_browser_t self;
 } CefBrowserHost;
 
-CefHandlerCreate(CefBrowserHost);
+CefHandlerObjCreate(CefBrowserHost);
 
 CEFAU3API struct _cef_browser_t*  CefBrowserHost_GetBrowser(
 	struct _cef_browser_host_t* self)

@@ -3,23 +3,23 @@
 	author: wuuyi123
 #ce
 
-; CefCallback
+; ==================================================
+; // CefCallback
 ; ==================================================
 
 global $__CefCallback = null
 
+$__CefCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefCallback, '__ptr')
+_AutoItObject_AddProperty($__CefCallback, '__type', 1, 'CefCallback')
+
+_AutoItObject_AddMethod($__CefCallback, 'Continue', '__CefCallback_Continue')
+_AutoItObject_AddMethod($__CefCallback, 'Cancel', '__CefCallback_Cancel')
+
 ; ==================================================
 
 func CefCallback_Create($ptr)
-	if ($__CefCallback == null) then
-		$__CefCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefCallback, '__type', 1, 'CefCallback')
-
-		_AutoItObject_AddMethod($__CefCallback, 'Continue', '__CefCallback_Continue')
-		_AutoItObject_AddMethod($__CefCallback, 'Cancel', '__CefCallback_Cancel')
-	endif
-
 	local $self = _AutoItObject_Create($__CefCallback)
 	$self.__ptr = $ptr
 	return $self
@@ -40,18 +40,17 @@ endfunc
 
 global $__CefCompletionCallback = null
 
+$__CefCompletionCallback = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefCompletionCallback, '__ptr')
+_AutoItObject_AddProperty($__CefCompletionCallback, '__type', 1, 'CefCompletionCallback')
+
+_AutoItObject_AddMethod($__CefCompletionCallback, 'Continue', 	'CefCompletionCallback_Continue')
+_AutoItObject_AddMethod($__CefCompletionCallback, 'Cancel', 'CefCompletionCallback_Cancel')
+
 ; ==================================================
 
 func CefCompletionCallback_Create($ptr = null)
-	if ($__CefCompletionCallback == null) then
-		$__CefCompletionCallback = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefCompletionCallback, '__ptr')
-		_AutoItObject_AddProperty($__CefCompletionCallback, '__type', 1, 'CefCompletionCallback')
-
-		_AutoItObject_AddMethod($__CefCompletionCallback, 'Continue', 	'CefCompletionCallback_Continue')
-		_AutoItObject_AddMethod($__CefCompletionCallback, 'Cancel', 'CefCompletionCallback_Cancel')
-	endif
-
 	local $self = _AutoItObject_Create($__CefCompletionCallback)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefCompletionCallback_Create')[0]
 	$self.__ptr = $ptr

@@ -29,19 +29,18 @@ CEFAU3API void Cef_GetChromiumVersion(int ref[3])
 /* CefWndMsg
 --------------------------------------------------*/
 
-#define CEFQUITMESSAGE 0xdeadu
-#define CEFMSGTIMERID 0x69u
+#define CEFWNDMSG_QUITCODE 0xdeadu
+#define CEFWNDMSG_TIMERID 0x69u
 #define INVALIDHWND (HWND)INVALID_HANDLE_VALUE
-HWND __CefWndMsg_HWND = INVALIDHWND;
-const wchar_t *__CefWndMsg_Class = TEXT("CefWndMsg");
+#define CEFWNDMSG_CLASS TEXT("CefWndMsg")
+static HWND __CefWndMsg_HWND = INVALIDHWND;
 
 CEFAU3API void CefWndMsg_RunLoop(TIMERPROC timer_proc)
 {
 	if (timer_proc != NULL)
-		SetTimer(__CefWndMsg_HWND, CEFMSGTIMERID, 100, timer_proc);
+		SetTimer(__CefWndMsg_HWND, CEFWNDMSG_TIMERID, 50, timer_proc);
 
 	MSG msg;
-	ZeroMemory(&msg, sizeof(MSG));
 
 	while (GetMessageW(&msg, NULL, 0, 0) > 0) 
 	{
@@ -52,7 +51,8 @@ CEFAU3API void CefWndMsg_RunLoop(TIMERPROC timer_proc)
 
 CEFAU3API void CefWndMsg_QuitLoop(int code)
 {
-	SendMessageW(__CefWndMsg_HWND, CEFQUITMESSAGE, 0, code);
+	KillTimer(__CefWndMsg_HWND, CEFWNDMSG_TIMERID);
+	PostMessageW(__CefWndMsg_HWND, CEFWNDMSG_QUITCODE, 0, code);
 }
 
 LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -60,8 +60,7 @@ LRESULT CALLBACK __CefWndMsg_WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	LRESULT ret = 0;
 	switch (msg) 
 	{
-		case CEFQUITMESSAGE:
-			KillTimer(hwnd, CEFMSGTIMERID);
+		case CEFWNDMSG_QUITCODE:
 			PostQuitMessage(lp);
 			break;
 		default:
@@ -83,11 +82,11 @@ CEFAU3API HWND CefWndMsg_Create()
 	wcex.cbSize = sizeof(wcex);
 	wcex.lpfnWndProc = __CefWndMsg_WndProc;
 	wcex.hInstance = ins;
-	wcex.lpszClassName = __CefWndMsg_Class;
+	wcex.lpszClassName = CEFWNDMSG_CLASS;
 	RegisterClassEx(&wcex);
 
 	__CefWndMsg_HWND = CreateWindowExW(
-		0, __CefWndMsg_Class, NULL, 0, 
+		0, CEFWNDMSG_CLASS, NULL, 0,
 		0, 0, 0, 0, 
 		HWND_MESSAGE, NULL, ins, NULL
 	);

@@ -8,7 +8,20 @@
 ; CefApp
 ; ==================================================
 
-global $__CefApp = null
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefApp')
+
+	.AddMethod('OnBeforeCommandLineProcessing', '__CefApp_OBCLP')
+	.AddMethod('OnRegisterCustomSchemes', 		'__CefApp_ORCS')
+	.AddMethod('GetResourceBundleHandler', 		'__CefApp_GRBH')
+	.AddMethod('GetBrowserProcessHandler', 		'__CefApp_GBPH')
+	.AddMethod('GetRenderProcessHandler', 		'__CefApp_GRPH')
+
+	global $__CefApp = .Object
+
+endwith
 
 global $__CefApp__OBCLP	= Cef_CallbackRegister(__CefApp__OBCLP, 'none', 'ptr;ptr;ptr')
 global $__CefApp__ORCS	= Cef_CallbackRegister(__CefApp__ORCS, 	'none', 'ptr;ptr')
@@ -19,15 +32,7 @@ global $__CefApp__GRPH	= Cef_CallbackRegister(__CefApp__GRPH, 	'ptr', 	'ptr')
 ; ==================================================
 
 func CefApp_Create($ptr = null)
-	local $self = CefObject_Create('CefApp', $ptr)
-
-	CefObject_AddMethod($self, 'OnBeforeCommandLineProcessing', '__CefApp_OBCLP')
-	CefObject_AddMethod($self, 'OnRegisterCustomSchemes', 		'__CefApp_ORCS')
-	CefObject_AddMethod($self, 'GetResourceBundleHandler', 		'__CefApp_GRBH')
-	CefObject_AddMethod($self, 'GetBrowserProcessHandler', 		'__CefApp_GBPH')
-	CefObject_AddMethod($self, 'GetRenderProcessHandler', 		'__CefApp_GRPH')
-
-	return $self
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefApp_Create', 'idispatch', $__CefApp, 'ptr', $ptr)[0]
 endfunc
 
 func __CefApp_OBCLP($self, $func = null)
@@ -67,34 +72,34 @@ endfunc
 
 ; ==================================================
 
-func __CefApp__OBCLP($self, $process_type, $command_line)
+volatile func __CefApp__OBCLP($self, $process_type, $command_line)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_OBCLP', 'ptr', $self)[0]
 	$process_type = CefString_Create($process_type)
 	$command_line = CefCommandLine_Create($command_line)
 
-	call($self.__OBCLP, $self, $process_type, $command_line)
+	call($self, $process_type, $command_line)
 endfunc
 
-func __CefApp__ORCS($self, $registrar)
+volatile func __CefApp__ORCS($self, $registrar)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_ORCS', 'ptr', $self)[0]
 	;$registrar = CefSchemeRegistrar_Create($registrar)
 
 	call($self, $registrar)
 endfunc
 
-func __CefApp__GRBH($self, $registrar)
+volatile func __CefApp__GRBH($self, $registrar)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRBH', 'ptr', $self)[0]
 
-	return call($self)
+	return call($self, $registrar)
 endfunc
 
-func __CefApp__GBPH($self)
+volatile func __CefApp__GBPH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GBPH', 'ptr', $self)[0]
 
 	return call($self)
 endfunc
 
-func __CefApp__GRPH($self)
+volatile func __CefApp__GRPH($self)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefApp_Get_GRPH', 'ptr', $self)[0]
 
 	return call($self)
@@ -150,6 +155,7 @@ endfunc
 ; ////////////////////////////
 
 func __Cef_ExecuteProcess($self, $CefMainArgs, $CefApp)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefExecuteProcess', _
 		'ptr', $CefMainArgs, _
 		'ptr', $CefApp _
@@ -158,6 +164,7 @@ func __Cef_ExecuteProcess($self, $CefMainArgs, $CefApp)
 endfunc
 
 func __Cef_Initialize($self, $CefMainArgs, $CefSettings, $CefApp)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefInitialize', _
 		'ptr', $CefMainArgs, _
 		'ptr', $CefSettings, _
@@ -167,27 +174,33 @@ func __Cef_Initialize($self, $CefMainArgs, $CefSettings, $CefApp)
 endfunc
 
 func __Cef_Shutdown($self)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefShutdown')
 endfunc
 
 func __Cef_DoMessageLoopWork($self)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefDoMessageLoopWork')
 endfunc
 
 func __Cef_RunMessageLoop($self)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefRunMessageLoop')
 endfunc
 
 func __Cef_QuitMessageLoop($self)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefQuitMessageLoop')
 endfunc
 
 func Cef_SetOSModalLoop($self, $osModalLoop)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefSetOSModalLoop', _
 		'int', $osModalLoop _
 	)
 endfunc
 
 func __Cef_EnableHighDPISupport($self)
+	#forceref $self
 	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefEnableHighDPISupport')
 endfunc

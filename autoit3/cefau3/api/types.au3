@@ -58,12 +58,9 @@ global $tag_CefSettings = ( _
 )
 
 func CefSettings_Create($ptr = null)
+	if ($ptr==null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefSettings_Create')[0]
 	local $struct = CefStruct_Create($tag_CefSettings, 'CefSettings', $ptr)
 	$struct.size = $struct.__size__
-
-	$struct.log_severity = 99;
-	$struct.no_sandbox = true; // 1
-	$struct.multi_threaded_message_loop = true;
 
 	CefStruct_AddMethod($struct, 'browser_subprocess_path', '__CefSettings_bsp')
 	CefStruct_AddMethod($struct, 'framework_dir_path', '__CefSettings_fdp')

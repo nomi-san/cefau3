@@ -89,16 +89,19 @@ endfunc
 ; static functions ------------------------------
 
 func __CefV8Context_GetCurrentContext($self)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Context_GetCurrentContext')
 	return @error ? 0 : $ret[0]
 endfunc
 
 func __CefV8context_GetEnteredContext($self)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8context_GetEnteredContext')
 	return @error ? 0 : $ret[0]
 endfunc
 
 func __CefV8context_InContext($self)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8context_InContext')
 	return @error ? 0 : $ret[0]
 endfunc
@@ -120,24 +123,24 @@ func CefV8context_InContext()
 	return @error ? 0 : $ret[0]
 endfunc
 
-; CefV8Handler
+; ==================================================
+; // CefV8Handler
 ; ==================================================
 
 global $__CefV8Handler = null
 
-global $__CefV8Handler__E = Cef_CallbackRegister(__CefV8Handler__E, 'int', 'ptr;ptr;ptr;uint;ptr;ptr;ptr')
+$__CefV8Handler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefV8Handler, '__ptr')
+_AutoItObject_AddProperty($__CefV8Handler, '__type', 1, 'CefV8Handler')
+
+_AutoItObject_AddMethod($__CefV8Handler, 'Execute', '__CefV8Handler_E')
+
+global const $__CefV8Handler__E = Cef_CallbackRegister(__CefV8Handler__E, 'int', 'ptr;ptr;ptr;uint;ptr;ptr;ptr')
 
 ; ==================================================
 
 func CefV8Handler_Create($ptr = null)
-	if ($__CefV8Handler == null) then
-		$__CefV8Handler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefV8Handler, '__ptr')
-		_AutoItObject_AddProperty($__CefV8Handler, '__type', 1, 'CefV8Handler')
-
-		_AutoItObject_AddMethod($__CefV8Handler, 'Execute', '__CefV8Handler_E')
-	endif
-
 	local $self = _AutoItObject_Create($__CefV8Handler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Handler_Create')[0]
 	$self.__ptr = $ptr
@@ -153,139 +156,167 @@ endfunc
 
 ; ==================================================
 
-func __CefV8Handler__E($self, $name, $object, $argumentsCount, $arguments, $retval, $exception)
+volatile func __CefV8Handler__E($self, $n, $o, $c, $a, $r, $e)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefV8Handler_Get_E', 'ptr', $self)[0]
-	$name = CefString_Create($name)
+	$n = CefString_Create($n)
 	;$object = CefV8Value_Create($object)
-	;$argumentsCount = int($argumentsCount)
+	;$c = int($c)
 
-	local $args[1] = [$argumentsCount]
+	local $args[1] = [$c] ; index 0: counter
 
-	if ($argumentsCount > 0) then
+	if ($c > 0) then
 
-		redim $args[$argumentsCount+1]
+		redim $args[$c+1] ; length = max arg + 1
 
-		local $st = dllstructcreate('ptr[1]', $arguments)
-		local $addr = dllstructgetdata($st, 1, 1)
-		$args[1] = CefV8Value_Create($addr)
+		; stack *->[n]
+		local $st = dllstructcreate('ptr[' & $c & ']', $a)
 
-		if ($argumentsCount > 1) then
-			for $i=2 to $argumentsCount+1
-				$args[$i] = CefV8Value_Create($addr + $__sizeof_ptr * $i)
-			next
-		endif
+		for $i=1 to $c
+			; [p1], [p2]...
+			$args[$i] = CefV8Value_Create(dllstructgetdata($st, 1, $i))
+		next
+
+		; it's not array, couldn't use: [*][p<1>|p<2>|...|p<N>]
+		; => *p<N> = *p<N-1> + sizeof(ptr);
+
 	endif
 
-	;$arguments = CefV8Value_Create()
 	;$retval
 	;$exception
 
-	return call($self, $name, $object, $args, $retval, $exception)
+	return call($self, $n, $o, $args, $r, $e)
 endfunc
 
-; CefV8Value
+; ==================================================
+; // CefV8Value
 ; ==================================================
 
 global $__CefV8Value = null
 
+$__CefV8Value = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefV8Value, '__ptr')
+_AutoItObject_AddProperty($__CefV8Value, '__type', 1, 'CefV8Value')
+
+_AutoItObject_AddMethod($__CefV8Value, 'IsValid', '__CefV8Value_IsValid')
+_AutoItObject_AddMethod($__CefV8Value, 'IsUndefined', '__CefV8Value_IsUndefined')
+_AutoItObject_AddMethod($__CefV8Value, 'IsNull', '__CefV8Value_IsNull')
+_AutoItObject_AddMethod($__CefV8Value, 'IsBool', '__CefV8Value_IsBool')
+_AutoItObject_AddMethod($__CefV8Value, 'IsInt', '__CefV8Value_IsInt')
+_AutoItObject_AddMethod($__CefV8Value, 'IsUInt', '__CefV8Value_IsUInt')
+_AutoItObject_AddMethod($__CefV8Value, 'IsDouble', '__CefV8Value_IsDouble')
+_AutoItObject_AddMethod($__CefV8Value, 'IsDate', '__CefV8Value_IsDate')
+_AutoItObject_AddMethod($__CefV8Value, 'IsString', '__CefV8Value_IsString')
+_AutoItObject_AddMethod($__CefV8Value, 'IsObject', '__CefV8Value_IsObject')
+_AutoItObject_AddMethod($__CefV8Value, 'IsArray', '__CefV8Value_IsArray')
+_AutoItObject_AddMethod($__CefV8Value, 'IsFunction', '__CefV8Value_IsFunction')
+_AutoItObject_AddMethod($__CefV8Value, 'IsSame', '__CefV8Value_IsSame')
+_AutoItObject_AddMethod($__CefV8Value, 'GetBoolValue', '__CefV8Value_GetBoolValue')
+_AutoItObject_AddMethod($__CefV8Value, 'GetIntValue', '__CefV8Value_GetIntValue')
+_AutoItObject_AddMethod($__CefV8Value, 'GetUIntValue', '__CefV8Value_GetUIntValue')
+_AutoItObject_AddMethod($__CefV8Value, 'GetDoubleValue', '__CefV8Value_GetDoubleValue')
+_AutoItObject_AddMethod($__CefV8Value, 'GetStringValue', '__CefV8Value_GetStringValue')
+_AutoItObject_AddMethod($__CefV8Value, 'IsUserCreated', '__CefV8Value_IsUserCreated')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateUndefined', '__CefV8Value_CreateUndefined')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateNull', '__CefV8Value_CreateNull')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateBool', '__CefV8Value_CreateBool')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateInt', '__CefV8Value_CreateInt')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateUInt', '__CefV8Value_CreateUInt')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateDouble', '__CefV8Value_CreateDouble')
+_AutoItObject_AddMethod($__CefV8Value, 'CreateString', '__CefV8Value_CreateString')
+
+; ==================================================
+
 func CefV8Value_Create($ptr)
-	if ($__CefV8Value == null) then
-		$__CefV8Value = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefV8Value, '__ptr')
-		_AutoItObject_AddProperty($__CefV8Value, '__type', 1, 'CefV8Value')
-
-		_AutoItObject_AddMethod($__CefV8Value, 'GetStringValue', '__CefV8Value_GetStringValue')
-	endif
-
 	local $self = _AutoItObject_Create($__CefV8Value)
 	$self.__ptr = $ptr
 	return $self
 endfunc
 
-; //////////////////////////////////////
+; ==================================================
 
-func CefV8Value_IsValid($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsValid', 'ptr', $self)
+func __CefV8Value_IsValid($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsValid', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsUndefined($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUndefined', 'ptr', $self)
+func __CefV8Value_IsUndefined($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUndefined', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsNull($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsNull', 'ptr', $self)
+func __CefV8Value_IsNull($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsNull', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsBool($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsBool', 'ptr', $self)
+func __CefV8Value_IsBool($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsBool', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsInt($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsInt', 'ptr', $self)
+func __CefV8Value_IsInt($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsInt', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsUInt($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUInt', 'ptr', $self)
+func __CefV8Value_IsUInt($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUInt', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsDouble($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsDouble', 'ptr', $self)
+func __CefV8Value_IsDouble($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsDouble', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsDate($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsDate', 'ptr', $self)
+func __CefV8Value_IsDate($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsDate', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsString($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsString', 'ptr', $self)
+func __CefV8Value_IsString($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsString', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsObject($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsObject', 'ptr', $self)
+func __CefV8Value_IsObject($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsObject', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsArray($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsArray', 'ptr', $self)
+func __CefV8Value_IsArray($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsArray', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsFunction($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsFunction', 'ptr', $self)
+func __CefV8Value_IsFunction($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsFunction', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsSame($self, $that)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsSame', 'ptr', $self, 'ptr', $that)
+func __CefV8Value_IsSame($self, $that)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsSame', 'ptr', $self.__ptr, 'ptr', $that)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_GetBoolValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_GetBoolValue', 'ptr', $self)
+func __CefV8Value_GetBoolValue($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_GetBoolValue', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_GetIntValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_GetIntValue', 'ptr', $self)
+func __CefV8Value_GetIntValue($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_GetIntValue', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_GetUIntValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'CefV8Value_GetUIntValue', 'ptr', $self)
+func __CefV8Value_GetUIntValue($self)
+	local $ret = dllcall($__Cefau3Dll__, 'uint:cdecl', 'CefV8Value_GetUIntValue', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_GetDoubleValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'double:cdecl', 'CefV8Value_GetDoubleValue', 'ptr', $self)
+func __CefV8Value_GetDoubleValue($self)
+	local $ret = dllcall($__Cefau3Dll__, 'double:cdecl', 'CefV8Value_GetDoubleValue', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
@@ -297,78 +328,55 @@ endfunc
 #ce
 
 func __CefV8Value_GetStringValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8Value_GetStringValue', 'ptr', ptr($self.__ptr))
-	return @error ? '' : $ret[0]
-endfunc
-
-func CefV8Value_GetStringValue($self)
-	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8Value_GetStringValue', 'ptr', $self)
+	local $ret = dllcall($__Cefau3Dll__, 'wstr:cdecl', 'CefV8Value_GetStringValue', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_IsUserCreated($self)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUserCreated', 'ptr', $self)
+func __CefV8Value_IsUserCreated($self)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefV8Value_IsUserCreated', 'ptr', $self.__ptr)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateUndefined($value)
+func __CefV8Value_CreateUndefined()
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateUndefined')
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateNull($value)
+func __CefV8Value_CreateNull()
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateNull')
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateBool($value)
+func __CefV8Value_CreateBool($value)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateBool', 'int', $value)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateInt($value)
+func __CefV8Value_CreateInt($value)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateInt', 'int', $value)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateUInt($value)
+func __CefV8Value_CreateUInt($value)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateUInt', 'uint', $value)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateDouble($value)
+func __CefV8Value_CreateDouble($value)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateDouble', 'double', $value)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_CreateString($value)
+func __CefV8Value_CreateString($value)
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefV8Value_CreateString', 'wstr', $value)
 	return @error ? 0 : $ret[0]
 endfunc
 
-func CefV8Value_SetReturn($V8Value_retval, $V8Value_your_value)
-	local $ret = dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Value_SetReturn', 'ptr', $V8Value_retval,'ptr', $V8Value_your_value)
+; // custom
+
+func __CefV8Value_SetReturn($V8Value_retval, $V8Value_your_value)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefV8Value_SetReturn', 'ptr', $V8Value_retval,'ptr', $V8Value_your_value)
 endfunc
-
-; //////////////////////////////////////////
-; my addons
-
-func CefV8ValueArg_ToStruct($V8Value_args, $count_arg)
-	local $ret = dllstructcreate('ptr[' & $count_arg & ']', $V8Value_args)
-	return @error ? null : $ret
-endfunc
-
-func CefV8ValueArg_Get($V8Value_Struct, $index)
-	local $ret = dllstructgetdata($V8Value_Struct, 1, $index) ; count from 1, not like array
-	return @error ? null : $ret
-endfunc
-
-
-
-
-
-
-
 
 
 ; CefV8StackFrame
@@ -433,6 +441,7 @@ endfunc
 ; ==================================================
 
 func __Cef_RegisterExtension($self, $extension_name = null, $javascript_code = null, $v8handler = null)
+	#forceref $self
 	if @numparams == 1 then return
 
 	if (not $extension_name) then $extension_name = 'v8/app' ; default

@@ -57,6 +57,12 @@
     <ClCompile Include="..\src\api\types_win.c" />
     <ClCompile Include="..\src\api\v8.c" />
     <ClCompile Include="..\src\api\values.c" />
+    <ClCompile Include="..\src\au3obj\element.cc" />
+    <ClCompile Include="..\src\au3obj\object.cc" />
+    <ClCompile Include="..\src\au3obj\object_class.cc" />
+    <ClCompile Include="..\src\au3obj\wrap_element.cc" />
+    <ClCompile Include="..\src\au3obj\wrap_object.cc" />
+    <ClCompile Include="..\src\au3obj\au3obj.cc" />
     <ClCompile Include="..\src\au3obj_wrap.c" />
     <ClCompile Include="..\src\base\app.c" />
     <ClCompile Include="..\src\base\base.c" />
@@ -66,9 +72,18 @@
     <ClCompile Include="..\src\custom\string.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\au3obj\au3obj.def" />
     <None Include="..\src\cefau3.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\au3obj\callbacks.h" />
+    <ClInclude Include="..\src\au3obj\element.h" />
+    <ClInclude Include="..\src\au3obj\object.h" />
+    <ClInclude Include="..\src\au3obj\object_class.h" />
+    <ClInclude Include="..\src\au3obj\wrap_element.h" />
+    <ClInclude Include="..\src\au3obj\wrap_object.h" />
+    <ClInclude Include="..\src\au3obj\dll.h" />
+    <ClInclude Include="..\src\au3obj\vector.h" />
     <ClInclude Include="..\src\au3obj_wrap.h" />
     <ClInclude Include="..\src\cefau3.h" />
     <ClInclude Include="..\src\custom\types.h" />
@@ -90,7 +105,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -173,20 +188,22 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>
+      </SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_NDEBUG;_WIN32;BUILDING_CEF_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>../cef;../src;</AdditionalIncludeDirectories>
-      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

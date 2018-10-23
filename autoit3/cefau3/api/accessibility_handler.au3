@@ -5,10 +5,19 @@
 
 #include-once
 
-; CefAccessibilityHandler
+; ==================================================
+; // CefAccessibilityHandler
 ; ==================================================
 
 global $__CefAccessibilityHandler = null
+
+$__CefAccessibilityHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefAccessibilityHandler, '__ptr')
+_AutoItObject_AddProperty($__CefAccessibilityHandler, '__type', 1, 'CefAccessibilityHandler')
+
+_AutoItObject_AddMethod($__CefAccessibilityHandler, 'OnAccessibilityTreeChange', 	'__CefAccessibilityHandler_OATC')
+_AutoItObject_AddMethod($__CefAccessibilityHandler, 'OnAccessibilityLocationChange', '__CefAccessibilityHandler_OALC')
 
 global const $__CefAccessibilityHandler__OATC = Cef_CallbackRegister(__CefAccessibilityHandler__OATC, 'none', 'ptr;ptr')
 global const $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccessibilityHandler__OALC, 'none', 'ptr;ptr')
@@ -16,15 +25,6 @@ global const $__CefAccessibilityHandler__OALC = Cef_CallbackRegister(__CefAccess
 ; ==================================================
 
 func CefAccessibilityHandler_Create($ptr = null)
-	if ($__CefAccessibilityHandler == null) then
-		$__CefAccessibilityHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefAccessibilityHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefAccessibilityHandler, '__type', 1, 'CefAccessibilityHandler')
-
-		_AutoItObject_AddMethod($__CefAccessibilityHandler, 'OnAccessibilityTreeChange', 	'__CefAccessibilityHandler_OATC')
-		_AutoItObject_AddMethod($__CefAccessibilityHandler, 'OnAccessibilityLocationChange', '__CefAccessibilityHandler_OALC')
-	endif
-
 	local $self = _AutoItObject_Create($__CefAccessibilityHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefAccessibilityHandler_Create')[0]
 	$self.__ptr = $ptr

@@ -31,7 +31,7 @@ func __CefGeolocationCallback_OLU($self, $func = null)
 	if @numparams == 1 then return $self.__OLU
 
 	$self.__OLU = $func
-	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefGeolocationCallback_OnLocationUpdate', 'ptr', $self.__pointer__, 'ptr', $__CefGeolocationCallback__OLU)
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'CefGeolocationCallback_OnLocationUpdate', 'ptr', $self.__ptr, 'ptr', $__CefGeolocationCallback__OLU)
 endfunc
 
 ; ==================================================

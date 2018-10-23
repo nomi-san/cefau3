@@ -5,10 +5,22 @@
 
 #include-once
 
+; ==================================================
 ; CefBrowserProcessHandler
 ; ==================================================
 
 global $__CefBrowserProcessHandler = null
+
+$__CefBrowserProcessHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefBrowserProcessHandler, '__ptr')
+_AutoItObject_AddProperty($__CefBrowserProcessHandler, '__type', 1, 'CefBrowserProcessHandler')
+
+_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnContextInitialized', 		'__CefBrowserProcessHandler_OCI')
+_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnBeforeChildProcessLaunch', 	'__CefBrowserProcessHandler_OBCPL')
+_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnRenderProcessThreadCreated', '__CefBrowserProcessHandler_ORPTC')
+_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'GetPrintHandler', 			'__CefBrowserProcessHandler_GPH')
+_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnScheduleNessagePumpWork', 	'__CefBrowserProcessHandler_OSMPW')
 
 global const $__CefBrowserProcessHandler__OCI 	= Cef_CallbackRegister(__CefBrowserProcessHandler__OCI, 	'none', 'ptr')
 global const $__CefBrowserProcessHandler__OBCPL = Cef_CallbackRegister(__CefBrowserProcessHandler__OBCPL, 	'none', 'ptr;ptr')
@@ -19,18 +31,6 @@ global const $__CefBrowserProcessHandler__OSMPW = Cef_CallbackRegister(__CefBrow
 ; ==================================================
 
 func CefBrowserProcessHandler_Create($ptr = null)
-	if ($__CefBrowserProcessHandler == null) then
-		$__CefBrowserProcessHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefBrowserProcessHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefBrowserProcessHandler, '__type', 1, 'CefBrowserProcessHandler')
-
-		_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnContextInitialized', 		'__CefBrowserProcessHandler_OCI')
-		_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnBeforeChildProcessLaunch', 	'__CefBrowserProcessHandler_OBCPL')
-		_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnRenderProcessThreadCreated', '__CefBrowserProcessHandler_ORPTC')
-		_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'GetPrintHandler', 			'__CefBrowserProcessHandler_GPH')
-		_AutoItObject_AddMethod($__CefBrowserProcessHandler, 'OnScheduleNessagePumpWork', 	'__CefBrowserProcessHandler_OSMPW')
-	endif
-
 	local $self = _AutoItObject_Create($__CefBrowserProcessHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowserProcessHandler_Create')[0]
 	$self.__ptr = $ptr

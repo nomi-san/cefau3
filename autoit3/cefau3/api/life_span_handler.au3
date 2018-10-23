@@ -5,10 +5,23 @@
 
 #include-once
 
-; CefLifeSpanHandler
+; ==================================================
+; // CefLifeSpanHandler
 ; ==================================================
 
-global $__CefLifeSpanHandler = -1
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefLifeSpanHandler')
+
+	.AddMethod('OnBeforePopup', 	'__CefLifeSpanHandler_OBP')
+	.AddMethod('OnAfterCreated',	'__CefLifeSpanHandler_OAC')
+	.AddMethod('DoClose', 			'__CefLifeSpanHandler_DC')
+	.AddMethod('OnBeforeClose', 	'__CefLifeSpanHandler_OBC')
+
+	global $__CefLifeSpanHandler = .Object
+
+endwith
 
 global const $__CefLifeSpanHandler__OBP = Cef_CallbackRegister(__CefLifeSpanHandler__OBP, 	'int', 	'ptr;ptr;ptr;ptr;ptr;int;ptr;ptr;ptr;ptr;ptr')
 global const $__CefLifeSpanHandler__OAC = Cef_CallbackRegister(__CefLifeSpanHandler__OAC, 	'none', 'ptr;ptr')
@@ -18,21 +31,7 @@ global const $__CefLifeSpanHandler__OBC = Cef_CallbackRegister(__CefLifeSpanHand
 ; ==================================================
 
 func CefLifeSpanHandler_Create($ptr = null)
-	if ($__CefLifeSpanHandler == -1) then
-		$__CefLifeSpanHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefLifeSpanHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefLifeSpanHandler, '__type', 1, 'CefLifeSpanHandler')
-
-		_AutoItObject_AddMethod($__CefLifeSpanHandler, 'OnBeforePopup', 	'__CefLifeSpanHandler_OBP')
-		_AutoItObject_AddMethod($__CefLifeSpanHandler, 'OnAfterCreated',	'__CefLifeSpanHandler_OAC')
-		_AutoItObject_AddMethod($__CefLifeSpanHandler, 'DoClose', 			'__CefLifeSpanHandler_DC')
-		_AutoItObject_AddMethod($__CefLifeSpanHandler, 'OnBeforeClose', 	'__CefLifeSpanHandler_OBC')
-	endif
-
-	local $self = _AutoItObject_Create($__CefLifeSpanHandler)
-	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefLifeSpanHandler_Create')[0]
-	$self.__ptr = $ptr
-	return $self
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefLifeSpanHandler_Create', 'idispatch', $__CefLifeSpanHandler, 'ptr', $ptr)[0]
 endfunc
 
 func __CefLifeSpanHandler_OBP($self, $func = null)
@@ -65,28 +64,28 @@ endfunc
 
 ; ==================================================
 
-func __CefLifeSpanHandler__OBP($self, $browser, $frame, $target_url, $target_frame_name, $target_disposition, $windowInfo, $client, $settings, $no_javascript_access)
+volatile func __CefLifeSpanHandler__OBP($self, $browser, $frame, $target_url, $target_frame_name, $target_disposition, $windowInfo, $client, $settings, $no_javascript_access)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OBP', 'ptr', $self)[0]
 	$browser = CefBrowser_Create($browser)
 
 	return call($self, $browser, $frame, $target_url, $target_frame_name, $target_disposition, $windowInfo, $client, $settings, $no_javascript_access)
 endfunc
 
-func __CefLifeSpanHandler__OAC($self, $browser)
+volatile func __CefLifeSpanHandler__OAC($self, $browser)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OAC', 'ptr', $self)[0]
 	$browser = CefBrowser_Create($browser)
 
 	call($self, $browser)
 endfunc
 
-func __CefLifeSpanHandler__DC($self, $browser)
+volatile func __CefLifeSpanHandler__DC($self, $browser)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_DC', 'ptr', $self)[0]
 	$browser = CefBrowser_Create($browser)
 
 	return call($self, $browser)
 endfunc
 
-func __CefLifeSpanHandler__OBC($self, $browser)
+volatile func __CefLifeSpanHandler__OBC($self, $browser)
 	$self = dllcall($__Cefau3Dll__, 'str:cdecl', 'CefLifeSpanHandler_Get_OBC', 'ptr', $self)[0]
 	$browser = CefBrowser_Create($browser)
 

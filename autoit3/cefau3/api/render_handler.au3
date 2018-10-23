@@ -5,10 +5,30 @@
 
 #include-once
 
-; CefRenderHandler
+; ==================================================
+; // CefRenderHandler
 ; ==================================================
 
 global $__CefRenderHandler = null
+
+$__CefRenderHandler = _AutoItObject_Create()
+
+_AutoItObject_AddProperty($__CefRenderHandler, '__ptr')
+_AutoItObject_AddProperty($__CefRenderHandler, '__type', 1, 'CefRenderHandler')
+
+_AutoItObject_AddMethod($__CefRenderHandler, 'GetAccessibilityHandler', '__CefRenderHandler_GAH')
+_AutoItObject_AddMethod($__CefRenderHandler, 'GetRootScreenRect', 		'__CefRenderHandler_GRSR')
+_AutoItObject_AddMethod($__CefRenderHandler, 'GetViewRect', 			'__CefRenderHandler_GVR')
+_AutoItObject_AddMethod($__CefRenderHandler, 'GetScreenPoint', 			'__CefRenderHandler_GSP')
+_AutoItObject_AddMethod($__CefRenderHandler, 'GetScreenInfo', 			'__CefRenderHandler_GSI')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnPopupShow', 			'__CefRenderHandler_OPSh')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnPopupSize', 			'__CefRenderHandler_OPSi')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnPaint', 				'__CefRenderHandler_OP')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnCursorChange', 			'__CefRenderHandler_OCC')
+_AutoItObject_AddMethod($__CefRenderHandler, 'StartDragging', 			'__CefRenderHandler_SD')
+_AutoItObject_AddMethod($__CefRenderHandler, 'UpdateDragCursor', 		'__CefRenderHandler_UDC')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnScrollOffsetChanged', 	'__CefRenderHandler_OSOC')
+_AutoItObject_AddMethod($__CefRenderHandler, 'OnIMECompositionRangeChanged', '__CefRenderHandler_OICRC')
 
 global $__CefRenderHandler__GAH 	= Cef_CallbackRegister(__CefRenderHandler__GAH, 	'ptr', 	'ptr')
 global $__CefRenderHandler__GRSR 	= Cef_CallbackRegister(__CefRenderHandler__GRSR, 	'int', 	'ptr;ptr;ptr')
@@ -27,26 +47,6 @@ global $__CefRenderHandler__OICRC 	= Cef_CallbackRegister(__CefRenderHandler__OI
 ; ==================================================
 
 func CefRenderHandler_Create($ptr = null)
-	if ($__CefRenderHandler == null) then
-		$__CefRenderHandler = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefRenderHandler, '__ptr')
-		_AutoItObject_AddProperty($__CefRenderHandler, '__type', 1, 'CefRenderHandler')
-
-		_AutoItObject_AddMethod($__CefRenderHandler, 'GetAccessibilityHandler', '__CefRenderHandler_GAH')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'GetRootScreenRect', 		'__CefRenderHandler_GRSR')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'GetViewRect', 			'__CefRenderHandler_GVR')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'GetScreenPoint', 			'__CefRenderHandler_GSP')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'GetScreenInfo', 			'__CefRenderHandler_GSI')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnPopupShow', 			'__CefRenderHandler_OPSh')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnPopupSize', 			'__CefRenderHandler_OPSi')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnPaint', 				'__CefRenderHandler_OP')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnCursorChange', 			'__CefRenderHandler_OCC')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'StartDragging', 			'__CefRenderHandler_SD')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'UpdateDragCursor', 		'__CefRenderHandler_UDC')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnScrollOffsetChanged', 	'__CefRenderHandler_OSOC')
-		_AutoItObject_AddMethod($__CefRenderHandler, 'OnIMECompositionRangeChanged', '__CefRenderHandler_OICRC')
-	endif
-
 	local $self = _AutoItObject_Create($__CefRenderHandler)
 	if ($ptr == null) then $ptr = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefRenderHandler_Create')[0]
 	$self.__ptr = $ptr

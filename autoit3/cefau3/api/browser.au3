@@ -5,43 +5,45 @@
 
 #include-once
 
-; CefBrowser
+; ==================================================
+; // CefBrowser
 ; ==================================================
 
-global $__CefBrowser = -1
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefBrowser')
+
+	.AddMethod('GetHost', '__CefBrowser_GetHost')
+	.AddMethod('CanGoBack', '__CefBrowser_CanGoBack')
+	.AddMethod('GoBack', '__CefBrowser_GoBack')
+	.AddMethod('CanGoForward', '__CefBrowser_CanGoForward')
+	.AddMethod('GoForward', '__CefBrowser_GoForward')
+	.AddMethod('IsLoading', '__CefBrowser_IsLoading')
+	.AddMethod('Reload', '__CefBrowser_Reload')
+	.AddMethod('ReloadIgnoreCache', '__CefBrowser_ReloadIgnoreCache')
+	.AddMethod('StopLoad', '__CefBrowser_StopLoad')
+	.AddMethod('GetIdentifier', '__CefBrowser_GetIdentifier')
+	.AddMethod('IsSame', '__CefBrowser_IsSame')
+	.AddMethod('IsPopup', '__CefBrowser_IsPopup')
+	.AddMethod('HasDocument', '__CefBrowser_HasDocument')
+	.AddMethod('GetMainFrame', '__CefBrowser_GetMainFrame')
+	.AddMethod('GetFocusedFrame', '__CefBrowser_GetFocusedFrame')
+	.AddMethod('GetFrameByident', '__CefBrowser_GetFrameByident')
+	.AddMethod('GetFrame', '__CefBrowser_GetFrame')
+	.AddMethod('GetFrameCount', '__CefBrowser_GetFrameCount')
+	.AddMethod('GetFrameIdentifiers', '__CefBrowser_GetFrameIdentifiers')
+	.AddMethod('GetFrameNames', '__CefBrowser_GetFrameNames')
+	.AddMethod('SendProcessMessage', '__CefBrowser_SendProcessMessage')
+
+	global $__CefBrowser = .Object
+
+endwith
+
+; ==================================================
 
 func CefBrowser_Create($ptr)
-	if $__CefBrowser == -1 then
-		$__CefBrowser = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefBrowser, '__ptr')
-		_AutoItObject_AddProperty($__CefBrowser, '__type', 1, 'CefBrowser')
-		
-		_AutoItObject_AddMethod($__CefBrowser, 'GetHost', '__CefBrowser_GetHost')
-		_AutoItObject_AddMethod($__CefBrowser, 'CanGoBack', '__CefBrowser_CanGoBack')
-		_AutoItObject_AddMethod($__CefBrowser, 'GoBack', '__CefBrowser_GoBack')
-		_AutoItObject_AddMethod($__CefBrowser, 'CanGoForward', '__CefBrowser_CanGoForward')
-		_AutoItObject_AddMethod($__CefBrowser, 'GoForward', '__CefBrowser_GoForward')
-		_AutoItObject_AddMethod($__CefBrowser, 'IsLoading', '__CefBrowser_IsLoading')
-		_AutoItObject_AddMethod($__CefBrowser, 'Reload', '__CefBrowser_Reload')
-		_AutoItObject_AddMethod($__CefBrowser, 'ReloadIgnoreCache', '__CefBrowser_ReloadIgnoreCache')
-		_AutoItObject_AddMethod($__CefBrowser, 'StopLoad', '__CefBrowser_StopLoad')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetIdentifier', '__CefBrowser_GetIdentifier')
-		_AutoItObject_AddMethod($__CefBrowser, 'IsSame', '__CefBrowser_IsSame')
-		_AutoItObject_AddMethod($__CefBrowser, 'IsPopup', '__CefBrowser_IsPopup')
-		_AutoItObject_AddMethod($__CefBrowser, 'HasDocument', '__CefBrowser_HasDocument')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetMainFrame', '__CefBrowser_GetMainFrame')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFocusedFrame', '__CefBrowser_GetFocusedFrame')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFrameByident', '__CefBrowser_GetFrameByident')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFrame', '__CefBrowser_GetFrame')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFrameCount', '__CefBrowser_GetFrameCount')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFrameIdentifiers', '__CefBrowser_GetFrameIdentifiers')
-		_AutoItObject_AddMethod($__CefBrowser, 'GetFrameNames', '__CefBrowser_GetFrameNames')
-		_AutoItObject_AddMethod($__CefBrowser, 'SendProcessMessage', '__CefBrowser_SendProcessMessage')
-	endif
-
-	local $self = _AutoItObject_Create($__CefBrowser)
-	$self.__ptr = $ptr
-	return $self
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefBrowser_Create', 'idispatch', $__CefBrowser, 'ptr', $ptr)[0]
 endfunc
 
 func __CefBrowser_GetHost($self)
@@ -116,7 +118,7 @@ func __CefBrowser_GetFocusedFrame($self)
 endfunc
 
 func __CefBrowser_GetFrameByident($self, $identifier)
-	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefBrowser_GetFrameByident', 'ptr', $self.__ptr)
+	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefBrowser_GetFrameByident', 'ptr', $self.__ptr, 'int64', $identifier)
 	return @error ? 0 : $ret[0]
 endfunc
 
@@ -143,76 +145,76 @@ func __CefBrowser_SendProcessMessage($self, $target_process = 0, $message = null
 	return @error ? 0 : $ret[0]
 endfunc
 
-; CefBrowserHost
+; ==================================================
+; // CefBrowserHost
 ; ==================================================
 
-global $__CefBrowserHost = null
+with _AutoItObject_Class()
+
+	.AddProperty('__ptr')
+	.AddProperty('__type', 1, 'CefBrowserHost')
+
+	.AddMethod('GetBrowser', '__CefBrowserHost_GetBrowser')
+	.AddMethod('CloseBrowser', '__CefBrowserHost_CloseBrowser')
+	.AddMethod('TryCloseBrowser', '__CefBrowserHost_TryCloseBrowser')
+	.AddMethod('SetFocus', '__CefBrowserHost_SetFocus')
+	.AddMethod('HasView', '__CefBrowserHost_HasView')
+	.AddMethod('GetClient', '__CefBrowserHost_GetClient')
+	.AddMethod('GetRequestContext', '__CefBrowserHost_GetRequestContext')
+	.AddMethod('GetZoomLevel', '__CefBrowserHost_GetZoomLevel')
+	.AddMethod('SetZoomLevel', '__CefBrowserHost_SetZoomLevel')
+	.AddMethod('GetWindowHandle', '__CefBrowserHost_GetWindowHandle')
+	.AddMethod('GetOpenerWindowHandle', '__CefBrowserHost_GetOpenerWindowHandle')
+	.AddMethod('RunFileDialog', '__CefBrowserHost_RunFileDialog')
+	.AddMethod('DownloadImage', '__CefBrowserHost_DownloadImage')
+	.AddMethod('PrintToPDF', '__CefBrowserHost_PrintToPDF')
+	.AddMethod('Find', '__CefBrowserHost_Find')
+	.AddMethod('ShowDevTools', '__CefBrowserHost_ShowDevTools')
+	.AddMethod('StartDownload', '__CefBrowserHost_StartDownload')
+	.AddMethod('Print', '__CefBrowserHost_Print')
+	.AddMethod('StopFinding', '__CefBrowserHost_StopFinding')
+	.AddMethod('CloseDevTools', '__CefBrowserHost_CloseDevTools')
+	.AddMethod('HasDevTools', '__CefBrowserHost_HasDevTools')
+	.AddMethod('GetNavigationEntries', '__CefBrowserHost_GetNavigationEntries')
+	.AddMethod('SetMouseCursorChangeDisabled', '__CefBrowserHost_SetMouseCursorChangeDisabled')
+	.AddMethod('IsMouseCursorChangeDisabled', '__CefBrowserHost_IsMouseCursorChangeDisabled')
+	.AddMethod('ReplaceMisspelling', '__CefBrowserHost_ReplaceMisspelling')
+	.AddMethod('AddWordToDictionary', '__CefBrowserHost_AddWordToDictionary')
+	.AddMethod('IsWindowRenderingDisabled', '__CefBrowserHost_IsWindowRenderingDisabled')
+	.AddMethod('WasResized', '__CefBrowserHost_WasResized')
+	.AddMethod('WasHidden', '__CefBrowserHost_WasHidden')
+	.AddMethod('NotifyScreenInfoChanged', '__CefBrowserHost_NotifyScreenInfoChanged')
+	.AddMethod('Invalidate', '__CefBrowserHost_Invalidate')
+	.AddMethod('SendKeyEvent', '__CefBrowserHost_SendKeyEvent')
+	.AddMethod('SendMouseClickEvent', '__CefBrowserHost_SendMouseClickEvent')
+	.AddMethod('SendMouseMoveEvent', '__CefBrowserHost_SendMouseMoveEvent')
+	.AddMethod('SendMouseWheelEvent', '__CefBrowserHost_SendMouseWheelEvent')
+	.AddMethod('SendFocusEvent', '__CefBrowserHost_SendFocusEvent')
+	.AddMethod('SendCaptureLostEvent', '__CefBrowserHost_SendCaptureLostEvent')
+	.AddMethod('NotifyMoveOrResizeStarted', '__CefBrowserHost_NotifyMoveOrResizeStarted')
+	.AddMethod('GetWindowlessFrameRate', '__CefBrowserHost_GetWindowlessFrameRate')
+	.AddMethod('SetWindowlessFrameRate', '__CefBrowserHost_SetWindowlessFrameRate')
+	.AddMethod('ImeSetComposition', '__CefBrowserHost_ImeSetComposition')
+	.AddMethod('ImeCommitText', '__CefBrowserHost_ImeCommitText')
+	.AddMethod('ImeFinishComposingText', '__CefBrowserHost_ImeFinishComposingText')
+	.AddMethod('ImeCancelComposition', '__CefBrowserHost_ImeCancelComposition')
+	.AddMethod('DragTargetDragEnter', '__CefBrowserHost_DragTargetDragEnter')
+	.AddMethod('DragTargetDragOver', '__CefBrowserHost_DragTargetDragOver')
+	.AddMethod('DragTargetDragLeave', '__CefBrowserHost_DragTargetDragLeave')
+	.AddMethod('DragTargetDrop', '__CefBrowserHost_DragTargetDrop')
+	.AddMethod('DragSourceEndedAt', '__CefBrowserHost_DragSourceEndedAt')
+	.AddMethod('DragSourceSystemDragEnded', '__CefBrowserHost_DragSourceSystemDragEnded')
+	.AddMethod('GetVisibleNavigationEntry', '__CefBrowserHost_GetVisibleNavigationEntry')
+	.AddMethod('SetAccessibilityState', '__CefBrowserHost_SetAccessibilityState')
+
+	global $__CefBrowserHost = .Object
+
+endwith
 
 ; ==================================================
 
-func CefBrowserHost_Create($ptr)
-	if ($__CefBrowserHost == null) then
-		$__CefBrowserHost = _AutoItObject_Create()
-		_AutoItObject_AddProperty($__CefBrowserHost, '__ptr')
-		_AutoItObject_AddProperty($__CefBrowserHost, '__type', 1, 'CefBrowserHost')
-
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetBrowser', '__CefBrowserHost_GetBrowser')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'CloseBrowser', '__CefBrowserHost_CloseBrowser')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'TryCloseBrowser', '__CefBrowserHost_TryCloseBrowser')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SetFocus', '__CefBrowserHost_SetFocus')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'HasView', '__CefBrowserHost_HasView')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetClient', '__CefBrowserHost_GetClient')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetRequestContext', '__CefBrowserHost_GetRequestContext')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetZoomLevel', '__CefBrowserHost_GetZoomLevel')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SetZoomLevel', '__CefBrowserHost_SetZoomLevel')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetWindowHandle', '__CefBrowserHost_GetWindowHandle')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetOpenerWindowHandle', '__CefBrowserHost_GetOpenerWindowHandle')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'RunFileDialog', '__CefBrowserHost_RunFileDialog')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DownloadImage', '__CefBrowserHost_DownloadImage')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'PrintToPDF', '__CefBrowserHost_PrintToPDF')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'Find', '__CefBrowserHost_Find')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ShowDevTools', '__CefBrowserHost_ShowDevTools')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'StartDownload', '__CefBrowserHost_StartDownload')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'Print', '__CefBrowserHost_Print')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'StopFinding', '__CefBrowserHost_StopFinding')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'CloseDevTools', '__CefBrowserHost_CloseDevTools')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'HasDevTools', '__CefBrowserHost_HasDevTools')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetNavigationEntries', '__CefBrowserHost_GetNavigationEntries')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SetMouseCursorChangeDisabled', '__CefBrowserHost_SetMouseCursorChangeDisabled')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'IsMouseCursorChangeDisabled', '__CefBrowserHost_IsMouseCursorChangeDisabled')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ReplaceMisspelling', '__CefBrowserHost_ReplaceMisspelling')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'AddWordToDictionary', '__CefBrowserHost_AddWordToDictionary')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'IsWindowRenderingDisabled', '__CefBrowserHost_IsWindowRenderingDisabled')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'WasResized', '__CefBrowserHost_WasResized')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'WasHidden', '__CefBrowserHost_WasHidden')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'NotifyScreenInfoChanged', '__CefBrowserHost_NotifyScreenInfoChanged')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'Invalidate', '__CefBrowserHost_Invalidate')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendKeyEvent', '__CefBrowserHost_SendKeyEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendMouseClickEvent', '__CefBrowserHost_SendMouseClickEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendMouseMoveEvent', '__CefBrowserHost_SendMouseMoveEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendMouseWheelEvent', '__CefBrowserHost_SendMouseWheelEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendFocusEvent', '__CefBrowserHost_SendFocusEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SendCaptureLostEvent', '__CefBrowserHost_SendCaptureLostEvent')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'NotifyMoveOrResizeStarted', '__CefBrowserHost_NotifyMoveOrResizeStarted')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetWindowlessFrameRate', '__CefBrowserHost_GetWindowlessFrameRate')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SetWindowlessFrameRate', '__CefBrowserHost_SetWindowlessFrameRate')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ImeSetComposition', '__CefBrowserHost_ImeSetComposition')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ImeCommitText', '__CefBrowserHost_ImeCommitText')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ImeFinishComposingText', '__CefBrowserHost_ImeFinishComposingText')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'ImeCancelComposition', '__CefBrowserHost_ImeCancelComposition')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragTargetDragEnter', '__CefBrowserHost_DragTargetDragEnter')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragTargetDragOver', '__CefBrowserHost_DragTargetDragOver')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragTargetDragLeave', '__CefBrowserHost_DragTargetDragLeave')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragTargetDrop', '__CefBrowserHost_DragTargetDrop')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragSourceEndedAt', '__CefBrowserHost_DragSourceEndedAt')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'DragSourceSystemDragEnded', '__CefBrowserHost_DragSourceSystemDragEnded')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'GetVisibleNavigationEntry', '__CefBrowserHost_GetVisibleNavigationEntry')
-		_AutoItObject_AddMethod($__CefBrowserHost, 'SetAccessibilityState', '__CefBrowserHost_SetAccessibilityState')
-	endif
-
-	local $self = _AutoItObject_Create($__CefBrowserHost)
-	$self.__ptr = $ptr
-	return $self
+func CefBrowserHost_Create($ptr = 0)
+	return dllcall($__Cefau3Dll__, 'idispatch:cdecl', 'CefBrowserHost_Create', 'idispatch', $__CefBrowserHost, 'ptr', $ptr)[0]
 endfunc
 
 func __CefBrowserHost_GetBrowser($self)
@@ -439,6 +441,7 @@ endfunc
 ; static function ///////////////////////////////////////
 
 func __CefBrowserHost_CreateBrowser($self, $windowInfo, $client, $url, $settings, $request_context)
+	#forceref $self
 	if @numparams == 1 then return 0
 	local $ret = dllcall($__Cefau3Dll__, 'int:cdecl', 'CefBrowserHost_CreateBrowser', _
 		'ptr', $windowInfo, _
@@ -451,6 +454,7 @@ func __CefBrowserHost_CreateBrowser($self, $windowInfo, $client, $url, $settings
 endfunc
 
 func __CefBrowserHost_CreateBrowserSync($self, $windowInfo, $client, $url, $settings, $request_context)
+	#forceref $self
 	if @numparams == 1 then return null
 	local $ret = dllcall($__Cefau3Dll__, 'ptr:cdecl', 'CefBrowserHost_CreateBrowserSync', _
 		'ptr', $windowInfo, _

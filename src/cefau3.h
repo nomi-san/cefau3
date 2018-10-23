@@ -7,10 +7,27 @@
 #include <stdio.h>
 
 #include "include/internal/cef_types.h"
-#include "custom/types.h"
+
+typedef struct VARIANTa {
+	WORD vt;
+	WORD r1;
+	WORD r2;
+	WORD r3;
+	void *data;
+	void *_;
+} VARIANTa;
 
 cef_string_t cefstring_cs(const char *);
 cef_string_t cefstring_wcs(const wchar_t *);
+
+typedef void AutoItObject;
+typedef AutoItObject* (*AU3OBJ_CLONE)(AutoItObject*);
+typedef void (__stdcall *AUTOITESETPOINTERPROXY)(AutoItObject*, void*);
+typedef void(*AU3OBJ_ADDPROPERTY)(AutoItObject* object, wchar_t* property_name, UINT new_scope, VARIANT* property_value);
+
+extern AU3OBJ_CLONE Au3ObjClone;
+extern AUTOITESETPOINTERPROXY AutoitSetPointerProxy;
+extern AU3OBJ_ADDPROPERTY Au3ObjAddProperty;
 
 /*
 __inline cef_string_t *cefstring_pwcs(const wchar_t *wcs)
@@ -41,6 +58,18 @@ __inline cef_string_t *cefstring_pwcs(const wchar_t *wcs)
 		return p;						\
 	}									\
 
+#define CefHandlerObjCreate(type)                                           \
+	CEFAU3API AutoItObject *type ## _Create(AutoItObject *obj, type *ptr)   \
+	{                                                                       \
+		if (!ptr) {                                                         \
+			ptr = calloc(1, sizeof(type));                                  \
+			ptr->self.base.size = sizeof(type);                             \
+		}                                                                   \
+																			\
+		AutoitSetPointerProxy(obj, ptr);                                    \
+		return Au3ObjClone(obj);                                            \
+	}
+
 #define CefHandlerFunc(t, e, n)                                \
 	CEFAU3API void t ## _ ## n(t *self, void* p)               \
 	{                                                          \
@@ -60,8 +89,6 @@ __inline cef_string_t *cefstring_pwcs(const wchar_t *wcs)
 #define func_std(n, t, ...) \
 	t (__stdcall* n) \
 		(__VA_ARGS__);
-
-#include "au3obj_wrap.h"
 
 #define alloc(sz) calloc(1, sz)
 

@@ -23,6 +23,8 @@ typedef unsigned long		ulong;
 typedef unsigned long long	ulonglong;
 typedef long long			longlong;
 
+typedef size_t				sz_t;
+
 #ifndef __cplusplus
 
 #define bool	_Bool

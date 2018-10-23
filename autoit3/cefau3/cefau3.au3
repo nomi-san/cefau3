@@ -1,46 +1,23 @@
 #cs
-
-Name:.............: Cefau3 - Chromium Embedded Framework for AutoIt3
-AutoIt version:...: v3.3.14.5
-Author:...........: wuuyi123
-Page:.............: https://github.com/wy3/cefau3
-
-program\
-	|---app\...
-	|	|---css\...			# style
-	|	|---js\...			# javascript
-	|	|---app.js			# app
-	|	|---index.html		# index
-	|
-	|---cef\...				# resources
-	|	|---locales\...
-	|	|---autoitx3.dll	# autoitx3
-	|	|---libcef.dll		# libcef
-	|	|---cefau3.dll		# cefau3
-	|
-	|---include\...			# your autoit header
-	|---cefau3\...			# cefau3 udf
-	|	|---base\...
-	|	|---cefau3.au3
-	|
-	|---main.au3			# main script
-	|...
-
+// name:.............: Cefau3 - Chromium Embedded Framework for AutoIt3
+// autoit version:...: v3.3.14.5
+// author:...........: wuuyi123
+// github:...........: https://github.com/wy3/cefau3
 #ce
 
+;#AutoIt3Wrapper_Au3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6
 #include-once
-
-Opt('GUIOnEventMode', 1)
 
 global static $__Cefau3Dll__ 		= null;
 global static $__Cefau3DllName__ 	= 'cefau3.dll';
 global static $__CefObject__ 		= null;
-global const $__sizeof_ptr = dllstructgetsize(dllstructcreate('ptr')); // (@autoitx64 ? 8 : 4)
+
+#include 'AutoItObject.au3'
+
+if (not _AutoItObject_Startup()) then exit 1
 
 #include <WinAPISysWin.au3>
 #include <WinAPIMisc.au3>
-
-#include 'AutoItObject.au3'
 
 #include 'base/base.au3'
 #include 'base/app.au3'
@@ -67,15 +44,18 @@ global const $__sizeof_ptr = dllstructgetsize(dllstructcreate('ptr')); // (@auto
 #include "api/geolocation.au3"
 #include "api/geolocation_handler.au3"
 
+#include 'api/types.au3'
+#include 'api/types_win.au3'
+
 #include 'api/browser.au3'
 #include 'api/command_line.au3'
 #include 'api/download_item.au3'
 #include 'api/frame.au3'
-#include 'api/types.au3'
-#include 'api/types_win.au3'
 #include 'api/task.au3'
 #include 'api/task.au3'
 #include 'api/v8.au3'
+
+#include 'au3obj.au3'
 
 ; startup & create CEF object
 func CefStart($CefPath = default)
@@ -88,9 +68,10 @@ func CefStart($CefPath = default)
 	dllcall('kernel32.dll', 'int', 'SetCurrentDirectoryW', 'wstr', @ScriptDir)
 	if @error or ($ret == -1) then return 0
 	$__Cefau3Dll__ = $ret
-	_AutoItObject_Startup()
 
 	if @error then return 0
+
+	Au3Obj_Init()
 
 	__Cef_Init()
 
@@ -130,11 +111,11 @@ func __Cef_Init()
 
 	CefObject_AddProperty($__CefObject__, '__type', 1, 'Cef')
 
-	CefBrowser_Create(0)
 endfunc
 
 ; $Cef.new(<string> $name[, <pointer> $param])
 func __Cef_New($self, $name = null, $ptr = null)
+	#forceref $self
 	if @numparams == 1 then return
 
 	switch stringlower($name)
@@ -221,13 +202,15 @@ endfunc
 ; methods -------------------------------------------------------------;
 
 func __Cef_GetVersion($self)
+	#forceref $self
 	local $ret = dllcall($__Cefau3Dll__, 'str:cdecl', 'Cef_GetVersion')
 	return (@error ? null : $ret[0])
 endfunc
 
 func __Cef_GetChromiumVersion($self)
+	#forceref $self
 	local $t = dllstructcreate('int[3]')
-	local $ret = dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_GetChromiumVersion', 'ptr', dllstructgetptr($t, 1))
+	dllcall($__Cefau3Dll__, 'none:cdecl', 'Cef_GetChromiumVersion', 'ptr', dllstructgetptr($t, 1))
 	return (@error ? _
 		null : ( _
 			dllstructgetdata($t, 1, 1)  & '.' & _
@@ -319,10 +302,7 @@ func CefObject_AddProperty($object, $prop_name, $attrib = 0, $value = 0)
 	_AutoItObject_AddProperty($object, $prop_name, $attrib, $value)
 endfunc
 
-
-
-
-
+; ==================================================
 ; CefMem
 ; ==================================================
 
@@ -340,7 +320,7 @@ func CefMem_ReAlloc($ptr, $size)
 	return @error ? 0 : $ret[0]
 endfunc
 
-
+; ==================================================
 ; CefMsgBox
 ; ==================================================
 
@@ -362,6 +342,7 @@ func CefMsgBox($OnMsgBoxClosed, $flags, $title, $text, $parent = null)
 	)
 endfunc
 
+; ==================================================
 ; CefWndMsg
 ; ==================================================
 

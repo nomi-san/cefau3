@@ -1,6 +1,16 @@
 LIBRARY cefau3.dll
 
 EXPORTS
+Au3Obj_AddMethod
+Au3Obj_AddProperty
+Au3Obj_Class
+Au3Obj_Clone
+Au3Obj_Create
+Au3Obj_Init
+Au3Obj_RemoveMember
+Au3Obj_VariantClear
+Au3Obj_VariantCopy
+Au3Obj_VariantInit
 CefAccessibility_Create
 CefAccessibility_Get_OALC
 CefAccessibility_Get_OATC
@@ -1343,9 +1353,14 @@ CefWriteJson
 Cef_GetChromiumVersion
 Cef_GetStructSize
 Cef_GetVersion
+CreateDllCallObject
 DoublePtr_Get
 DoublePtr_Set
+IUnknownAddRef
+IUnknownRelease
 IntPtr_Get
 IntPtr_Set
 LongPtr_Get
 LongPtr_Set
+MemoryCallEntry
+ReturnThis

@@ -14,6 +14,9 @@
     <Filter Include="src\custom">
       <UniqueIdentifier>{b129a744-671d-45c7-9e30-2008989fbceb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\au3obj">
+      <UniqueIdentifier>{ae203d76-63d0-4095-9623-8e1e23d55f1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cefau3.c">
@@ -151,10 +154,31 @@
     <ClCompile Include="..\src\au3obj_wrap.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\au3obj\element.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\object_class.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\wrap_element.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\wrap_object.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\au3obj.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj\object.cc">
+      <Filter>src\au3obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\cefau3.def">
       <Filter>src</Filter>
+    </None>
+    <None Include="..\src\au3obj\au3obj.def">
+      <Filter>src\au3obj</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +190,30 @@
     </ClInclude>
     <ClInclude Include="..\src\au3obj_wrap.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\dll.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\vector.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\element.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\object.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\callbacks.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\object_class.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\wrap_element.h">
+      <Filter>src\au3obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj\wrap_object.h">
+      <Filter>src\au3obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
