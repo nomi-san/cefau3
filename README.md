@@ -32,6 +32,11 @@
 -------
 ## Changelog
 
+#### 2018.10.23 [74% rollback]
+- change method create object to C/C++ side
+- fix some bugs
+- change some code styles
+
 #### 2018.10.10 [79%]
 - fix window message loop
 - add force close process for quick exit
@@ -41,7 +46,7 @@
 - change window message loop method
 - fix some crashes
 
-#### 2018.10.04 [75% - rollback to previous]
+#### 2018.10.04 [75% - rollback]
 - change struct creation method to C side
 - struct is implemented
 
