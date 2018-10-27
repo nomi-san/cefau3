@@ -19,4 +19,4 @@ INT debugprintW(const wchar_t *format, ...);
 
 VARTYPE VarType(VARTYPE vtype, LPCWSTR wtype);
 
-VOID ObjPersist(LPVOID ppv);
+//VOID ObjPersist(LPVOID ppv);

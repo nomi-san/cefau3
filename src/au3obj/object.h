@@ -14,8 +14,8 @@ public:
 	ULONG STDMETHODCALLTYPE AddRef();
 	ULONG STDMETHODCALLTYPE Release();
 	HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
-	HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo,LCID lcid,ITypeInfo **ppTInfo);
-	HRESULT STDMETHODCALLTYPE GetIDsOfNames(const IID &riid,LPOLESTR *rgszNames,
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo,LCID lcid,ITypeInfo **ppTInfo);
+	virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(const IID &riid,LPOLESTR *rgszNames,
 											UINT cNames,LCID lcid,DISPID *rgDispId);
 	HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember,const IID &riid,
 										LCID lcid,WORD wFlags,DISPPARAMS *pDispParams,

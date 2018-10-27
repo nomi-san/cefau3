@@ -1,127 +1,134 @@
-#include "../cefau3.h"
-
-#include "include/capi/cef_browser_capi.h"
+#include "browser.h"
+#include "frame.h"
 
 /* CefBrowser
 --------------------------------------------------*/
 
-typedef struct CefBrowser {
-	cef_browser_t self;
-} CefBrowser;
+Au3Obj* CefBrowser_obj;
 
-CefHandlerObjCreate(CefBrowser);
-
-CEFAU3API cef_browser_host_t*  CefBrowser_GetHost(
-	struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_Init(Au3Obj* obj)
 {
-	return self->get_host(self);
+	CefBrowser_obj = obj;
 }
 
-CEFAU3API int  CefBrowser_CanGoBack(struct _cef_browser_t* self)
+EXPORT(Au3Obj*) CefBrowser_Create(CefBrowser* p)
+{
+	AutoitSetPointerProxy(CefBrowser_obj, p);
+	return Au3ObjClone(CefBrowser_obj);
+}
+
+//--------------------------------------------------
+
+EXPORT(Au3Obj*) CefBrowser_GetHost(struct _cef_browser_t* self)
+{
+	return CefBrowserHost_Create((void*)self->get_host(self));
+}
+
+EXPORT(int) CefBrowser_CanGoBack(struct _cef_browser_t* self)
 {
 	return self->can_go_back(self);
 }
 
-CEFAU3API void  CefBrowser_GoBack(struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_GoBack(struct _cef_browser_t* self)
 {
 	self->go_back(self);
 }
 
-CEFAU3API int  CefBrowser_CanGoForward(struct _cef_browser_t* self)
+EXPORT(int) CefBrowser_CanGoForward(struct _cef_browser_t* self)
 {
 	return self->can_go_forward(self);
 }
 
-CEFAU3API void  CefBrowser_GoForward(struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_GoForward(struct _cef_browser_t* self)
 {
 	self->go_forward(self);
 }
 
-CEFAU3API int  CefBrowser_IsLoading(struct _cef_browser_t* self)
+EXPORT(int) CefBrowser_IsLoading(struct _cef_browser_t* self)
 {
 	return self->is_loading(self);
 }
 
-CEFAU3API void  CefBrowser_Reload(struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_Reload(struct _cef_browser_t* self)
 {
 	self->reload(self);
 }
 
-CEFAU3API void  CefBrowser_ReloadIgnoreCache(struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_ReloadIgnoreCache(struct _cef_browser_t* self)
 {
 	self->reload_ignore_cache(self);
 }
 
-CEFAU3API void  CefBrowser_StopLoad(struct _cef_browser_t* self)
+EXPORT(void) CefBrowser_StopLoad(struct _cef_browser_t* self)
 {
 	self->stop_load(self);
 }
 
-CEFAU3API int  CefBrowser_GetIdentifier(struct _cef_browser_t* self)
+EXPORT(int) CefBrowser_GetIdentifier(struct _cef_browser_t* self)
 {
 	return self->get_identifier(self);
 }
 
-CEFAU3API int  CefBrowser_IsSame(struct _cef_browser_t* self,
+EXPORT(int) CefBrowser_IsSame(struct _cef_browser_t* self,
 	struct _cef_browser_t* that)
 {
 	return self->is_same(self, that);
 }
 
-CEFAU3API int  CefBrowser_IsPopup(struct _cef_browser_t* self)
+EXPORT(int) CefBrowser_IsPopup(struct _cef_browser_t* self)
 {
 	return self->is_popup(self);
 }
 
-CEFAU3API int  CefBrowser_HasDocument(struct _cef_browser_t* self)
+EXPORT(int) CefBrowser_HasDocument(struct _cef_browser_t* self)
 {
 	return self->has_document(self);
 }
 
-CEFAU3API struct _cef_frame_t*  CefBrowser_GetMainFrame(
+EXPORT(Au3Obj*) CefBrowser_GetMainFrame(
 	struct _cef_browser_t* self)
 {
-	return self->get_main_frame(self);
+	return CefFrame_Create((void*)self->get_main_frame(self));
 }
 
-CEFAU3API struct _cef_frame_t*  CefBrowser_GetFocusedFrame(
+EXPORT(Au3Obj*) CefBrowser_GetFocusedFrame(
 	struct _cef_browser_t* self)
 {
-	return self->get_focused_frame(self);
+	return CefFrame_Create((void*)self->get_focused_frame(self));
 }
 
-CEFAU3API struct _cef_frame_t*  CefBrowser_GetFrameByident(
+EXPORT(Au3Obj*) CefBrowser_GetFrameByident(
 	struct _cef_browser_t* self,
 	int64 identifier)
 {
-	return self->get_frame_byident(self, identifier);
+	return CefFrame_Create((void*)self->get_frame_byident(self, identifier));
 }
 
-CEFAU3API struct _cef_frame_t*  CefBrowser_GetFrame(struct _cef_browser_t* self,
+EXPORT(Au3Obj*) CefBrowser_GetFrame(struct _cef_browser_t* self,
 	wchar_t* name)
 {
-	return self->get_frame(self, cefstring_pwcs(name));
+	return CefFrame_Create((void*)self->get_frame(self, cefstring_pwcs(name)));
 }
 
-CEFAU3API size_t  CefBrowser_GetFrameCount(struct _cef_browser_t* self)
+EXPORT(size_t) CefBrowser_GetFrameCount(struct _cef_browser_t* self)
 {
 	return self->get_frame_count(self);
 }
 
-CEFAU3API void  CefBrowser_GetFrameIdentifiers(struct _cef_browser_t* self,
+EXPORT(void) CefBrowser_GetFrameIdentifiers(struct _cef_browser_t* self,
 	size_t* identifiersCount,
 	int64* identifiers)
 {
 	self->get_frame_identifiers(self, identifiersCount, identifiers);
 }
 
-CEFAU3API void  CefBrowser_GetFrameNames(struct _cef_browser_t* self,
+EXPORT(void) CefBrowser_GetFrameNames(struct _cef_browser_t* self,
 	cef_string_list_t names)
 {
 	self->get_frame_names(self, names);
 }
 
-CEFAU3API int  CefBrowser_SendProcessMessage(
+EXPORT(int) CefBrowser_SendProcessMessage(
 	struct _cef_browser_t* self,
 	cef_process_id_t target_process,
 	struct _cef_process_message_t* message)
@@ -136,11 +143,20 @@ CEFAU3API int  CefBrowser_SendProcessMessage(
 /* CefBrowserHost
 --------------------------------------------------*/
 
-typedef struct CefBrowserHost {
-	cef_browser_t self;
-} CefBrowserHost;
+Au3Obj* CefBrowserHost_obj;
 
-CefHandlerObjCreate(CefBrowserHost);
+EXPORT(void) CefBrowserHost_Init(Au3Obj* obj)
+{
+	CefBrowserHost_obj = obj;
+}
+
+EXPORT(Au3Obj*) CefBrowserHost_Create(CefBrowserHost* p)
+{
+	AutoitSetPointerProxy(CefBrowserHost_obj, p);
+	return Au3ObjClone(CefBrowserHost_obj);
+}
+
+//--------------------------------------------------
 
 CEFAU3API struct _cef_browser_t*  CefBrowserHost_GetBrowser(
 	struct _cef_browser_host_t* self)

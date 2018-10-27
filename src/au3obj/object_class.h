@@ -12,9 +12,9 @@ public:
 	ULONG STDMETHODCALLTYPE Release();
 	HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
 	HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo,LCID lcid,ITypeInfo **ppTInfo);
-	HRESULT STDMETHODCALLTYPE GetIDsOfNames(const IID &riid,LPOLESTR *rgszNames,
+	virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(const IID &riid,LPOLESTR *rgszNames,
 											UINT cNames,LCID lcid,DISPID *rgDispId);
-	HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember,const IID &riid,
+	virtual HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember,const IID &riid,
 										LCID lcid,WORD wFlags,DISPPARAMS *pDispParams,
 										VARIANT *pVarResult,EXCEPINFO *pExcepInfo,UINT * puArgErr);
 private:

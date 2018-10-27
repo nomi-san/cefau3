@@ -74,7 +74,8 @@ CEFAU3API HWND CefWndMsg_Create()
 {
 	if (__CefWndMsg_HWND != INVALIDHWND) return NULL;
 
-	HINSTANCE ins = GetModuleHandleA((const char*)0);
+	extern void* __ImageBase;
+	HINSTANCE ins = (HINSTANCE)&__ImageBase;
 
 	WNDCLASSEX wcex;
 	ZeroMemory(&wcex, sizeof(WNDCLASSEX));
@@ -88,7 +89,7 @@ CEFAU3API HWND CefWndMsg_Create()
 	__CefWndMsg_HWND = CreateWindowExW(
 		0, CEFWNDMSG_CLASS, NULL, 0,
 		0, 0, 0, 0, 
-		HWND_MESSAGE, NULL, ins, NULL
+		(HWND)-3, NULL, ins, NULL
 	);
 
 	return __CefWndMsg_HWND;

@@ -1,6 +1,5 @@
-#include "../cefau3.h"
-
-#include "include/capi/cef_v8_capi.h"
+#include "v8.h"
+#include "string.h"
 
 /* CefV8Context
 --------------------------------------------------*/
@@ -86,14 +85,52 @@ CEFAU3API int CefV8context_InContext()
 /* CefV8Handler
 --------------------------------------------------*/
 
-typedef struct CefV8Handler {
-	cef_v8handler_t self;
-	const char *E;
-} CefV8Handler;
+Au3Obj* CefV8Handler_obj;
 
-CefHandlerCreate(CefV8Handler);
+int (CEF_CALLBACK* CefV8Handler_E)(const char* fn,
+	Au3Obj* name,
+	Au3Obj* object,
+	size_t argumentsCount,
+	struct _cef_v8value_t* const* arguments,
+	struct _cef_v8value_t** retval,
+	Au3Obj* exception);
 
-CefHandlerFunc(CefV8Handler, execute, E);
+EXPORT(void) CefV8Handler_Init(Au3Obj *obj, void* E)
+{
+	CefV8Handler_obj = obj;
+	CefV8Handler_E = E;
+}
+
+EXPORT(Au3Obj*) CefV8Handler_Create(CefV8Handler *p)
+{
+	if (!p) {
+		p = alloc(sizeof(CefV8Handler));
+		p->self.base.size = sizeof(CefV8Handler);
+	}
+
+	AutoitSetPointerProxy(CefV8Handler_obj, p);
+	return Au3ObjClone(CefV8Handler_obj);
+}
+
+CefHandlerElement(CefV8Handler, execute, E, int, 
+	const cef_string_t* name,
+	struct _cef_v8value_t* object,
+	size_t argumentsCount,
+	struct _cef_v8value_t* const* arguments,
+	struct _cef_v8value_t** retval,
+	cef_string_t* exception)
+{
+	return CefV8Handler_E(
+		self->E,
+		CefString_Create((void*)name, NULL),
+		CefV8Value_Create((void*)object),
+		argumentsCount,
+		arguments,
+		retval,
+		CefString_Create(exception, NULL)
+	);
+}
+
 
 /* CefV8Accessor
 --------------------------------------------------*/
@@ -239,6 +276,26 @@ CEFAU3API int CefV8Exception_GetEndColumn(struct _cef_v8exception_t* self)
 
 /* CefV8Value
 --------------------------------------------------*/
+
+Au3Obj* CefV8Value_obj;
+
+EXPORT(void) CefV8Value_Init(Au3Obj *obj)
+{
+	CefV8Value_obj = obj;
+}
+
+EXPORT(Au3Obj*) CefV8Value_Create(CefV8Value *p)
+{
+	if (!p) {
+		p = alloc(sizeof(CefV8Value));
+		p->self.base.size = sizeof(CefV8Value);
+	}
+
+	AutoitSetPointerProxy(CefV8Value_obj, p);
+	return Au3ObjClone(CefV8Value_obj);
+}
+
+//--------------------------------------------------
 
 CEFAU3API int CefV8Value_IsValid(struct _cef_v8value_t* self)
 {

@@ -1,22 +1,9 @@
 #include <windows.h>
-#include "dll.h"
 #include <stdio.h>
+#include "dll.h"
 #include "object_class.h"
 #include "object.h"
-#include "wrap_object.h"
 #include <OCIdl.h>
-
-EXPORT(AutoItObject*) Au3Obj_Clone(AutoItObject* old);
-EXPORT(void) Au3Obj_AddMethod(AutoItObject* object, wchar_t* method, wchar_t* value, AutoItElement::SCOPE new_scope);
-EXPORT(void) Au3Obj_AddProperty(AutoItObject* object, wchar_t* property_name, AutoItElement::SCOPE new_scope, VARIANT* property_value);
-
-typedef AutoItObject* (*AU3OBJ_CLONE)(AutoItObject*);
-typedef void (*AU3OBJ_ADDPROPERTY)(AutoItObject* object, wchar_t* property_name, AutoItElement::SCOPE new_scope, VARIANT* property_value);
-typedef void (__stdcall *AUTOITESETPOINTERPROXY)(AutoItObject*, void*);
-
-extern "C" AUTOITESETPOINTERPROXY AutoitSetPointerProxy = NULL;
-extern "C" AU3OBJ_CLONE Au3ObjClone = Au3Obj_Clone;
-extern "C" AU3OBJ_ADDPROPERTY Au3ObjAddProperty = Au3Obj_AddProperty;
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpvReserved)
 {
@@ -44,17 +31,17 @@ EXTERN_C BOOL WINAPI main(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserve
 }
 #endif
 
-EXPORT(long) Au3Obj_VariantClear(_Inout_ VARIANTARG * pvarg)
+EXPORT(HRESULT) Au3Obj_VariantClear(VARIANTARG * pvarg)
 {
 	return VariantClear(pvarg);
 }
 
-EXPORT(long) Au3Obj_VariantCopy(_Inout_ VARIANTARG * pvargDest, _In_ const VARIANTARG * pvargSrc)
+EXPORT(HRESULT) Au3Obj_VariantCopy(VARIANTARG * pvargDest, VARIANTARG * pvargSrc)
 {
 	return VariantCopy(pvargDest, pvargSrc);
 }
 
-EXPORT(void) Au3Obj_VariantInit(_Out_ VARIANTARG * pvarg)
+EXPORT(void) Au3Obj_VariantInit(VARIANTARG * pvarg)
 {
 	VariantInit(pvarg);
 }
@@ -74,10 +61,9 @@ EXPORT(AutoItObject*) Au3Obj_Clone(AutoItObject* old)
 	return new AutoItObject(old);
 }
 
-EXPORT(void) Au3Obj_Init(AUTOITFUNCTIONPROXY autoitfunctionproxy, AUTOITESETPOINTERPROXY autoitsetpointerproxy)
+EXPORT(void) Au3Obj_Init(AUTOITFUNCTIONPROXY autoitfunctionproxy)
 {
 	AutoItObject::Init(autoitfunctionproxy);
-	AutoitSetPointerProxy = autoitsetpointerproxy;
 }
 
 EXPORT(void) Au3Obj_AddMethod(AutoItObject* object, wchar_t* method, wchar_t* value, AutoItElement::SCOPE new_scope)
@@ -94,25 +80,6 @@ EXPORT(void) Au3Obj_RemoveMember(AutoItObject* object, wchar_t* member)
 EXPORT(void) Au3Obj_AddProperty(AutoItObject* object, wchar_t* property_name,  AutoItElement::SCOPE new_scope, VARIANT* property_value)
 {
 	object->AddProperty(property_name, new_scope, property_value);
-}
-
-EXPORT(AutoItWrapObject*) CreateDllCallObject(wchar_t* sModule, wchar_t* sMethods, DWORD iFlags = 0)
-{
-	// Load the module
-	HMODULE hDll = LoadLibraryExW(sModule, NULL, iFlags);
-	if (hDll==NULL) return NULL; // if it can't be loaded return failure
-
-	AutoItWrapObject* pRetObject;
-	if (sMethods == NULL)
-	{
-		pRetObject = new AutoItWrapObject(NULL, TRUE, TRUE);
-	}
-	else
-	{
-		pRetObject = new AutoItWrapObject(NULL, sMethods, TRUE, FALSE, TRUE);
-	}
-	pRetObject->SetParentDllHandle(hDll);
-	return pRetObject;
 }
 
 EXPORT(void) MemoryCallEntry(DWORD e, DWORD f)
@@ -162,9 +129,10 @@ INT debugprintW(const wchar_t* format, ...)
 }
 
 
-INT Compare(const wchar_t* sString1, const wchar_t* sString2)
+INT Compare(const wchar_t* s1, const wchar_t* s2)
 {
-	return CompareStringW(LOCALE_SYSTEM_DEFAULT, NORM_IGNORECASE, sString1, -1, sString2, -1) - CSTR_EQUAL;
+	return wcscmp(s1, s2);
+	//return CompareStringW(LOCALE_SYSTEM_DEFAULT, NORM_IGNORECASE, sString1, -1, sString2, -1) - CSTR_EQUAL;
 }
 
 

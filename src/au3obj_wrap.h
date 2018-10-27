@@ -1,23 +1,22 @@
-#ifndef AU3OBJ_WRAP_INCLUDE
-#define AU3OBJ_WRAP_INCLUDE
-#pragma once
+#ifndef AU3OBJ_WRAP_H
+#define AU3OBJ_WRAP_H
 
-#include "cefau3.h"
-
-#ifdef _WIN32
-#define __Au3Obj_dll "AutoItObject.dll"
-#else
-#define __Au3Obj_dll "AutoItObject_X64.dll"
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-typedef void* Au3Obj;
+#include <windows.h>
 
-static void* __Au3Obj_module = NULL;
+typedef void Au3Obj;
 
-static func_std(CefAu3Obj_AddMethod, void, Au3Obj object, wchar_t* method, wchar_t* value, int new_scope);
-static func_std(CefAu3Obj_AddProperty, void, Au3Obj object, wchar_t* property_name, int new_scope, void* property_value);
-static func_std(CefAu3Obj_CloneAutoItObject, Au3Obj, Au3Obj parent);
-static func_std(CefAu3Obj_CreateAutoItObject, Au3Obj);
-static func_std(CefAu3Obj_SetPtr, void, Au3Obj, void* val);
+typedef void(__stdcall *AUTOITSETPTRPROXY)(Au3Obj*, void*);
+typedef Au3Obj* (*AU3OBJCLONE)(Au3Obj*);
+
+AUTOITSETPTRPROXY Au3Obj_SetPtr;
+extern Au3Obj* Au3Obj_Clone(Au3Obj*); // from "au3obj/au3obj.cc"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
