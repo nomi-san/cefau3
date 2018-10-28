@@ -87,16 +87,17 @@
 ## Build
 
 ### Visual Studio method:
+
 - Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
 - Set to **Release** mode and **Build**
 
 ### Commandline method:
-Run **build.bat** with arguments below for option compiler:
-- **msvc**: Microsoft Visual C Ccompiler (with VS Commandline Tools)
-- [**gcc**](http://www.mingw.org/): GNU C compiler
-- [**tcc**](https://bellard.org/tcc/): Tiny C compiler
 
-E.g: `$ build gcc`
+Run **build.bat** with arguments below for option compiler:
+- **msvc**: Microsoft Visual C/C++ Ccompiler (Visual Studio Commandline Tools)
+- [**mingw**](http://www.mingw.org/): GNU C/C++ compiler (MinGW, TDM-GCC, Cygwin...)
+
+E.g: `$ build mingw`
 
 ### Configure
 
