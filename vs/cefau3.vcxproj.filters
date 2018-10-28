@@ -8,12 +8,6 @@
     <Filter Include="src\api">
       <UniqueIdentifier>{e25e4eee-03b2-43ca-81ea-0346e43f95ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\base">
-      <UniqueIdentifier>{d7243ce2-29bb-44f9-aba5-8ac51fcc388f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\custom">
-      <UniqueIdentifier>{b129a744-671d-45c7-9e30-2008989fbceb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\au3obj">
       <UniqueIdentifier>{ae203d76-63d0-4095-9623-8e1e23d55f1e}</UniqueIdentifier>
     </Filter>
@@ -22,16 +16,7 @@
     <ClCompile Include="..\src\cefau3.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\custom\ptr.c">
-      <Filter>src\custom</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\custom\string.c">
-      <Filter>src\custom</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\api\accessibility_handler.c">
-      <Filter>src\api</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\api\browser.c">
       <Filter>src\api</Filter>
     </ClCompile>
     <ClCompile Include="..\src\api\browser_process_handler.c">
@@ -142,28 +127,10 @@
     <ClCompile Include="..\src\api\values.c">
       <Filter>src\api</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\base\app.c">
-      <Filter>src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\base\base.c">
-      <Filter>src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\base\client.c">
-      <Filter>src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj_wrap.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\au3obj\element.cc">
       <Filter>src\au3obj</Filter>
     </ClCompile>
     <ClCompile Include="..\src\au3obj\object_class.cc">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\wrap_element.cc">
-      <Filter>src\au3obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\au3obj\wrap_object.cc">
       <Filter>src\au3obj</Filter>
     </ClCompile>
     <ClCompile Include="..\src\au3obj\au3obj.cc">
@@ -172,23 +139,38 @@
     <ClCompile Include="..\src\au3obj\object.cc">
       <Filter>src\au3obj</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\api\browser.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\app.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\base.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\client.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\string.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\process_message.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\au3obj_wrap.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\api\ptr.c">
+      <Filter>src\api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\cefau3.def">
       <Filter>src</Filter>
     </None>
-    <None Include="..\src\au3obj\au3obj.def">
-      <Filter>src\au3obj</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\cefau3.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\custom\types.h">
-      <Filter>src\custom</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\au3obj_wrap.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\au3obj\dll.h">
@@ -209,11 +191,35 @@
     <ClInclude Include="..\src\au3obj\object_class.h">
       <Filter>src\au3obj</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\au3obj\wrap_element.h">
-      <Filter>src\au3obj</Filter>
+    <ClInclude Include="..\src\api\browser.h">
+      <Filter>src\api</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\au3obj\wrap_object.h">
-      <Filter>src\au3obj</Filter>
+    <ClInclude Include="..\src\api\frame.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\v8.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\client.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\app.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\string.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\process_message.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\au3obj_wrap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\api\types_win.h">
+      <Filter>src\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

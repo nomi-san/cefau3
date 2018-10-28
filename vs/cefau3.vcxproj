@@ -20,9 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\api\accessibility_handler.c" />
+    <ClCompile Include="..\src\api\app.c" />
+    <ClCompile Include="..\src\api\base.c" />
     <ClCompile Include="..\src\api\browser.c" />
     <ClCompile Include="..\src\api\browser_process_handler.c" />
     <ClCompile Include="..\src\api\callback.c" />
+    <ClCompile Include="..\src\api\client.c" />
     <ClCompile Include="..\src\api\command_line.c" />
     <ClCompile Include="..\src\api\context_menu_handler.c" />
     <ClCompile Include="..\src\api\cookie.c" />
@@ -46,12 +49,15 @@
     <ClCompile Include="..\src\api\menu_model_delegate.c" />
     <ClCompile Include="..\src\api\parser.c" />
     <ClCompile Include="..\src\api\print_handler.c" />
+    <ClCompile Include="..\src\api\process_message.c" />
+    <ClCompile Include="..\src\api\ptr.c" />
     <ClCompile Include="..\src\api\render_handler.c" />
     <ClCompile Include="..\src\api\render_process_handler.c" />
     <ClCompile Include="..\src\api\request.c" />
     <ClCompile Include="..\src\api\request_context_handler.c" />
     <ClCompile Include="..\src\api\request_handler.c" />
     <ClCompile Include="..\src\api\resource_bundle_handler.c" />
+    <ClCompile Include="..\src\api\string.c" />
     <ClCompile Include="..\src\api\task.c" />
     <ClCompile Include="..\src\api\types.c" />
     <ClCompile Include="..\src\api\types_win.c" />
@@ -60,33 +66,31 @@
     <ClCompile Include="..\src\au3obj\element.cc" />
     <ClCompile Include="..\src\au3obj\object.cc" />
     <ClCompile Include="..\src\au3obj\object_class.cc" />
-    <ClCompile Include="..\src\au3obj\wrap_element.cc" />
-    <ClCompile Include="..\src\au3obj\wrap_object.cc" />
     <ClCompile Include="..\src\au3obj\au3obj.cc" />
     <ClCompile Include="..\src\au3obj_wrap.c" />
-    <ClCompile Include="..\src\base\app.c" />
-    <ClCompile Include="..\src\base\base.c" />
-    <ClCompile Include="..\src\base\client.c" />
     <ClCompile Include="..\src\cefau3.c" />
-    <ClCompile Include="..\src\custom\ptr.c" />
-    <ClCompile Include="..\src\custom\string.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\au3obj\au3obj.def" />
     <None Include="..\src\cefau3.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\api\app.h" />
+    <ClInclude Include="..\src\api\browser.h" />
+    <ClInclude Include="..\src\api\client.h" />
+    <ClInclude Include="..\src\api\frame.h" />
+    <ClInclude Include="..\src\api\process_message.h" />
+    <ClInclude Include="..\src\api\string.h" />
+    <ClInclude Include="..\src\api\types_win.h" />
+    <ClInclude Include="..\src\api\v8.h" />
     <ClInclude Include="..\src\au3obj\callbacks.h" />
     <ClInclude Include="..\src\au3obj\element.h" />
     <ClInclude Include="..\src\au3obj\object.h" />
     <ClInclude Include="..\src\au3obj\object_class.h" />
-    <ClInclude Include="..\src\au3obj\wrap_element.h" />
-    <ClInclude Include="..\src\au3obj\wrap_object.h" />
     <ClInclude Include="..\src\au3obj\dll.h" />
     <ClInclude Include="..\src\au3obj\vector.h" />
     <ClInclude Include="..\src\au3obj_wrap.h" />
     <ClInclude Include="..\src\cefau3.h" />
-    <ClInclude Include="..\src\custom\types.h" />
+    <ClInclude Include="..\src\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -199,7 +203,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>../cef;../src;</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>false</OmitFramePointers>
+      <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
