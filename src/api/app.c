@@ -6,11 +6,11 @@
 
 static Au3Obj* CefApp_obj;
 
-static void(CEF_CALLBACK* CefApp_OBCLP)(char*,
+static void(__stdcall* CefApp_OBCLP)(char*,
 	void* process_type,
 	struct _cef_command_line_t* command_line);
 
-static void(CEF_CALLBACK* CefApp_ORCS)(char*,
+static void(__stdcall* CefApp_ORCS)(char*,
 	struct _cef_scheme_registrar_t* registrar);
 
 static void* (__stdcall* CefApp_GRBH)(char*);
@@ -20,6 +20,10 @@ static void* (__stdcall* CefApp_GRPH)(char*);
 EXPORT(void) CefApp_Init(Au3Obj *obj, void *OBCLP, void *ORCS, void *GRBH, void *GBPH, void *GRPH)
 {
 	CefApp_obj = obj;
+
+	CefApp_OBCLP = OBCLP;
+
+	CefApp_ORCS = ORCS;
 
 	CefApp_GRBH = GRBH;
 	CefApp_GBPH = GBPH;
