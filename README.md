@@ -11,17 +11,11 @@
 			<img src="https://ci.appveyor.com/api/projects/status/github/wy3/cefau3?branch=master&svg=true">
 		</a>
 		<br>
-		<a href="#">
-			<img src="https://img.shields.io/badge/platform-win32/x86/x64-lightgrey.svg">
-		</a>
 		<a href="http://opensource.spotify.com/cefbuilds/index.html">
 			<img src="https://img.shields.io/badge/cef-3.3163-blue.svg">
 		</a>
 		<a href="#">
 			<img src="https://img.shields.io/badge/chromium-61.0.3-red.svg">
-		</a>
-		<a href="https://github.com/wy3">
-			<img src="https://img.shields.io/badge/author-wuuyi123-orange.svg">
 		</a>
 		<a href="https://github.com/wy3/cefau3/blob/master/LICENSE">
 			<img src="https://img.shields.io/badge/license-MIT-green.svg">
