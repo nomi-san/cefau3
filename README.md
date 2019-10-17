@@ -12,10 +12,7 @@
 		</a>
 		<br>
 		<a href="http://opensource.spotify.com/cefbuilds/index.html">
-			<img src="https://img.shields.io/badge/cef-3.3163-blue.svg">
-		</a>
-		<a href="#">
-			<img src="https://img.shields.io/badge/chromium-61.0.3-red.svg">
+			<img src="https://img.shields.io/badge/cef.chromium-73-blue.svg">
 		</a>
 		<a href="https://github.com/wy3/cefau3/blob/master/LICENSE">
 			<img src="https://img.shields.io/badge/license-MIT-green.svg">
