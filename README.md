@@ -23,6 +23,9 @@
 -------
 <details>
 	<summary>Changelog</summary>
+	
+#### 2019.10.17
+- update to CEF 73.1.13
 
 #### 2018.10.23 [74% rollback]
 - change method create object to C/C++ side
@@ -73,34 +76,7 @@
 - first release of Cefau3, written in C++
 </details>
 
-## Install
-
-- **You can download [lastest releases](https://github.com/wy3/cefau3/releases)** or **build** with following guide.
-
-## Build
-
-### Visual Studio method:
-
-- Open **vs/cefau3.sln** with Microsoft Visual Studio (default is VS2015)
-- Set to **Release** mode and **Build**
-
-### Commandline method:
-
-Run **build.bat** with arguments below for option compiler:
-- **msvc**: Microsoft Visual C/C++ Ccompiler (Visual Studio Commandline Tools)
-- [**mingw**](http://www.mingw.org/): GNU C/C++ compiler (MinGW, TDM-GCC, Cygwin...)
-
-E.g: `$ build mingw`
-
-### Configure
-
-After built, it need CEF resources for work correctly, download CEF binary distribution (for current version): [x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows32_minimal.tar.bz2) | [x64_x86](http://opensource.spotify.com/cefbuilds/cef_binary_3.3163.1671.g700dc25_windows64_minimal.tar.bz2)
-
-Extract CEF binary distribution package, and copy all files in **release** and **resources** folders (exclude **.lib**) to <b>autoit3/cef/</b>
-
-
-
-### Cefau3 example project
+### Play \w Cefau3
 
 ```j
 program/
@@ -122,11 +98,7 @@ program/
 	|---main.au3			# main script
 ```
 
-- **Resources** where? copy all file from **Cef Binaries**, in two folders **Release** and **Resources** (see download at [**Build**](https://github.com/wy3/cefau3/blob/master/README.md#build-or)).
-
-### updating...
-
-## Example
+### Example
 
 Please see [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/example.au3).
 
@@ -138,7 +110,7 @@ Please see [**example.au3**](https://github.com/wy3/cefau3/blob/master/autoit3/e
 CEF: 3.3163.1671.g700dc25
 Chromium: 61.0.3163
 ```
-### Mini Browser
+#### Mini Browser
 
 Visit here: [https://github.com/wy3/mb](https://github.com/wy3/mb).
 
