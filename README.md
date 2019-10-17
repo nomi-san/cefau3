@@ -24,7 +24,8 @@
 </p>
 
 -------
-## Changelog
+<details>
+	<summary>Changelog</summary>
 
 #### 2018.10.23 [74% rollback]
 - change method create object to C/C++ side
@@ -73,6 +74,7 @@
 
 #### 2018.04.26 [16%]
 - first release of Cefau3, written in C++
+</details>
 
 ## Install
 
@@ -151,16 +153,4 @@ Visit here: [https://github.com/wy3/mb](https://github.com/wy3/mb).
 
 <br>
 
-## License: [MIT](https://github.com/wy3/cefau3/blob/master/LICENSE)
-
-Copyright © 2018 by [me](https://github.com/wy3)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## License::[MIT](https://github.com/wy3/cefau3/blob/master/LICENSE)
