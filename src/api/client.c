@@ -100,11 +100,6 @@ CefHandlerElement(CefClient, get_focus_handler, GFoH, void*)
 	return CefClient_GFoH(self->GFoH);
 }
 
-CefHandlerElement(CefClient, get_geolocation_handler, GGH, void*)
-{
-	return CefClient_GGH(self->GGH);
-}
-
 CefHandlerElement(CefClient, get_jsdialog_handler, GJH, void*)
 {
 	return CefClient_GJH(self->GJH);

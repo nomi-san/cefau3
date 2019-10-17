@@ -12,7 +12,6 @@ CEFAU3API cef_settings_t * CefSettings_Create()
 	size_t sz = sizeof(cef_settings_t);
 	cef_settings_t *p = calloc(1, sz);
 	p->size = sz;
-	p->single_process = 1;
 	p->log_severity = 99;
 	p->no_sandbox = 1;
 	p->multi_threaded_message_loop = 1;
@@ -148,16 +147,6 @@ CEFAU3API void CefSettings_Set_size(cef_settings_t *self, int value)
 CEFAU3API int CefSettings_Get_size(cef_settings_t *self)
 {
 	return self->size;
-}
-
-CEFAU3API void CefSettings_Set_single_process(cef_settings_t *self, int value)
-{
-	self->single_process = value;
-}
-
-CEFAU3API int CefSettings_Get_single_process(cef_settings_t *self)
-{
-	return self->single_process;
 }
 
 CEFAU3API void CefSettings_Set_no_sandbox(cef_settings_t *self, int value)
@@ -1379,109 +1368,6 @@ CEFAU3API int CefPopupFeatures_Get_scrollbarsVisible(cef_popup_features_t *self)
 	return self->scrollbarsVisible;
 }
 
-/* CefGeoposition
---------------------------------------------------*/
-
-CEFAU3API void CefGeoposition_Set_latitude(cef_geoposition_t *self, double value)
-{
-	self->latitude = value;
-}
-
-CEFAU3API double CefGeoposition_Get_latitude(cef_geoposition_t *self)
-{
-	return self->latitude;
-}
-
-CEFAU3API void CefGeoposition_Set_longitude(cef_geoposition_t *self, double value)
-{
-	self->longitude = value;
-}
-
-CEFAU3API double CefGeoposition_Get_longitude(cef_geoposition_t *self)
-{
-	return self->longitude;
-}
-
-CEFAU3API void CefGeoposition_Set_altitude(cef_geoposition_t *self, double value)
-{
-	self->altitude = value;
-}
-
-CEFAU3API double CefGeoposition_Get_altitude(cef_geoposition_t *self)
-{
-	return self->altitude;
-}
-
-CEFAU3API void CefGeoposition_Set_accuracy(cef_geoposition_t *self, double value)
-{
-	self->accuracy = value;
-}
-
-CEFAU3API double CefGeoposition_Get_accuracy(cef_geoposition_t *self)
-{
-	return self->accuracy;
-}
-
-CEFAU3API void CefGeoposition_Set_altitude_accuracy(cef_geoposition_t *self, double value)
-{
-	self->altitude_accuracy = value;
-}
-
-CEFAU3API double CefGeoposition_Get_altitude_accuracy(cef_geoposition_t *self)
-{
-	return self->altitude_accuracy;
-}
-
-CEFAU3API void CefGeoposition_Set_heading(cef_geoposition_t *self, double value)
-{
-	self->heading = value;
-}
-
-CEFAU3API double CefGeoposition_Get_heading(cef_geoposition_t *self)
-{
-	return self->heading;
-}
-
-CEFAU3API void CefGeoposition_Set_speed(cef_geoposition_t *self, double value)
-{
-	self->speed = value;
-}
-
-CEFAU3API double CefGeoposition_Get_speed(cef_geoposition_t *self)
-{
-	return self->speed;
-}
-
-CEFAU3API void CefGeoposition_Set_error_code(cef_geoposition_t *self, double value)
-{
-	self->error_code = value;
-}
-
-CEFAU3API double CefGeoposition_Get_error_code(cef_geoposition_t *self)
-{
-	return self->error_code;
-}
-
-CEFAU3API void CefGeoposition_Set_timestamp(cef_geoposition_t *self, cef_time_t *value)
-{
-	self->timestamp = *value;
-}
-
-CEFAU3API cef_time_t* CefGeoposition_Get_timestamp(cef_geoposition_t *self)
-{
-	return &self->timestamp;
-}
-
-CEFAU3API void CefGeoposition_Set_scheme(cef_geoposition_t *self, const wchar_t *value)
-{
-	self->error_message = cefstring_wcs(value);
-}
-
-CEFAU3API const wchar_t* CefGeoposition_Get_scheme(cef_geoposition_t *self)
-{
-	return self->error_message.str;
-}
-
 /* CefCursorInfo
 --------------------------------------------------*/
 
@@ -1825,7 +1711,6 @@ CEFAU3API size_t Cef_GetStructSize(size_t idx)
 		case 9: return sizeof(cef_drag_handler_t);
 		case 10: return sizeof(cef_find_handler_t);
 		case 11: return sizeof(cef_focus_handler_t);
-		case 12: return sizeof(cef_geolocation_handler_t);
 		case 13: return sizeof(cef_jsdialog_handler_t);
 		case 14: return sizeof(cef_keyboard_handler_t);
 		case 15: return sizeof(cef_life_span_handler_t);
@@ -1862,7 +1747,6 @@ CEFAU3API size_t Cef_GetStructSize(size_t idx)
 		case 42: return sizeof(cef_mouse_event_t);
 		case 43: return sizeof(cef_key_event_t);
 		case 44: return sizeof(cef_popup_features_t);
-		case 45: return sizeof(cef_geoposition_t);
 		case 46: return sizeof(cef_cursor_info_t);
 		case 47: return sizeof(cef_pdf_print_settings_t);
 		case 48: return sizeof(cef_box_layout_settings_t);

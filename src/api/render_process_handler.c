@@ -27,7 +27,6 @@ CefHandlerFunc(CefRenderProcessHandler, on_web_kit_initialized, OWKI);
 CefHandlerFunc(CefRenderProcessHandler, on_browser_created, OBC);
 CefHandlerFunc(CefRenderProcessHandler, on_browser_destroyed, OBD);
 CefHandlerFunc(CefRenderProcessHandler, get_load_handler, GLH);
-CefHandlerFunc(CefRenderProcessHandler, on_before_navigation, OBN);
 CefHandlerFunc(CefRenderProcessHandler, on_context_created, OCC);
 CefHandlerFunc(CefRenderProcessHandler, on_context_released, OCR);
 CefHandlerFunc(CefRenderProcessHandler, on_uncaught_exception, OUE);
